@@ -111,6 +111,12 @@
     padding-left: 4px;
     padding-top: 2px;
 }
+.style-modal {
+    height: 70vh;
+}
+
+
+
 
 .add-event-calendar {
     padding-right: 4px;
