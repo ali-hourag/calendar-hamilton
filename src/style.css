@@ -1,3 +1,4 @@
+
 .header {
     background-color: lightcoral;
     width: 100vw;
@@ -116,9 +117,43 @@
 }
 
 
-
-
 .add-event-calendar {
     padding-right: 4px;
     padding-top: 2px;
+}
+
+.close-btn-modal{
+    width: 100px;
+}
+.btnClose {
+    width: 45%;
+    background-color: steelblue;
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.btnClose:hover{
+    cursor: pointer;
+    background-color: black;
+    color: steelblue
+}
+.btn-save {
+    width: 45%;
+    background-color: rgb(111, 151, 71);
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.btn-save:hover{
+    cursor: pointer;
+    background-color: black;
+    color: rgb(111, 151, 71);
 }

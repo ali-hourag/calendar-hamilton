@@ -23,13 +23,79 @@
 
 <body>
     <header id="header" class="header d-flex justify-content-center align-items-center">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+         Launch demo modal
+     </button>
         2023
          <!-- Button trigger modal -->
-         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
     </header>
+    <section class="modal fade" id="exampleModal" role="document" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-dialog-scrollable fs-3">
+        <div class="modal-content style-modal">
+            <div class="modal-header ">
+                <h3 class="modal-title fs-5" id="exampleModalLabel">New Event</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section class="d-flex justify-content-between mb-2">
+                    <label for="title-event">Title</label>
+                    <input type="text" id="title-event" name="title" />
+                </section>
+                <section class="d-flex justify-content-between mb-2">
+                    <label for="init-date">Initial date</label>
+                    <input type="date" id="init-date" name="appt-date"
+                        value="2017-06-01" /><!--actual date here-->
+                </section>
+                <section class="d-flex justify-content-between mb-2">
+                    <label for="init-time">Initial time</label>
+                    <input id="appt-time" type="time" name="appt-time" value="13:30" /><!--actual time here-->
+                </section>
+                <section class="d-flex flex-column justify-content-between mb-2">
 
+                    <label>
+                        <input type="checkbox" id="check-end-date" />
+                        End date event
+                    </label>
+
+                    <label for="end-date">End date</label>
+                    <input type="date" id="end-date" name="end-date" value=2017-06-01" /><!--actual date here-->
+                    <label for="end-time">End time</label>
+                    <input id="end-time" type="time" name="end-time" value="13:30" /><!--actual time here-->
+                </section>
+                <section class="d-flex flex-column justify-content-between mb-2">
+                    <label for="check-end-of-event">
+                    <input type="checkbox" id="check-end-of-event" />
+                    Remind me when this event expires
+                    </label>
+                    <legend>Time</legend>
+                    <select id="type-of-time" name="time-option" value="default" required>
+                        <option value="default" selected disabled>Choose time</option>
+                        <option value="five">5 minute</option>
+                        <option value="ten">10 minute</option>
+                        <option value="fifteen">15 minute</option>
+                        <option value="thirty">30 minute</option>
+                        <option value="hour">1 hour</option>
+                    </select>
+                    <label for="Description">Description</label>
+                    <textarea class="mb-2" maxlength="500" id="text-area-modal" rows="4" cols="35">
+                </textarea>
+                    <select class=" id="type-of-date" name="date-option" value="default" required>
+                        <option value="default" selected disabled>Choose date</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="personal">Personal</option>
+                        <option value="study">Study</option>
+                        <option value="sports">Sports</option>
+                    </select>
+                </section>
+            </div>
+            <div class="modal-footer d-flex">
+                <button type="button" class="btn btn-danger w-50 p-2 btnClose" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success flex-grow-1 p-2 btn-save">Save changes</button>
+            </div>
+        </div>
+    </form>
+</section>
     <main id="main" class="main">
         <section class="topbar-container d-flex flex-row flex-nowrap overflow-scroll vw-100">
             <div class="topbar-previous-year d-flex justify-content-center align-items-center">
@@ -153,79 +219,7 @@
             </section>
         </section>
          <!-- Modal -->
-         <section class="modal fade modal-dialog modal-dialog-centered" id="exampleModal" tabindex="-1"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <form class="modal-dialog fs-3">
-             <div class="modal-content style-modal p-2 d-block overflow-auto">
-                 <div class="modal-header">
-                     <h3 class="modal-title fs-5" id="exampleModalLabel">New Event</h3>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-                     <section class="d-flex justify-content-between mb-2">
-                         <label for="title-event">Title</label>
-                         <input type="text" id="title-event" name="title" />
-                     </section>
-                     <section class="d-flex justify-content-between mb-2">
-                         <label for="init-date">Initial date</label>
-                         <input type="date" id="init-date" name="appt-date"
-                             value="2017-06-01" /><!--actual date here-->
-                     </section>
-                     <section class="d-flex justify-content-between mb-2">
-                         <label for="init-time">Initial time</label>
-                         <input id="appt-time" type="time" name="appt-time" value="13:30" /><!--actual time here-->
-                     </section>
-                     <section class="d-flex flex-column justify-content-between mb-2">
-
-                         <label>
-                             <input type="checkbox" id="check-end-date" />
-                             End date event
-                         </label>
-
-                         <label for="end-date">End date</label>
-                         <input type="date" id="end-date" name="end-date" value=2017-06-01" /><!--actual date here-->
-                         <label for="end-time">End time</label>
-                         <input id="end-time" type="time" name="end-time" value="13:30" /><!--actual time here-->
-                     </section>
-                     <section class="d-flex flex-column justify-content-between mb-2">
-                         <label for="check-end-of-event">
-                         <input type="checkbox" id="check-end-of-event" />
-                         Remind me when this event expires
-                         </label>
-
-                         <legend>Time</legend>
-                         <select id="type-of-time" name="time-option" value="default" required>
-                             <option value="default" selected disabled>Choose time</option>
-                             <option value="five">5 minute</option>
-                             <option value="ten">10 minute</option>
-                             <option value="fifteen">15 minute</option>
-                             <option value="thirty">30 minute</option>
-                             <option value="hour">1 hour</option>
-                         </select>
-
-                         <label for="Description">Description</label>
-                         <textarea class="mb-2" maxlength="500" id="text-area-modal" rows="4" cols="35">
-
-                     </textarea>
-
-                         <select class=" id="type-of-date" name="date-option" value="default" required>
-                             <option value="default" selected disabled>Choose date</option>
-                             <option value="meeting">Meeting</option>
-                             <option value="personal">Personal</option>
-                             <option value="study">Study</option>
-                             <option value="sports">Sports</option>
-                         </select>
-                     </section>
-
-
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Save changes</button>
-                 </div>
-             </div>
-         </form>
-     </section>
+        
     </main>
 
     <footer id="footer"></footer>
