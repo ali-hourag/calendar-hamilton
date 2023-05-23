@@ -3,99 +3,113 @@
 
 <head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <link href="reset.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"
-        defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"
-        defer></script>
-    <script type="module" src="../dist/script.js" defer></script>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous" />
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <link href="reset.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"
+            defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"
+            defer></script>
+        <script type="module" src="../dist/script.js" defer></script>
+    </head>
 
 <body>
-    <header id="header" class="header d-flex justify-content-center align-items-center">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-         Launch demo modal
-     </button>
-        2023
-         <!-- Button trigger modal -->
+    <header id="header" class="header d-flex justify-content-between align-items-center">
+        <!-- Button trigger modal -->
+        <button type="button" class="ml-3 btn btn-primary new-event-button" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">
+            New Event
+        </button>
+        <p>2023</p>
+
+        <button class="btn btn-primary">
+            <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
+            SHOW EVENTS
+        </button>
     </header>
+    <!--ADDED-->
     <main id="main" class="main">
-        <section class="topbar-container d-flex flex-row flex-nowrap overflow-scroll vw-100">
-          <div class="topbar-previous-year d-flex justify-content-center align-items-center">
-            &lt;
-          </div>
-            <div class="topbar-month">
-                <input id="month-january" class="input-topbar-months" type="radio" name="months" value="month-january">
-                <label for="month-january" class="label-topbar-months">JANUARY</label>
+        <section class="topbar-container d-flex flex-row flex-nowrap vw-100">
+            <div class="topbar-previous-year d-flex justify-content-center align-items-center">
+                &lt;
             </div>
+            <div class="months-container d-flex flex-row">
+                <div class="topbar-month">
+                    <input id="month-january" class="input-topbar-months" type="radio" name="months"
+                        value="month-january">
+                    <label for="month-january" class="label-topbar-months">JANUARY</label>
+                </div>
 
-            <div class="topbar-month">
-                <input id="month-february" class="input-topbar-months" type="radio" name="months"
-                    value="month-february">
-                <label for="month-february" class="label-topbar-months">february</label>
-            </div class="topbar-month">
+                <div class="topbar-month">
+                    <input id="month-february" class="input-topbar-months" type="radio" name="months"
+                        value="month-february">
+                    <label for="month-february" class="label-topbar-months">FEBRUARY</label>
+                </div class="topbar-month">
 
-            <div class="topbar-month">
-                <input id="month-march" class="input-topbar-months" type="radio" name="months" value="month-march">
-                <label for="month-march" class="label-topbar-months">march</label>
-            </div>
+                <div class="topbar-month">
+                    <input id="month-march" class="input-topbar-months" type="radio" name="months" value="month-march">
+                    <label for="month-march" class="label-topbar-months">MARCH</label>
+                </div>
 
-            <div class="topbar-month">
-                <input id="month-april" class="input-topbar-months" type="radio" name="months" value="month-april">
-                <label for="month-april" class="label-topbar-months">april</label>
-            </div>
+                <div class="topbar-month">
+                    <input id="month-april" class="input-topbar-months" type="radio" name="months" value="month-april">
+                    <label for="month-april" class="label-topbar-months">APRIL</label>
+                </div>
 
-            <div class="topbar-month">
-                <input id="month-may" class="input-topbar-months" type="radio" name="months" value="month-may">
-                <label for="month-may" class="label-topbar-months">may</label>
-              </div class="topbar-month">
-              
-              <div class="topbar-month">
-                <input id="month-june" class="input-topbar-months" type="radio" name="months" value="month-june">
-                <label for="month-june" class="label-topbar-months">june</label>
-            </div>
 
-            <div class="topbar-month">
-                <input id="month-july" class="input-topbar-months" type="radio" name="months" value="month-july">
-                <label for="month-july" class="label-topbar-months">july</label>
-            </div>
+                <div class="topbar-month">
+                    <input id="month-may" class="input-topbar-months" type="radio" name="months" value="month-may">
+                    <label for="month-may" class="label-topbar-months">MAY</label>
+                </div class="topbar-month">
 
-            <div class="topbar-month">
-              <input id="month-august" class="input-topbar-months" type="radio" name="months" value="month-august">
-                <label for="month-august" class="label-topbar-months">august</label>
-            </div>
-            
-            <div class="topbar-month">
-              <input id="month-september" class="input-topbar-months" type="radio" name="months"
-                    value="month-september">
-                <label for="month-september" class="label-topbar-months">september</label>
-              </div>
-              
-              <div class="topbar-month">
-                <input id="month-october" class="input-topbar-months" type="radio" name="months" value="month-october">
-                <label for="month-october" class="label-topbar-months">october</label>
-              </div>
+                <div class="topbar-month">
+                    <input id="month-june" class="input-topbar-months" type="radio" name="months" value="month-june">
+                    <label for="month-june" class="label-topbar-months">JUNE</label>
+                </div>
 
-              <div class="topbar-month">
-                <input id="month-november" class="input-topbar-months" type="radio" name="months"
-                    value="month-november">
-                <label for="month-november" class="label-topbar-months">november</label>
-              </div>
+                <div class="topbar-month">
+                    <input id="month-july" class="input-topbar-months" type="radio" name="months" value="month-july">
+                    <label for="month-july" class="label-topbar-months">JULY</label>
+                </div>
 
-              <div class="topbar-month">
-                <input id="month-december" class="input-topbar-months" type="radio" name="months"
-                    value="month-december">
-                <label for="month-december" class="label-topbar-months">december</label>
+                <div class="topbar-month">
+                    <input id="month-august" class="input-topbar-months" type="radio" name="months"
+                        value="month-august">
+                    <label for="month-august" class="label-topbar-months">AUGUST</label>
+                </div>
+
+                <div class="topbar-month">
+                    <input id="month-september" class="input-topbar-months" type="radio" name="months"
+                        value="month-september">
+                    <label for="month-september" class="label-topbar-months">SEPTEMBER</label>
+                </div>
+
+                <div class="topbar-month">
+                    <input id="month-october" class="input-topbar-months" type="radio" name="months"
+                        value="month-october">
+                    <label for="month-october" class="label-topbar-months">OCTOBER</label>
+                </div>
+
+                <div class="topbar-month">
+                    <input id="month-november" class="input-topbar-months" type="radio" name="months"
+                        value="month-november">
+                    <label for="month-november" class="label-topbar-months">NOVEMBER</label>
+                </div>
+
+                <div class="topbar-month">
+                    <input id="month-december" class="input-topbar-months" type="radio" name="months"
+                        value="month-december">
+                    <label for="month-december" class="label-topbar-months">DECEMBER</label>
+                </div>
             </div>
             <div class="topbar-next-year d-flex justify-content-center align-items-center">
                 &gt;
@@ -149,81 +163,80 @@
                     <p class="day-number-calendar">1</p>
                     <p class="add-event-calendar">+</p>
                 </div>
-              </section>
+            </section>
         </section>
         <!-- Modal -->
-        <section class="modal fade" id="exampleModal" role="document" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form class="modal-dialog modal-dialog-scrollable fs-3">
-            <div class="modal-content style-modal">
-              <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">New Event</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <section class="d-flex justify-content-between mb-2 modal-sections">
-                    <label class="modal-label" for="title-event">Title</label>
-                    <input class="modal-input" type="text" id="title-event" name="title" />
-                </section>
-                <section class="d-flex justify-content-between mb-2 modal-sections">
-                    <label class="modal-label" for="init-date">Initial date</label>
-                    <input class="modal-input" type="date" id="init-date" name="appt-date"
-                        value="2017-06-01" /><!--actual date here-->
-                </section>
-                <section class="d-flex justify-content-between mb-2 modal-sections">
-                    <label class="modal-label" for="init-time">Initial time</label>
-                    <input class="modal-input" id="appt-time" type="time" name="appt-time" value="13:30" /><!--actual time here-->
-                </section>
-                <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
+        <section class="modal fade" id="exampleModal" role="document" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <form class="modal-dialog modal-dialog-scrollable fs-3">
+                <div class="modal-content style-modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel">New Event</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <section class="d-flex justify-content-between mb-2 modal-sections">
+                            <label class="modal-label" for="title-event">Title</label>
+                            <input class="modal-input" type="text" id="title-event" name="title" />
+                        </section>
+                        <section class="d-flex justify-content-between mb-2 modal-sections">
+                            <label class="modal-label" for="init-date">Initial date</label>
+                            <input class="modal-input" type="date" id="init-date" name="appt-date" value="2017-06-01" />
+                        </section>
+                        <section class="d-flex justify-content-between mb-2 modal-sections">
+                            <label class="modal-label" for="init-time">Initial time</label>
+                            <input class="modal-input" id="appt-time" type="time" name="appt-time" value="13:30" />
+                        </section>
+                        <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
 
-                    <label class="modal-label">
-                        <input class="modal-input-checkbox" type="checkbox" id="check-end-date" />
-                        End date event
-                    </label>
+                            <label class="modal-label">
+                                <input class="modal-input-checkbox" type="checkbox" id="check-end-date" />
+                                End date event
+                            </label>
 
-                    <label class="modal-label" for="end-date">End date</label>
-                    <input class="modal-input" type="date" id="end-date" name="end-date" value=2017-06-01" /><!--actual date here-->
-                    <label class="modal-label" for="end-time">End time</label>
-                    <input class="modal-input" id="end-time" type="time" name="end-time" value="13:30" /><!--actual time here-->
-                </section>
-                <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
-                    <label class="modal-label" for="check-end-of-event">
-                    <input class="modal-input-checkbox" type="checkbox" id="check-end-of-event" />
-                    Remind me when this event expires
-                    </label>
+                            <label class="modal-label" for="end-date">End date</label>
+                            <input class="modal-input" type="date" id="end-date" name="end-date" value="2017-06-01" />
+                            <label class="modal-label" for="end-time">End time</label>
+                            <input class="modal-input" id="end-time" type="time" name="end-time" value="13:30" />
+                        </section>
+                        <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
+                            <label class="modal-label" for="check-end-of-event">
+                                <input class="modal-input-checkbox" type="checkbox" id="check-end-of-event" />
+                                Remind me when this event expires
+                            </label>
 
-                    <legend>Time</legend>
-                    <select class="modal-input" id="type-of-time" name="time-option" value="default" required>
-                        <option value="default" selected disabled>Choose time</option>
-                        <option value="five">5 minute</option>
-                        <option value="ten">10 minute</option>
-                        <option value="fifteen">15 minute</option>
-                        <option value="thirty">30 minute</option>
-                        <option value="hour">1 hour</option>
-                    </select>
+                            <legend>Time</legend>
+                            <select class="modal-input" id="type-of-time" name="time-option" value="default" required>
+                                <option value="default" selected disabled>Choose time</option>
+                                <option value="five">5 minute</option>
+                                <option value="ten">10 minute</option>
+                                <option value="fifteen">15 minute</option>
+                                <option value="thirty">30 minute</option>
+                                <option value="hour">1 hour</option>
+                            </select>
 
-                    <label class="modal-label" for="Description">Description</label>
-                    <textarea class="modal-input mb-2"maxlength="500" id="text-area-modal" rows="4" cols="35">
+                            <label class="modal-label" for="Description">Description</label>
+                            <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4" cols="35">
 
-                </textarea>
+                            <label for="Description">Description</label>
+                            <textarea class="mb-2" maxlength="500" id="text-area-modal" rows="4" cols="3"></textarea>
 
-                    <select class="modal-input" id="type-of-date" name="date-option" value="default" required>
-                        <option value="default" selected disabled>Choose date</option>
-                        <option value="meeting">Meeting</option>
-                        <option value="personal">Personal</option>
-                        <option value="study">Study</option>
-                        <option value="sports">Sports</option>
-                    </select>
-                </section>
-
-
-            </div>
-                <div class="modal-footer d-flex">
-                    <button type="button" class="btn btn-danger w-50 p-2 btnClose" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success flex-grow-1 p-2 btn-save">Save changes</button>
+                            <select class="modal-input" id="type-of-date" name="date-option" value="default" required>
+                                <option value="default" selected disabled>Choose date</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="personal">Personal</option>
+                                <option value="study">Study</option>
+                                <option value="sports">Sports</option>
+                            </select>
+                        </section>
+                    </div>
+                    <div class="modal-footer d-flex">
+                        <button type="button" class="btn btn-danger w-50 p-2 btnClose"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success flex-grow-1 p-2 btn-save">Save changes</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </section>
     </main>
 
