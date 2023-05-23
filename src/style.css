@@ -1,17 +1,21 @@
 .header {
-    background-color: lightcoral;
+    background-color: rgb(9, 138, 116);
     width: 100vw;
     height: 5vh;
+    color: white;
+   
 }
 
 .main {
     height: 95vh;
-    background-color: lightblue;
+    background-color: rgb(9, 138, 116);
+    color: white;
 }
 
 .topbar-container {
     height: 10vh;
-    background-color: beige;
+    background-color: rgb(2, 68, 57);
+    
 }
 
 .topbar-next-year,
@@ -35,7 +39,7 @@
 
 .label-topbar-months:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgb(1, 39, 33);
 }
 
 .input-topbar-months:checked+label {
@@ -50,7 +54,7 @@
 .topbar-next-year:hover,
 .topbar-previous-year:hover {
     cursor: pointer;
-    background-color: antiquewhite;
+    background-color: rgb(1, 39, 33);
 }
 
 .calendar-container {
@@ -59,7 +63,7 @@
     grid-template-rows: repeat(6, 1fr);
     height: 75vh;
     width: 75vw;
-    background-color: lightpink;
+    background-color: rgb(9, 138, 116);
     margin: 2rem auto auto;
     /*top-horizontal-bottom*/
 }
@@ -67,40 +71,53 @@
 .events-history-container {
     grid-column: 1/2;
     grid-row: 1/7;
-    background-color: blanchedalmond;
+    background-color: rgb(2, 68, 57);
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px black;
+   
 }
 
 .days-of-week {
     grid-column: 2/9;
     grid-row: 1/2;
-    background-color: lightsalmon;
+    background-color: rgb(2, 68, 57);
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
     border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px black;
 }
 
 .day-of-week {
     text-align: center;
+    border: 1px solid black;
 }
 
 .days-month-container {
     grid-column: 2/9;
     grid-row: 2/7;
-    background-color: lightseagreen;
+    background-color: rgb(9, 138, 116);
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(5, 1fr);
     padding: 5px;
     gap: 5px;
+    box-shadow: 2px 2px 1px rgb(2, 68, 57);
+    border-radius: 15px;
+    border: 1px solid black;
+   
 }
 
 .entry-day-calendar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: yellow;
+    background-color: white;
     border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px black;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -110,15 +127,23 @@
 .day-number-calendar {
     padding-left: 4px;
     padding-top: 2px;
+    color: rgb(2, 68, 57);
 }
 .style-modal {
     height: 70vh;
 }
 
 
-
-
 .add-event-calendar {
     padding-right: 4px;
     padding-top: 2px;
+    color: rgb(2, 68, 57);
+}
+
+.new-event-button {
+    background-color: rgb(2, 68, 57);
+}
+
+.new-event-button :hover {
+   background-color: rgb(1, 39, 33);
 }
