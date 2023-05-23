@@ -19,6 +19,25 @@
     width: 5vw;
 }
 
+.topbar-next-year:hover,
+.topbar-previous-year:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+}
+
+.months-container {
+    width: 90vw;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.topbar-month {
+    display: flex;
+    padding: 0 0;
+    background-color: transparent;
+    height: 100%;
+}
+
 .input-topbar-months {
     opacity: 0;
     width: 0;
@@ -29,8 +48,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 7.5vw;
     height: 100%;
+    box-sizing: border-box;
+    font-weight: bold;
 }
 
 .label-topbar-months:hover {
@@ -42,23 +63,12 @@
     background-color: aquamarine;
 }
 
-.topbar-month {
-    width: 7.5vw;
-    display: flex;
-}
-
-.topbar-next-year:hover,
-.topbar-previous-year:hover {
-    cursor: pointer;
-    background-color: antiquewhite;
-}
-
 .calendar-container {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(6, 1fr);
     height: 75vh;
-    width: 75vw;
+    width: 85vw;
     background-color: lightpink;
     margin: 2rem auto auto;
     /*top-horizontal-bottom*/
@@ -111,14 +121,57 @@
     padding-left: 4px;
     padding-top: 2px;
 }
+
 .style-modal {
     height: 70vh;
 }
 
-
-
-
 .add-event-calendar {
     padding-right: 4px;
     padding-top: 2px;
+}
+
+@media only screen and (max-width: 1220px) {
+    .label-topbar-months {
+        font-size: .8rem;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .label-topbar-months {
+        width: 80px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+
+    .topbar-next-year,
+    .topbar-previous-year {
+        width: 10vw;
+    }
+
+    .months-container {
+        width: 80vw;
+    }
+
+    .days-of-week,
+    .events-history-container {
+        display: none;
+    }
+
+    .days-month-container {
+        grid-column: 1/9;
+        grid-row: 1/7;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        height: 75vh;
+        overflow: scroll;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .entry-day-calendar {
+        height: 150px;
+    }
+
 }
