@@ -31,10 +31,20 @@
         </button>
         <p>2023</p>
 
-        <button class="btn btn-primary">
-            <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
-            SHOW EVENTS
+        <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
+        <button class="style-events-show" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+            <div class="container-span-show-button">
+                <span class="span-show-button"></span>
+                <span class="span-show-button"></span>
+                <span class="span-show-button"></span>
+            </div>
         </button>
+
+
+
+
+
     </header>
     <!--ADDED-->
     <main id="main" class="main">
@@ -117,7 +127,7 @@
         </section>
 
         <section class="calendar-container">
-            <aside class="events-history-container">
+            <aside class="events-history-container" id="collapseExample">
                 <h4 class="history-events-title text-center p-3">HISTORY</h4>
                 <p class="text-center">Submit project - 28/05</p>
             </aside>

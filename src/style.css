@@ -165,6 +165,36 @@
     padding-top: 2px;
 }
 
+/* Button styles to collapse history section*/
+
+.style-events-show {
+    display: none;
+    width: 37px;
+    height: 37px;
+    margin-right: 2.5vw;
+    border: 2.5px solid white;
+    border-radius: 7px;
+    background-color: transparent;
+}
+
+.container-span-show-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.span-show-button {
+    width: 80%;
+    height: 3px;
+    margin: 2px;
+    background-color: white;
+}
+
+
+
+
+
 .close-btn-modal {
     width: 100px;
 }
@@ -283,6 +313,8 @@
     background-color: rgb(1, 39, 33);
 }
 
+
+
 @media only screen and (max-width: 1220px) {
     .label-topbar-months {
         font-size: .8rem;
@@ -306,9 +338,17 @@
         width: 80vw;
     }
 
-    .days-of-week,
-    .events-history-container {
+    .days-of-week {
         display: none;
+    }
+
+    .style-events-show {
+        display: inline-block;
+    }
+
+    .events-history-container {
+        z-index: 1;
+        grid-column: 1/9;
     }
 
     .days-month-container {
@@ -325,4 +365,6 @@
     .entry-day-calendar {
         height: 150px;
     }
+
+    
 }
