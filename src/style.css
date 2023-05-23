@@ -18,6 +18,12 @@
 
 }
 
+.current-year{
+    font-weight: bold;
+    padding-top: 15px;
+    font-size: 25px;
+}
+
 .topbar-next-year,
 .topbar-previous-year {
     width: 5vw;
@@ -86,7 +92,14 @@
     width: 85vw;
     background-color: rgb(9, 138, 116);
     margin: 2rem auto auto;
-    /*top-horizontal-bottom*/
+    animation-duration: 3s;
+    animation-name:  ease-in-out;
+}
+
+
+@keyframes  ease-in-out {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
 }
 
 .events-history-container {
@@ -94,9 +107,16 @@
     grid-row: 1/7;
     background-color: rgb(2, 68, 57);
     border: 1px solid black;
-    border-radius: 15px;
-    box-shadow: 2px 2px 2px black;
-
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    -moz-box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    margin-right: 10px;
+    width: 170px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .days-of-week {
@@ -107,13 +127,17 @@
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 2px 2px 2px black;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .day-of-week {
     text-align: center;
-    border: 1px solid black;
+    border-right:1px solid #000000;
 }
 
 .days-month-container {
@@ -123,12 +147,9 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    padding: 5px;
-    gap: 5px;
-    box-shadow: 2px 2px 1px rgb(2, 68, 57);
-    border-radius: 15px;
-    border: 1px solid black;
-
+    padding: 10px;
+    gap: 15px;
+    margin-top: 10px;
 }
 
 .entry-day-calendar {
@@ -136,13 +157,30 @@
     flex-direction: row;
     justify-content: space-between;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid black;
-    box-shadow: 2px 2px 2px black;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    -webkit-box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    -moz-box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    box-shadow: 1px 10px 17px 0px rgba(0,0,0,1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    height: 100px;
+    transition: all .8s ease;
+    -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -ms-transition: all .8s ease;
+    -o-transition: all .8s ease;
+}
+
+.entry-day-calendar:hover{
+    transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    cursor: pointer;
 }
 
 .day-number-calendar {
@@ -158,6 +196,7 @@
 .add-event-calendar {
     padding-right: 4px;
     padding-top: 2px;
+    color: black;
 }
 
 .add-event-calendar {
@@ -277,6 +316,10 @@
 
 .new-event-button {
     background-color: rgb(2, 68, 57);
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    
 }
 
 .new-event-button :hover {
@@ -324,5 +367,6 @@
 
     .entry-day-calendar {
         height: 150px;
+        color: black;
     }
 }
