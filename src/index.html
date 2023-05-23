@@ -218,8 +218,92 @@
                 </div>
             </section>
         </section>
+
+
+
          <!-- Modal -->
+<<<<<<< HEAD
         
+=======
+         <section class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <form class="modal-dialog modal-dialog-centered fs-3">
+             <div class="modal-content size-modal p-2 border-style overflow-auto">
+                 <div class="modal-header">
+                     <h2 class="modal-title" id="exampleModalLabel">New Event</h2>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body">
+                     <section class="d-flex justify-content-between mb-2 modal-sections">
+                         <label class="modal-label" for="title-event">Title</label>
+                         <input class="modal-input" type="text" id="title-event" name="title" />
+                     </section>
+                     <section class="d-flex justify-content-between mb-2 modal-sections">
+                         <label class="modal-label" for="init-date">Initial date</label>
+                         <input class="modal-input" type="date" id="init-date" name="appt-date"
+                             value="2017-06-01" /><!--actual date here-->
+                     </section>
+                     <section class="d-flex justify-content-between mb-2 modal-sections">
+                         <label class="modal-label" for="init-time">Initial time</label>
+                         <input class="modal-input" id="appt-time" type="time" name="appt-time" value="13:30" /><!--actual time here-->
+                     </section>
+                     <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
+
+                         <label class="modal-label">
+                             <input class="modal-input-checkbox" type="checkbox" id="check-end-date" />
+                             End date event
+                         </label>
+
+                         <label class="modal-label" for="end-date">End date</label>
+                         <input class="modal-input" type="date" id="end-date" name="end-date" value=2017-06-01" /><!--actual date here-->
+                         <label class="modal-label" for="end-time">End time</label>
+                         <input class="modal-input" id="end-time" type="time" name="end-time" value="13:30" /><!--actual time here-->
+                     </section>
+                     <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
+                         <label class="modal-label" for="check-end-of-event">
+                         <input class="modal-input-checkbox" type="checkbox" id="check-end-of-event" />
+                         Remind me when this event expires
+                         </label>
+
+                         <legend>Time</legend>
+                         <select class="modal-input" id="type-of-time" name="time-option" value="default" required>
+                             <option value="default" selected disabled>Choose time</option>
+                             <option value="five">5 minute</option>
+                             <option value="ten">10 minute</option>
+                             <option value="fifteen">15 minute</option>
+                             <option value="thirty">30 minute</option>
+                             <option value="hour">1 hour</option>
+                         </select>
+
+                         <label class="modal-label" for="Description">Description</label>
+                         <textarea class="modal-input mb-2"maxlength="500" id="text-area-modal" rows="4" cols="35">
+
+                     </textarea>
+
+                         <select class="modal-input" id="type-of-date" name="date-option" value="default" required>
+                             <option value="default" selected disabled>Choose date</option>
+                             <option value="meeting">Meeting</option>
+                             <option value="personal">Personal</option>
+                             <option value="study">Study</option>
+                             <option value="sports">Sports</option>
+                         </select>
+                     </section>
+
+
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-primary">Save changes</button>
+                 </div>
+             </div>
+         </form>
+     </section>
+
+
+     
+
+
+>>>>>>> modal
     </main>
 
     <footer id="footer"></footer>

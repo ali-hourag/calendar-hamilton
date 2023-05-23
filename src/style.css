@@ -112,16 +112,20 @@
     padding-left: 4px;
     padding-top: 2px;
 }
+<<<<<<< HEAD
 .style-modal {
     height: 70vh;
 }
 
+=======
+>>>>>>> modal
 
 .add-event-calendar {
     padding-right: 4px;
     padding-top: 2px;
 }
 
+<<<<<<< HEAD
 .close-btn-modal{
     width: 100px;
 }
@@ -157,3 +161,76 @@
     background-color: black;
     color: rgb(111, 151, 71);
 }
+=======
+
+
+.size-modal {
+    height: 70vh;
+}
+
+.border-style {
+        border-radius: 15px;
+        box-sizing: border-box;
+        background: #ecf0f3;
+        box-shadow: 14px 14px 20px #414344
+}
+
+.modal-title {
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 2.3rem;
+    color: #274355;
+    letter-spacing: 1px;
+  }
+
+  .modal-sections {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  .modal-label {
+    margin-bottom: 4px;
+  }
+  
+  .modal-label:nth-of-type(2) {
+    margin-top: 12px;
+  }
+  
+  .modal-input::placeholder {
+    color: gray;
+  }
+  
+  .modal-input {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  }
+
+  .modal-input-checkbox {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 15px;
+    border: 1px solid;
+    border-radius: 15px;
+    appearance: none;
+  }
+
+  .modal-input-checkbox:checked {
+    background-color: #274355;
+  }
+
+
+
+
+
+>>>>>>> modal
