@@ -11,8 +11,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous" />
-        <link href="style.css" rel="stylesheet" type="text/css" />
-        <link href="reset.css" rel="stylesheet" type="text/css" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/reset.css" rel="stylesheet" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
             integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"
             defer></script>
@@ -25,19 +25,21 @@
 <body>
     <header id="header" class="header d-flex justify-content-between align-items-center">
         <!-- Button trigger modal -->
-        <button type="button" class="ml-3 btn new-event-button" data-bs-toggle="modal"
-            data-bs-target="#modal-new-event">
+        <!--CAMBIOO NEW EVENT BTN-->
+        <button type="button" class="ml-3 btn new-event-btn" data-bs-toggle="modal" data-bs-target="#modal-new-event">
             New Event
         </button>
         <p class="current-year" id="currentYear">2023</p>
         <div class="empty-div"></div>
         <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
-        <button class="style-events-show" type="button" data-bs-toggle="collapse" data-bs-target="#burguer-event"
+        <!--CAMBIOO BURGER BTN HISTORY!!!-->
+        <button class="burger-btn-history" type="button" data-bs-toggle="collapse" data-bs-target="#burguer-event"
             aria-expanded="false" aria-controls="burguer-event">
-            <div class="container-span-show-button">
-                <span class="span-show-button"></span>
-                <span class="span-show-button"></span>
-                <span class="span-show-button"></span>
+            <!--CAMBIOO BURGER BTN HISTORY!!!-->
+            <div class="burger-btn-container">
+                <span class="burger-btn-span"></span>
+                <span class="burger-btn-span"></span>
+                <span class="burger-btn-span"></span>
             </div>
         </button>
 
@@ -130,7 +132,7 @@
             <!--Collapse class is available if responsive max 750px
                 Has to be collapse if mobile devices
             -->
-            <aside class="events-history-container collapse" id="burguer-event">
+            <aside class="history-events-container collapse" id="burguer-event">
                 <h4 class="history-events-title text-center p-3">HISTORY</h4>
                 <p class="text-center">Submit project - 28/05</p>
             </aside>
@@ -142,7 +144,7 @@
                 <h4 class="day-of-week">L</h4>
                 <h4 class="day-of-week">L</h4>
                 <h4 class="day-of-week">L</h4>
-            </aside>
+            </aside>a
             <section class="days-month-container">
                 <div class="entry-day-calendar">
                     <p class="day-number-calendar">1</p>
@@ -230,8 +232,8 @@
                             </select>
 
                             <label class="modal-label" for="Description">Description</label>
-                            <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4" cols="35">
-</textarea>
+                            <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4"
+                                cols="35"></textarea>
 
                             <select class="modal-input round non-styles-select" id="type-of-date" name="date-option"
                                 value="default" required>
@@ -252,8 +254,6 @@
             </form>
         </section>
     </main>
-
-    <footer id="footer"></footer>
 </body>
 
 </html>

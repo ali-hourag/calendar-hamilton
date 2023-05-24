@@ -102,7 +102,7 @@
     }
 }
 
-.events-history-container {
+.history-events-container {
     grid-column: 1/2;
     grid-row: 1/7;
     background-color: rgb(2, 68, 57);
@@ -205,7 +205,7 @@
 
 /* Button styles to collapse history section*/
 
-.style-events-show {
+.burger-btn-history {
     display: none;
     width: 30px;
     height: 30px;
@@ -215,14 +215,14 @@
     background-color: transparent;
 }
 
-.container-span-show-button {
+.burger-btn-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.span-show-button {
+.burger-btn-span {
     width: 80%;
     height: 3px;
     margin: 2px;
@@ -399,15 +399,14 @@
 }
 
 
-.new-event-button {
+.new-event-btn {
     background-color: rgb(2, 68, 57);
     color: white;
     font-weight: bold;
     margin-left: 10px;
-
 }
 
-.new-event-button :hover {
+.new-event-btn :hover {
     background-color: rgb(1, 39, 33);
 }
 
@@ -448,7 +447,6 @@
         -o-border-radius: 20px;
     }
 
-
 }
 
 @media only screen and (max-width: 750px) {
@@ -470,11 +468,11 @@
         display: none;
     }
 
-    .style-events-show {
+    .burger-btn-history {
         display: inline-block;
     }
 
-    .events-history-container {
+    .history-events-container {
         z-index: 1;
         grid-column: 1/9;
         width: 100%;
