@@ -187,8 +187,48 @@
     color: rgb(2, 68, 57);
 }
 
+
+
+.add-event-calendar {
+    padding-right: 4px;
+    padding-top: 2px;
+}
+
+.add-event-calendar {
+    padding-right: 4px;
+    padding-top: 2px;
+}
+
+/* Button styles to collapse history section*/
+
+.style-events-show {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin-right: 2.5vw;
+    border: 2.5px solid white;
+    border-radius: 7px;
+    background-color: transparent;
+}
+
+.container-span-show-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.span-show-button {
+    width: 80%;
+    height: 3px;
+    margin: 2px;
+    background-color: white;
+}
+
+/* Modal Styles */
+
 .style-modal {
-    height: 70vh;
+    max-height: 75vh;
 }
 
 .add-event-calendar {
@@ -197,10 +237,6 @@
     color: black;
 }
 
-.add-event-calendar {
-    padding-right: 4px;
-    padding-top: 2px;
-}
 
 .close-btn-modal {
     width: 100px;
@@ -312,6 +348,53 @@
     background-color: #274355;
 }
 
+.non-styles-select {
+    -moz-appearance: none;
+     text-indent: 0.01px;
+     text-overflow: '';
+     color:black;
+     background: white;
+    -webkit-appearance:none;
+    -ms-appearance:none;
+    -o-appearance:none;
+     appearance:none;
+    }
+
+.round {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      radial-gradient(#ddd 70%, transparent 72%);
+    background-position:
+      calc(100% - 20px) calc(1em + 10px),
+      calc(100% - 15px) calc(1em + 10px),
+      calc(99.4% - .5em) 1em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1.5em 1.5em;
+    background-repeat: no-repeat;
+  }
+  
+  .round:focus {
+    background-image:
+      linear-gradient(45deg, white 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, white 50%),
+      radial-gradient(gray 70%, transparent 72%);
+    background-position:
+      calc(100% - 15px) 1.5em,
+      calc(100% - 20px) 1.5em,
+      calc(99.4% - .5em) 1em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1.5em 1.5em;
+    background-repeat: no-repeat;
+    border-color: green;
+    outline: 0;
+  }
+
+
 .new-event-button {
     background-color: rgb(2, 68, 57);
     color: white;
@@ -323,6 +406,8 @@
 .new-event-button :hover {
     background-color: rgb(1, 39, 33);
 }
+
+
 
 @media only screen and (max-width: 1220px) {
     .label-topbar-months {
@@ -347,9 +432,32 @@
         width: 80vw;
     }
 
-    .days-of-week,
-    .events-history-container {
+    .days-of-week {
         display: none;
+    }
+
+    .style-events-show {
+        display: inline-block;
+    }
+
+    .events-history-container {
+        z-index: 1;
+        grid-column: 1/9;
+        width: 100%;
+    }
+
+    .round {
+        background-position:
+      calc(100.2% - 20px) calc(1em + 10px),
+      calc(100.2% - 15px) calc(1em + 10px),
+      calc(99.4% - .5em) 1em;
+    }
+
+    .round:focus {
+        background-position:
+      calc(100.2% - 15px) 1.5em,
+      calc(100.2% - 20px) 1.5em,
+      calc(99.4% - .5em) 1em;
     }
 
     .days-month-container {
@@ -367,4 +475,6 @@
         height: 150px;
         color: black;
     }
+
+    
 }
