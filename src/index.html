@@ -26,14 +26,14 @@
     <header id="header" class="header d-flex justify-content-between align-items-center">
         <!-- Button trigger modal -->
         <button type="button" class="ml-3 btn btn-primary new-event-button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">
+            data-bs-target="#modal-new-event">
             New Event
         </button>
         <p>2023</p>
 
         <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
-        <button class="style-events-show" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-            aria-expanded="false" aria-controls="collapseExample">
+        <button class="style-events-show" type="button" data-bs-toggle="collapse" data-bs-target="#burguer-event"
+            aria-expanded="false" aria-controls="burguer-event">
             <div class="container-span-show-button">
                 <span class="span-show-button"></span>
                 <span class="span-show-button"></span>
@@ -127,7 +127,7 @@
         </section>
 
         <section class="calendar-container">
-            <aside class="events-history-container" id="collapseExample">
+            <aside class="events-history-container collapse-show" id="burguer-event">
                 <h4 class="history-events-title text-center p-3">HISTORY</h4>
                 <p class="text-center">Submit project - 28/05</p>
             </aside>
@@ -176,12 +176,12 @@
             </section>
         </section>
         <!-- Modal -->
-        <section class="modal fade" id="exampleModal" role="document" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <section class="modal fade" id="modal-new-event" role="document" tabindex="-1" aria-labelledby="modal-label-event"
             aria-hidden="true">
             <form class="modal-dialog modal-dialog-scrollable modal-dialog-centered fs-3">
                 <div class="modal-content style-modal">
                     <div class="modal-header">
-                        <h2 class="modal-title" id="exampleModalLabel">New Event</h2>
+                        <h2 class="modal-title" id="modal-label-event">New Event</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
