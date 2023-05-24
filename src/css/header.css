@@ -1,6 +1,66 @@
+/*----HEADER STYLES----*/
+
 .header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     background-color: rgb(9, 138, 116);
     width: 100vw;
     height: 5vh;
     color: white;
+}
+
+/*----year date in the middle----*/
+.current-year {
+    justify-self: center;
+    align-self: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+/*----Btn to create new event----*/
+.new-event-btn {
+    align-self: center;
+    justify-self: center;
+    background-color: rgb(2, 68, 57);
+    color: white;
+    font-weight: bold;
+    width: 8rem;
+    height: 2.7rem;
+}
+
+.new-event-btn:hover {
+    background-color: rgb(1, 39, 33);
+    color: white;
+}
+
+/*----empty div on the right sot hat we can center the date----*/
+.empty-div {
+    width: 30px;
+}
+
+/*----Button styles to collapse history of events section----*/
+.burger-btn-history {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin-right: 2rem;
+    border: 2.5px solid white;
+    border-radius: 7px;
+    background-color: transparent;
+}
+
+.burger-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.burger-btn-span {
+    width: 80%;
+    height: 3px;
+    margin: 2px;
+    background-color: white;
 }

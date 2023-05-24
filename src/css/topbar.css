@@ -1,0 +1,67 @@
+/*----STYLES FOR THE TOPBAR----*/
+
+/*----styles for main element that contains the topbar and calendar----*/
+.main {
+    height: 95vh;
+    background-color: rgb(9, 138, 116);
+    color: white;
+}
+
+/*----styles for topbar container----*/
+.topbar-container {
+    height: 10vh;
+    background-color: rgb(2, 68, 57);
+}
+
+/*----styles for div to go backwards or upwards on the year "<" and ">" symbols----*/
+.topbar-next-year,
+.topbar-previous-year {
+    width: 5vw;
+}
+
+.topbar-next-year:hover,
+.topbar-previous-year:hover {
+    cursor: pointer;
+    background-color: rgb(1, 39, 33);
+}
+
+/*----styles for the month container----*/
+.months-container {
+    width: 90vw;
+    box-sizing: border-box;
+}
+
+/*----styles for each month inside the months-container----*/
+.topbar-month {
+    display: flex;
+    padding: 0 0;
+    background-color: transparent;
+    height: 100%;
+    width: 7.5vw;
+}
+
+.input-topbar-months {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.label-topbar-months {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+.label-topbar-months:hover {
+    cursor: pointer;
+    background-color: rgb(1, 39, 33);
+}
+
+.input-topbar-months:checked+label {
+    background-color: lightgreen;
+    color: black;
+}
