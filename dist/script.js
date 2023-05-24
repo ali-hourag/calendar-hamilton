@@ -1,6 +1,6 @@
-"use strict";
-const a = 2;
-if (a == 2) {
-    console.log("hola");
+import { setHeader } from "./setHTML.js";
+window.addEventListener("load", loadPage);
+function loadPage() {
+    setHeader();
 }
 //# sourceMappingURL=script.js.map

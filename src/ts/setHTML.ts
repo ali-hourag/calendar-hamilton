@@ -1,7 +1,7 @@
 
 
 export function setHeader(): void {
-    const header = document.
+    // const header = document.
 
     const newEventButton = document.createElement("button");
     const paragraphCurrentYear = document.createElement("p");
@@ -65,8 +65,59 @@ export function setHeader(): void {
     </header>*/
 export function setMain(): void {
     //Crear main cosas que son staticas
+// const main =
+const mainSection = document.createElement("section");
+const topBarDiv = document.createElement("div");
+const monthsContainerDiv = document.createElement("div");
+
+
+const arrayMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
+
+let divMonths = document.createElement("div"); 
+
+arrayMonths.forEach((months, i) => {
+
+    const inputMonths = document.createElement("input");
+    const labelMonths = document.createElement("label");
+    divMonths.classList.add("topbar-month");
+    inputMonths.setAttribute("id", `${i}`);
+    inputMonths.setAttribute("class","input-topbar-months" );
+    inputMonths.setAttribute("type", "radio");
+    inputMonths.setAttribute("name", "months");
+    inputMonths.setAttribute("value", `${i}`);
+    labelMonths.setAttribute("for",`${i}`);
+    labelMonths.setAttribute("class", "label-topbar-months" );
+    labelMonths.textContent = months;
+    divMonths.appendChild(inputMonths);
+    divMonths.append(labelMonths);
+    monthsContainerDiv.appendChild(divMonths);
+
+})
+console.log(divMonths);
+
+mainSection.appendChild(topBarDiv);
+topBarDiv.appendChild(monthsContainerDiv);
+monthsContainerDiv.appendChild(divMonths);
+
+mainSection.classList.add("topbar-container", "d-flex", "flex-row", "flex-nowrap", "vw-100");
+topBarDiv.classList.add("topbar-previous-year", "d-flex", "justify-content-center", "align-items-center");
+monthsContainerDiv.classList.add("months-container", "d-flex", "flex-row");
 
 }
+setMain();
 
 export function setTopBar(): void {
 
