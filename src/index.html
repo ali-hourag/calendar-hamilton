@@ -30,7 +30,7 @@
             New Event
         </button>
         <p class="current-year" id="currentYear">2023</p>
-
+        <div class="empty-div"></div>
         <!--EN RESPONSIVE PARA ENSEÑAR EL HISTORIAL DE EVENTOS-->
         <button class="style-events-show" type="button" data-bs-toggle="collapse" data-bs-target="#burguer-event"
             aria-expanded="false" aria-controls="burguer-event">
@@ -127,7 +127,10 @@
         </section>
 
         <section class="calendar-container">
-            <aside class="events-history-container collapse-show" id="burguer-event">
+            <!--Collapse class is available if responsive max 750px
+                Has to be collapse if mobile devices
+            -->
+            <aside class="events-history-container collapse" id="burguer-event">
                 <h4 class="history-events-title text-center p-3">HISTORY</h4>
                 <p class="text-center">Submit project - 28/05</p>
             </aside>
@@ -176,8 +179,8 @@
             </section>
         </section>
         <!-- Modal -->
-        <section class="modal fade" id="modal-new-event" role="document" tabindex="-1" aria-labelledby="modal-label-event"
-            aria-hidden="true">
+        <section class="modal fade" id="modal-new-event" role="document" tabindex="-1"
+            aria-labelledby="modal-label-event" aria-hidden="true">
             <form class="modal-dialog modal-dialog-scrollable modal-dialog-centered fs-3">
                 <div class="modal-content style-modal">
                     <div class="modal-header">
@@ -216,7 +219,8 @@
                             </label>
 
                             <legend>Time</legend>
-                            <select class="modal-input round non-styles-select" id="type-of-time" name="time-option" value="default" required>
+                            <select class="modal-input round non-styles-select" id="type-of-time" name="time-option"
+                                value="default" required>
                                 <option value="default" selected disabled>Choose time</option>
                                 <option value="five">5 minute</option>
                                 <option value="ten">10 minute</option>
@@ -229,7 +233,8 @@
                             <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4" cols="35">
 </textarea>
 
-                            <select class="modal-input round non-styles-select" id="type-of-date" name="date-option" value="default" required>
+                            <select class="modal-input round non-styles-select" id="type-of-date" name="date-option"
+                                value="default" required>
                                 <option value="default" selected disabled>Choose date</option>
                                 <option value="meeting">Meeting</option>
                                 <option value="personal">Personal</option>
