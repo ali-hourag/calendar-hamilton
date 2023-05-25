@@ -28,7 +28,7 @@
     grid-column: 1/2;
     grid-row: 1/7;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /*Consider putting these
     when adding more paragraphs and events*/
     /* overflow-x: auto;
@@ -47,7 +47,11 @@
     -o-border-radius: 10px;
 }
 
-.history-events-title_h4 {}
+.history-events-title_h4 {
+    width: 100%;
+    height: 15%;
+    text-align: center;
+}
 
 .history-events-content_p {}
 

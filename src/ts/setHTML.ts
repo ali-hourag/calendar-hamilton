@@ -22,9 +22,9 @@ export function setHeader(): void {
     headerBurguerButton.classList.add("header-burger-history_btn");
     headerBurguerButton.setAttribute("type", "button");
     headerBurguerButton.setAttribute("data-bs-toggle", "collapse");
-    headerBurguerButton.setAttribute("data-bs-target", "#burguer-event");
+    headerBurguerButton.setAttribute("data-bs-target", "#burger-event");
     headerBurguerButton.setAttribute("aria-expanded", "false");
-    headerBurguerButton.setAttribute("aria-controls", "burguer-event");
+    headerBurguerButton.setAttribute("aria-controls", "burger-event");
     burguerDiv.classList.add("header-burger-container_btn");
     for (let i = 0; i < 3; i++) {
         const burgerSpan = document.createElement("span");
@@ -93,7 +93,8 @@ function setTopBar(): void {
         const topBarMonthLabel: (HTMLLabelElement) = document.createElement("label");
 
         //to set month-january and so on
-        let monthId: string = `month-${month.toLocaleLowerCase}`;
+        let monthSelected: string = month.toLocaleLowerCase();
+        let monthId: string = `month-${monthSelected}`;
 
         topBarMonthDiv.classList.add("topbar-month_div");
         topBarMonthInput.classList.add("topbar-month_input");
@@ -107,8 +108,14 @@ function setTopBar(): void {
         topBarMonthLabel.setAttribute("numberMonth", `${i + 1}`);
         topBarMonthLabel.innerText = month;
 
+        topBarMonthDiv.appendChild(topBarMonthInput);
+        topBarMonthDiv.appendChild(topBarMonthLabel);
         topBarMonthsContainer.appendChild(topBarMonthDiv)
     })
+
+    topBarPreviousYearDiv.innerText = "<";
+    topBarNextYearDiv.innerText = ">";
+
     setCalendarContainer();
 }
 
@@ -125,8 +132,8 @@ function setCalendarContainer(): void {
 
     calendarContainerSection.classList.add("calendar-container");
     historyEventsAside.classList.add("history-events-container_aside", "collapse");
-    historyEventsAside.setAttribute("id", "burguer-event");
-    historyEventsAsideTitleH4.classList.add("history-events-title_h4", "text-center", "p-3");
+    historyEventsAside.setAttribute("id", "burger-event");
+    historyEventsAsideTitleH4.classList.add("history-events-title_h4", "p-3");
     historyEventsAsideTitleH4.innerText = "HISTORY";
     daysOfWeekAside.classList.add("days-of-week-container_aside");
     daysOfMonthCalendarSection.classList.add("days-month-container_section");
@@ -200,7 +207,8 @@ function setModal(): void {
     const modalFooterSaveBtn: (HTMLButtonElement) = document.createElement("button");
     if (main === null) return;
 
-    let bodySectionsClasses: string = "d-flex justify-content-between mb-2 modal-sections";
+    let bodySectionsClasses1: string = "d-flex justify-content-between mb-2 modal-sections";
+    let bodySectionsClasses2: string = "d-flex flex-column justify-content-between mb-2 modal-sections";
 
     modalSectionContainer.classList.add("modal-container_section", "modal", "fade");
     modalSectionContainer.setAttribute("id", "modal-new-event");
@@ -218,14 +226,14 @@ function setModal(): void {
     modalHeaderBtn.setAttribute("data-bs-dismiss", "modal");
     modalHeaderBtn.setAttribute("aria-label", "Close");
     modalBodyContainerDiv.classList.add("modal-body");
-    modalBodySectionTitle.setAttribute("class", bodySectionsClasses);
+    modalBodySectionTitle.setAttribute("class", bodySectionsClasses1);
     modalBodySectionTitleLabel.classList.add("modal-label");
     modalBodySectionTitleLabel.setAttribute("for", "title-event");
     modalBodySectionTitleInput.classList.add("modal-input");
     modalBodySectionTitleInput.setAttribute("id", "title-event");
     modalBodySectionTitleInput.setAttribute("type", "text");
     modalBodySectionTitleInput.setAttribute("name", "title");
-    modalBodySectionIDate.setAttribute("class", bodySectionsClasses);
+    modalBodySectionIDate.setAttribute("class", bodySectionsClasses1);
     modalBodySectionIDateLabel.classList.add("modal-label");
     modalBodySectionIDateLabel.setAttribute("for", "init-date");
     modalBodySectionIDateInput.classList.add("modal-input");
@@ -233,7 +241,7 @@ function setModal(): void {
     modalBodySectionIDateInput.setAttribute("type", "date");
     modalBodySectionIDateInput.setAttribute("name", "appt-date");
     modalBodySectionIDateInput.setAttribute("value", "2017-06-01");
-    modalBodySectionITime.setAttribute("class", bodySectionsClasses);
+    modalBodySectionITime.setAttribute("class", bodySectionsClasses1);
     modalBodySectionITimeLabel.classList.add("modal-label");
     modalBodySectionITimeLabel.setAttribute("for", "init-time");
     modalBodySectionITimeInput.classList.add("modal-input");
@@ -241,7 +249,7 @@ function setModal(): void {
     modalBodySectionITimeInput.setAttribute("type", "time");
     modalBodySectionITimeInput.setAttribute("name", "appt-time");
     modalBodySectionITimeInput.setAttribute("value", "13:30");
-    modalBodySectionEDate.setAttribute("class", bodySectionsClasses);
+    modalBodySectionEDate.setAttribute("class", bodySectionsClasses2);
     modalBodySectionCheckEDateLabel.classList.add("modal-label");
     modalBodySectionCheckEDateLabel.setAttribute("for", "check-end-date");
     modalBodySectionCheckEDateInput.classList.add("modal-input-checkbox");
@@ -261,7 +269,7 @@ function setModal(): void {
     modalBodySectionETimeInput.setAttribute("type", "time");
     modalBodySectionETimeInput.setAttribute("name", "end-time");
     modalBodySectionETimeInput.setAttribute("value", "13:30");
-    modalBodySectionReminder.setAttribute("class", bodySectionsClasses);
+    modalBodySectionReminder.setAttribute("class", bodySectionsClasses2);
     modalBodySectionReminderLabel.classList.add("modal-label");
     modalBodySectionReminderLabel.setAttribute("for", "check-end-of-event");
     modalBodySectionReminderInput.classList.add("modal-input-checkbox");
