@@ -27,7 +27,7 @@
         <script type="module" src="../dist/script.js" defer></script>
     </head>
 
-<body class="body">
+<body>
     <header id="header" class="header">
         <!-- Button trigger modal -->
         <!--CAMBIOO NEW EVENT BTN-->
@@ -135,16 +135,16 @@
             -->
             <aside class="history-events-container_aside collapse" id="burguer-event">
                 <h4 class="history-events-title_h4 text-center p-3">HISTORY</h4>
-                <p class="history-events-content_p text-center">Submit project - 28/05</p>
+                <!-- <p class="history-events-content_p text-center">Submit project - 28/05</p> -->
             </aside>
             <aside class="days-of-week-container_aside">
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
-                <h4 class="day-of-week_h4">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
+                <h4 class="day-of-week_h4" id="1">L</h4>
             </aside>
             <section class="days-month-container_section">
                 <div class="entry-day-calendar_div">
@@ -217,11 +217,11 @@
                         </section>
                         <section class="d-flex justify-content-between mb-2 modal-sections">
                             <label class="modal-label" for="init-time">Initial time</label>
-                            <input class="modal-input" id="appt-time" type="time" name="appt-time" value="13:30" />
+                            <input class="modal-input" id="init-time" type="time" name="appt-time" value="13:30" />
                         </section>
                         <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
 
-                            <label class="modal-label">
+                            <label class="modal-label" for="check-end-date">
                                 <input class="modal-input-checkbox" type="checkbox" id="check-end-date" />
                                 End date event
                             </label>
@@ -248,13 +248,13 @@
                                 <option value="hour">1 hour</option>
                             </select>
 
-                            <label class="modal-label" for="Description">Description</label>
+                            <label class="modal-label" for="text-area-modal">Description</label>
                             <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4"
                                 cols="35"></textarea>
 
                             <select class="modal-input select-arrow-styles select-hide-arrow" id="type-of-date"
                                 name="date-option" value="default" required>
-                                <option value="default" selected disabled>Choose date</option>
+                                <option value="default" selected disabled>Choose Type</option>
                                 <option value="meeting">Meeting</option>
                                 <option value="personal">Personal</option>
                                 <option value="study">Study</option>

@@ -27,6 +27,12 @@
 .history-events-container_aside {
     grid-column: 1/2;
     grid-row: 1/7;
+    display: flex;
+    flex-direction: row;
+    /*Consider putting these
+    when adding more paragraphs and events*/
+    /* overflow-x: auto;
+    overflow-y: auto; */
     background-color: rgb(2, 68, 57);
     border: 1px solid black;
     border-radius: 10px;
@@ -40,6 +46,10 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
+
+.history-events-title_h4 {}
+
+.history-events-content_p {}
 
 /*----styles for the aside that shows days of the week----*/
 .days-of-week-container_aside {

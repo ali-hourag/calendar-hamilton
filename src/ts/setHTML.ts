@@ -1,171 +1,383 @@
 
 
 export function setHeader(): void {
-    const body = document.querySelector("#body");
+    const body: (HTMLBodyElement | null) = document.querySelector("body");
+    const header: (HTMLElement) = document.createElement("header");
+    const headerNewEventButton: (HTMLButtonElement) = document.createElement("button");
+    const headerYearH1: (HTMLHeadingElement) = document.createElement("h1");
+    const headerEmptyDiv: (HTMLDivElement) = document.createElement("div");
+    const headerBurguerButton: (HTMLButtonElement) = document.createElement("button");
+    const burguerDiv: (HTMLDivElement) = document.createElement("div");
+    if (body === null) return;
 
-    /* Two buttons are created that do the function, the first one opens the event modal and the second one 
-     makes a collapse in responsive mode to open the event history */
-    const header = document.createElement("header");
-    const newEventButton = document.createElement("button");
-    const paragraphCurrentYear = document.createElement("p");
-    const emptyDiv = document.createElement("div");
-    const burguerButton = document.createElement("button");
-    const burguerDiv = document.createElement("div");
+    header.classList.add("header");
+    header.setAttribute("id", "header");
+    headerNewEventButton.classList.add("header-new-event_btn", "ml-3", "btn", "d-flex", "justify-content-center", "align-items-center");
+    headerNewEventButton.setAttribute("data-bs-toggle", "modal");
+    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event");
+    headerNewEventButton.setAttribute("type", "button");
+    headerYearH1.classList.add("header-year_h1");
+    headerYearH1.setAttribute("id", "currentYear");
+    headerEmptyDiv.classList.add("header-empty_div");
+    headerBurguerButton.classList.add("header-burger-history_btn");
+    headerBurguerButton.setAttribute("type", "button");
+    headerBurguerButton.setAttribute("data-bs-toggle", "collapse");
+    headerBurguerButton.setAttribute("data-bs-target", "#burguer-event");
+    headerBurguerButton.setAttribute("aria-expanded", "false");
+    headerBurguerButton.setAttribute("aria-controls", "burguer-event");
+    burguerDiv.classList.add("header-burger-container_btn");
+    for (let i = 0; i < 3; i++) {
+        const burgerSpan = document.createElement("span");
+        burgerSpan.classList.add("header-burger-content_span");
+        burguerDiv.appendChild(burgerSpan);
+    }
 
-    header.classList.add("header", "d-flex", "justify-content-between", "align-items-center");
-    newEventButton.classList.add("ml-3", "btn", "new-event-button");
-    paragraphCurrentYear.classList.add("class", "current-year");
-    emptyDiv.classList.add("class", "empty-div");
-    burguerButton.classList.add("class", "style-events-show");
-    burguerDiv.classList.add("class", "container-span-show-button");
 
-    newEventButton.setAttribute("data-bs-toggle", "modal");
-    newEventButton.setAttribute("data-bs-target", "#modal-new-event");
-    burguerButton.setAttribute("type", "button");
-    burguerButton.setAttribute("data-bs-toggle", "collapse");
-    burguerButton.setAttribute("data-bs-target", "#burguer-event");
-    burguerButton.setAttribute("aria-expanded", "false");
-    burguerButton.setAttribute("aria-controls", "burguer-event");
+    headerNewEventButton.innerText = "New Event";
+    headerYearH1.innerText = "2023";
 
-    newEventButton.innerText = "New Event";
-    paragraphCurrentYear.innerText = "2023";
 
-    // Loop to create span from array to contain of burguer button
-    const spanArray = [1, 2, 3];
+    body.appendChild(header);
+    header.appendChild(headerNewEventButton),
+        header.appendChild(headerYearH1);
+    header.appendChild(headerEmptyDiv);
+    header.appendChild(headerBurguerButton);
+    headerBurguerButton.appendChild(burguerDiv);
 
-    spanArray.forEach((element) => {
-        const spanBurguer = document.createElement("span");
-        spanBurguer.classList.add("class", "span-show-button");
-        burguerDiv.appendChild(spanBurguer);
-    });
-
-    body?.appendChild(header);
-    header.appendChild(newEventButton),
-        header.appendChild(paragraphCurrentYear);
-    header.appendChild(emptyDiv);
-    header.appendChild(burguerButton);
-    burguerButton.appendChild(burguerDiv);
-
-    //call to setMain
-    setMain();
+    setTopBar();
 }
-export function setMain(): void {
-    //Crear main cosas que son staticas
-    // const main =
-    const mainSection = document.createElement("section");
-    const topBarDiv = document.createElement("div");
-    const monthsContainerDiv = document.createElement("div");
-    const topBarNextGear = document.createElement("div");
 
-    mainSection.classList.add("topbar-container", "d-flex", "flex-row", "flex-nowrap", "vw-100");
-    topBarDiv.classList.add("topbar-previous-year", "d-flex", "justify-content-center", "align-items-center");
-    monthsContainerDiv.classList.add("months-container", "d-flex", "flex-row");
-    topBarNextGear.classList.add("topbar-next-year", "d-flex", "justify-content-center", "align-items-center");
 
-    const arrayMonths = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+
+function setTopBar(): void {
+    const body: (HTMLBodyElement | null) = document.querySelector("body");
+    const main: (HTMLElement) = document.createElement("main");
+    const topBarSectionContainer: (HTMLElement) = document.createElement("section");
+    const topBarPreviousYearDiv: (HTMLDivElement) = document.createElement("div");
+    const topBarMonthsContainer: (HTMLDivElement) = document.createElement("div");
+    const topBarNextYearDiv: (HTMLDivElement) = document.createElement("div");
+    if (body === null) return;
+
+    main.classList.add("main");
+    main.setAttribute("id", "main");
+    topBarSectionContainer.classList.add("topbar-container", "d-flex", "flex-row", "flex-nowrap", "vw-100");
+    topBarPreviousYearDiv.classList.add("topbar-previous-year_div", "d-flex", "justify-content-center", "align-items-center");
+    topBarMonthsContainer.classList.add("topbar-months-container", "d-flex", "flex-row");
+    topBarNextYearDiv.classList.add("topbar-next-year_div", "d-flex", "justify-content-center", "align-items-center");
+
+    body.appendChild(main);
+    main.appendChild(topBarSectionContainer);
+    topBarSectionContainer.appendChild(topBarPreviousYearDiv);
+    topBarSectionContainer.appendChild(topBarMonthsContainer);
+    topBarSectionContainer.appendChild(topBarNextYearDiv);
+
+    //Fill the topBarMonthsContainer div with months
+    const arrayMonths: Array<string> = [
+        "JANUARY",
+        "FEBRUARY",
+        "MARCH",
+        "APRIL",
+        "MAY",
+        "JUNE",
+        "JULY",
+        "AUGUST",
+        "SEPTEMBER",
+        "OCTOBER",
+        "NOVEMBER",
+        "DECEMBER"
     ];
 
-    let divMonths = document.createElement("div");
+    arrayMonths.forEach((month: string, i: number): void => {
+        const topBarMonthDiv: (HTMLDivElement) = document.createElement("div");
+        const topBarMonthInput: (HTMLInputElement) = document.createElement("input");
+        const topBarMonthLabel: (HTMLLabelElement) = document.createElement("label");
 
-    arrayMonths.forEach((months, i) => {
+        //to set month-january and so on
+        let monthId: string = `month-${month.toLocaleLowerCase}`;
 
-        const inputMonths = document.createElement("input");
-        const labelMonths = document.createElement("label");
-        divMonths.classList.add("topbar-month");
-        inputMonths.setAttribute("id", `${i}`);
-        inputMonths.setAttribute("class", "input-topbar-months");
-        inputMonths.setAttribute("type", "radio");
-        inputMonths.setAttribute("name", "months");
-        inputMonths.setAttribute("value", `${i}`);
-        labelMonths.setAttribute("for", `${i}`);
-        labelMonths.setAttribute("class", "label-topbar-months");
-        labelMonths.textContent = months;
-        divMonths.appendChild(inputMonths);
-        divMonths.append(labelMonths);
-        monthsContainerDiv.appendChild(divMonths);
+        topBarMonthDiv.classList.add("topbar-month_div");
+        topBarMonthInput.classList.add("topbar-month_input");
+        topBarMonthInput.setAttribute("id", monthId);
+        topBarMonthInput.setAttribute("type", "radio");
+        topBarMonthInput.setAttribute("name", "months");
+        topBarMonthInput.setAttribute("value", monthId);
+        topBarMonthInput.setAttribute("numberMonth", `${i + 1}`);
+        topBarMonthLabel.classList.add("topbar-month_label");
+        topBarMonthLabel.setAttribute("for", monthId);
+        topBarMonthLabel.setAttribute("numberMonth", `${i + 1}`);
+        topBarMonthLabel.innerText = month;
 
+        topBarMonthsContainer.appendChild(topBarMonthDiv)
     })
-    console.log(divMonths);
-
-    mainSection.appendChild(topBarDiv);
-    topBarDiv.appendChild(monthsContainerDiv);
-    monthsContainerDiv.appendChild(divMonths);
-    mainSection.appendChild(topBarNextGear);
-
-
-}
-setMain();
-
-
-export function setTopBar(): void {
-
+    setCalendarContainer();
 }
 
-export function setCalendarContainer(): void {
-    const body = document.querySelector("#body");
-
-    const sectionDays = document.createElement("section");
-    const asideHistory = document.createElement("aside");
-    const titleHistory = document.createElement("h4");
-    const paragraphHistory = document.createElement("p");
-    const asideDays = document.createElement("aside");
-    const sectionCardsDays = document.createElement("section");
-
-    sectionDays.classList.add("calendar-container");
-    asideHistory.classList.add("events-history-container");
-    titleHistory.classList.add("history-events-title", "text-center", "p-3");
-    paragraphHistory.classList.add("text-center");
-    asideDays.classList.add("days-of-week");
-    sectionCardsDays.classList.add("days-month-container");
 
 
-    asideHistory.setAttribute("id", "burguer-event");
+function setCalendarContainer(): void {
+    const main: (HTMLElement | null) = document.querySelector(".main");
+    const calendarContainerSection: (HTMLElement) = document.createElement("section");
+    const historyEventsAside: (HTMLElement) = document.createElement("aside");
+    const historyEventsAsideTitleH4: (HTMLHeadingElement) = document.createElement("h4");
+    const daysOfWeekAside: (HTMLElement) = document.createElement("aside");
+    const daysOfMonthCalendarSection: (HTMLElement) = document.createElement("section");
+    if (main === null) return;
 
-    titleHistory.innerText = "HISTORY";
-    paragraphHistory.innerText = "Submit project - 28/05"// esto se cambia
+    calendarContainerSection.classList.add("calendar-container");
+    historyEventsAside.classList.add("history-events-container_aside", "collapse");
+    historyEventsAside.setAttribute("id", "burguer-event");
+    historyEventsAsideTitleH4.classList.add("history-events-title_h4", "text-center", "p-3");
+    historyEventsAsideTitleH4.innerText = "HISTORY";
+    daysOfWeekAside.classList.add("days-of-week-container_aside");
+    daysOfMonthCalendarSection.classList.add("days-month-container_section");
+
+    main.appendChild(calendarContainerSection);
+    calendarContainerSection.appendChild(historyEventsAside);
+    historyEventsAside.appendChild(historyEventsAsideTitleH4);
+    calendarContainerSection.appendChild(daysOfWeekAside);
+    calendarContainerSection.appendChild(daysOfMonthCalendarSection);
 
 
-    // Loop to create days elemnts to the top of calendar container
-    const arrayDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    //Add days inside the aside element of daysOfWeek
+    const arrayDaysOfWeek: Array<string> = ["M", "T", "W", "T", "F", "S", "S"];
+    arrayDaysOfWeek.forEach((day: string, i: number) => {
+        const dayOfWeekH4: (HTMLHeadingElement) = document.createElement("h4");
+        dayOfWeekH4.classList.add("day-of-week_h4");
+        dayOfWeekH4.setAttribute("id", `${i + 1}`);
+        dayOfWeekH4.innerText = day;
 
-    arrayDays.forEach((element, i) => {
-        const h4 = document.createElement("h4");
-        h4.classList.add("days-of-week");
-        h4.innerText = `${i}`;
-        asideDays.appendChild(h4);
-    });
+        daysOfWeekAside.appendChild(dayOfWeekH4);
+    })
+    setModal();
+}
 
-    /* Loop for the cards contain
-    const cardDate:any = [];// esto se cambia
+function setModal(): void {
+    const main: (HTMLElement | null) = document.querySelector(".main");
+    const modalSectionContainer: (HTMLElement) = document.createElement("section");
+    const modalFormContainer: (HTMLFormElement) = document.createElement("form");
+    const modalDivContainer: (HTMLDivElement) = document.createElement("div");
+    const modalHeaderContainerDiv: (HTMLDivElement) = document.createElement("div");
+    const modalHeaderTitleH4: (HTMLHeadingElement) = document.createElement("h4");
+    const modalHeaderBtn: (HTMLButtonElement) = document.createElement("button");
+    const modalBodyContainerDiv: (HTMLDivElement) = document.createElement("div");
+    const modalBodySectionTitle: (HTMLElement) = document.createElement("section");
+    const modalBodySectionTitleLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionTitleInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionIDate: (HTMLElement) = document.createElement("section");
+    const modalBodySectionIDateLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionIDateInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionITime: (HTMLElement) = document.createElement("section");
+    const modalBodySectionITimeLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionITimeInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionEDate: (HTMLElement) = document.createElement("section");
+    const modalBodySectionCheckEDateLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionCheckEDateInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionEDateLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionEDateInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionETimeLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionETimeInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionReminder: (HTMLElement) = document.createElement("section");
+    const modalBodySectionReminderLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionReminderInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionReminderLegend: (HTMLLegendElement) = document.createElement("legend");
+    const modalBodySectionReminderSelectTime: (HTMLSelectElement) = document.createElement("select");
+    const modalBodySectionReminderOptionTime1: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionTime2: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionTime3: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionTime4: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionTime5: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionTime6: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderDescriptionLabel: (HTMLLabelElement) = document.createElement("label");
+    const modalBodySectionReminderDescriptionTextArea: (HTMLTextAreaElement) = document.createElement("textarea");
+    const modalBodySectionReminderSelectType: (HTMLSelectElement) = document.createElement("select");
+    const modalBodySectionReminderOptionType1: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionType2: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionType3: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionType4: (HTMLOptionElement) = document.createElement("option");
+    const modalBodySectionReminderOptionType5: (HTMLOptionElement) = document.createElement("option");
+    const modalFooterContainerDiv: (HTMLDivElement) = document.createElement("div");
+    const modalFooterCloseBtn: (HTMLButtonElement) = document.createElement("button");
+    const modalFooterSaveBtn: (HTMLButtonElement) = document.createElement("button");
+    if (main === null) return;
 
-    cardDate.forEach(()=> {
-        const  cardDayDiv = document.createElement("div");
-    const numberParagraph = document.createElement("p");
-    const eventParagraph = document.createElement("p");
-    cardDayDiv.classList.add("day-number-calendar");
-    numberParagraph.classList.add("add-event-calendar");
-    eventParagraph.classList.add("entry-day-calendar");
-    numberParagraph.innerText = "1";// esto se cambia
-    eventParagraph.innerText = "+";// esto se cambia
-    sectionCardsDays.appendChild(cardDate);
-    })*/
+    let bodySectionsClasses: string = "d-flex justify-content-between mb-2 modal-sections";
 
-    body?.appendChild(sectionDays);
-    sectionDays.appendChild(asideHistory);
-    asideHistory.appendChild(titleHistory);
-    asideHistory.appendChild(paragraphHistory);
-    body?.appendChild(asideDays);
-    body?.appendChild(sectionCardsDays);
+    modalSectionContainer.classList.add("modal-container_section", "modal", "fade");
+    modalSectionContainer.setAttribute("id", "modal-new-event");
+    modalSectionContainer.setAttribute("role", "document");
+    modalSectionContainer.setAttribute("tabindex", "-1");
+    modalSectionContainer.setAttribute("aria-labelledby", "modal-label-event");
+    modalSectionContainer.setAttribute("aria-hidden", "true");
+    modalFormContainer.classList.add("modal-dialog", "modal-dialog-scrollable", "modal-dialog-centered", "fs-3");
+    modalDivContainer.classList.add("modal-content", "modal-height");
+    modalHeaderContainerDiv.classList.add("modal-header");
+    modalHeaderTitleH4.classList.add("modal-title");
+    modalHeaderTitleH4.setAttribute("id", "modal-label-event");
+    modalHeaderBtn.classList.add("btn-close");
+    modalHeaderBtn.setAttribute("type", "button");
+    modalHeaderBtn.setAttribute("data-bs-dismiss", "modal");
+    modalHeaderBtn.setAttribute("aria-label", "Close");
+    modalBodyContainerDiv.classList.add("modal-body");
+    modalBodySectionTitle.setAttribute("class", bodySectionsClasses);
+    modalBodySectionTitleLabel.classList.add("modal-label");
+    modalBodySectionTitleLabel.setAttribute("for", "title-event");
+    modalBodySectionTitleInput.classList.add("modal-input");
+    modalBodySectionTitleInput.setAttribute("id", "title-event");
+    modalBodySectionTitleInput.setAttribute("type", "text");
+    modalBodySectionTitleInput.setAttribute("name", "title");
+    modalBodySectionIDate.setAttribute("class", bodySectionsClasses);
+    modalBodySectionIDateLabel.classList.add("modal-label");
+    modalBodySectionIDateLabel.setAttribute("for", "init-date");
+    modalBodySectionIDateInput.classList.add("modal-input");
+    modalBodySectionIDateInput.setAttribute("id", "init-date");
+    modalBodySectionIDateInput.setAttribute("type", "date");
+    modalBodySectionIDateInput.setAttribute("name", "appt-date");
+    modalBodySectionIDateInput.setAttribute("value", "2017-06-01");
+    modalBodySectionITime.setAttribute("class", bodySectionsClasses);
+    modalBodySectionITimeLabel.classList.add("modal-label");
+    modalBodySectionITimeLabel.setAttribute("for", "init-time");
+    modalBodySectionITimeInput.classList.add("modal-input");
+    modalBodySectionITimeInput.setAttribute("id", "init-time");
+    modalBodySectionITimeInput.setAttribute("type", "time");
+    modalBodySectionITimeInput.setAttribute("name", "appt-time");
+    modalBodySectionITimeInput.setAttribute("value", "13:30");
+    modalBodySectionEDate.setAttribute("class", bodySectionsClasses);
+    modalBodySectionCheckEDateLabel.classList.add("modal-label");
+    modalBodySectionCheckEDateLabel.setAttribute("for", "check-end-date");
+    modalBodySectionCheckEDateInput.classList.add("modal-input-checkbox");
+    modalBodySectionCheckEDateInput.setAttribute("type", "checkbox");
+    modalBodySectionCheckEDateInput.setAttribute("id", "check-end-date");
+    modalBodySectionEDateLabel.classList.add("modal-label");
+    modalBodySectionEDateLabel.setAttribute("for", "end-date");
+    modalBodySectionEDateInput.classList.add("modal-input");
+    modalBodySectionEDateInput.setAttribute("type", "date");
+    modalBodySectionEDateInput.setAttribute("id", "end-date");
+    modalBodySectionEDateInput.setAttribute("name", "end-date");
+    modalBodySectionEDateInput.setAttribute("value", "2017-06-01");
+    modalBodySectionETimeLabel.classList.add("modal-label");
+    modalBodySectionETimeLabel.setAttribute("for", "end-time");
+    modalBodySectionETimeInput.classList.add("modal-input");
+    modalBodySectionETimeInput.setAttribute("id", "end-time");
+    modalBodySectionETimeInput.setAttribute("type", "time");
+    modalBodySectionETimeInput.setAttribute("name", "end-time");
+    modalBodySectionETimeInput.setAttribute("value", "13:30");
+    modalBodySectionReminder.setAttribute("class", bodySectionsClasses);
+    modalBodySectionReminderLabel.classList.add("modal-label");
+    modalBodySectionReminderLabel.setAttribute("for", "check-end-of-event");
+    modalBodySectionReminderInput.classList.add("modal-input-checkbox");
+    modalBodySectionReminderInput.setAttribute("type", "checkbox");
+    modalBodySectionReminderInput.setAttribute("id", "check-end-of-event")
+    modalBodySectionReminderSelectTime.setAttribute("class", "modal-input select-arrow-styles select-hide-arrow");
+    modalBodySectionReminderSelectTime.setAttribute("id", "type-of-time");
+    modalBodySectionReminderSelectTime.setAttribute("name", "time-option");
+    modalBodySectionReminderSelectTime.setAttribute("value", "default");
+    modalBodySectionReminderSelectTime.setAttribute("required", "true");
+    modalBodySectionReminderOptionTime1.setAttribute("value", "default");
+    modalBodySectionReminderOptionTime1.setAttribute("selected", "true");
+    modalBodySectionReminderOptionTime1.setAttribute("disabled", "true");
+    modalBodySectionReminderOptionTime2.setAttribute("value", "five");
+    modalBodySectionReminderOptionTime3.setAttribute("value", "ten");
+    modalBodySectionReminderOptionTime4.setAttribute("value", "fifteen");
+    modalBodySectionReminderOptionTime5.setAttribute("value", "thirty");
+    modalBodySectionReminderOptionTime6.setAttribute("value", "one hour");
+    modalBodySectionReminderDescriptionLabel.classList.add("modal-label");
+    modalBodySectionReminderDescriptionLabel.setAttribute("for", "text-area-modal");
+    modalBodySectionReminderDescriptionTextArea.setAttribute("class", "modal-input mb-2");
+    modalBodySectionReminderDescriptionTextArea.setAttribute("id", "text-area-modal");
+    modalBodySectionReminderDescriptionTextArea.setAttribute("maxlength", "500");
+    modalBodySectionReminderDescriptionTextArea.setAttribute("rows", "4");
+    modalBodySectionReminderDescriptionTextArea.setAttribute("cols", "35");
+    modalBodySectionReminderSelectType.setAttribute("class", "modal-input select-arrow-styles select-hide-arrow");
+    modalBodySectionReminderSelectType.setAttribute("id", "type-of-date");
+    modalBodySectionReminderSelectType.setAttribute("name", "date-option");
+    modalBodySectionReminderSelectType.setAttribute("value", "default");
+    modalBodySectionReminderSelectType.setAttribute("required", "true");
+    modalBodySectionReminderOptionType1.setAttribute("value", "default");
+    modalBodySectionReminderOptionType1.setAttribute("selected", "true");
+    modalBodySectionReminderOptionType1.setAttribute("disabled", "true");
+    modalBodySectionReminderOptionType2.setAttribute("value", "meeting");
+    modalBodySectionReminderOptionType3.setAttribute("value", "personal");
+    modalBodySectionReminderOptionType4.setAttribute("value", "study");
+    modalBodySectionReminderOptionType5.setAttribute("value", "sports");
+    modalFooterContainerDiv.classList.add("modal-footer", "d-flex");
+    modalFooterCloseBtn.setAttribute("class", "btn btn-danger w-50 p-2 modal-close_btn");
+    modalFooterCloseBtn.setAttribute("type", "button");
+    modalFooterCloseBtn.setAttribute("data-bs-dismiss", "modal");
+    modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save-btn");
+    modalFooterSaveBtn.setAttribute("type", "button");
+
+
+
+
+    main.appendChild(modalSectionContainer);
+    modalSectionContainer.appendChild(modalFormContainer);
+    modalFormContainer.appendChild(modalDivContainer);
+    modalDivContainer.appendChild(modalHeaderContainerDiv);
+    modalHeaderContainerDiv.appendChild(modalHeaderTitleH4);
+    modalHeaderContainerDiv.appendChild(modalHeaderBtn);
+    modalDivContainer.appendChild(modalBodyContainerDiv);
+    modalBodyContainerDiv.appendChild(modalBodySectionTitle);
+    modalBodySectionTitle.appendChild(modalBodySectionTitleLabel);
+    modalBodySectionTitle.appendChild(modalBodySectionTitleInput);
+    modalBodyContainerDiv.appendChild(modalBodySectionIDate);
+    modalBodySectionIDate.appendChild(modalBodySectionIDateLabel);
+    modalBodySectionIDate.appendChild(modalBodySectionIDateInput);
+    modalBodyContainerDiv.appendChild(modalBodySectionITime);
+    modalBodySectionITime.appendChild(modalBodySectionITimeLabel);
+    modalBodySectionITime.appendChild(modalBodySectionITimeInput);
+    modalBodyContainerDiv.appendChild(modalBodySectionEDate);
+    modalBodySectionEDate.appendChild(modalBodySectionCheckEDateLabel);
+    modalBodySectionCheckEDateLabel.appendChild(modalBodySectionCheckEDateInput);
+    modalBodySectionEDate.appendChild(modalBodySectionEDateLabel);
+    modalBodySectionEDate.appendChild(modalBodySectionEDateInput);
+    modalBodySectionEDate.appendChild(modalBodySectionETimeLabel);
+    modalBodySectionEDate.appendChild(modalBodySectionETimeInput);
+    modalBodyContainerDiv.appendChild(modalBodySectionReminder);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderLabel);
+    modalBodySectionReminderLabel.appendChild(modalBodySectionReminderInput);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderLegend);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderSelectTime);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime1);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime2);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime3);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime4);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime5);
+    modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime6);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionLabel);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionTextArea);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderSelectType);
+    modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType1);
+    modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType2);
+    modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType3);
+    modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType4);
+    modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType5);
+    modalDivContainer.appendChild(modalFooterContainerDiv);
+    modalFooterContainerDiv.appendChild(modalFooterCloseBtn);
+    modalFooterContainerDiv.appendChild(modalFooterSaveBtn);
+
+
+    modalHeaderTitleH4.innerText = "New Event";
+    modalBodySectionTitleLabel.innerText = "Title";
+    modalBodySectionIDateLabel.innerText = "Initial date";
+    modalBodySectionITimeLabel.innerText = "Initial time";
+    modalBodySectionCheckEDateLabel.innerHTML += " End date event"; //After input child
+    modalBodySectionEDateLabel.innerText = "End date";
+    modalBodySectionETimeLabel.innerText = "End time";
+    modalBodySectionReminderLabel.innerHTML += " Remind me when this event expires";
+    modalBodySectionReminderLegend.innerText = "Time";
+    modalBodySectionReminderOptionTime1.innerText = "Choose time";
+    modalBodySectionReminderOptionTime2.innerText = "5 minutes";
+    modalBodySectionReminderOptionTime3.innerText = "10 minutes";
+    modalBodySectionReminderOptionTime4.innerText = "15 minutes";
+    modalBodySectionReminderOptionTime5.innerText = "30 minutes";
+    modalBodySectionReminderOptionTime6.innerText = "1 hour";
+    modalBodySectionReminderDescriptionLabel.innerText = "Description";
+    modalBodySectionReminderOptionType1.innerText = "Choose Type";
+    modalBodySectionReminderOptionType2.innerText = "Meeting";
+    modalBodySectionReminderOptionType3.innerText = "Personal";
+    modalBodySectionReminderOptionType4.innerText = "Study";
+    modalBodySectionReminderOptionType5.innerText = "Sports";
+    modalFooterCloseBtn.innerText = "Close";
+    modalFooterSaveBtn.innerText = "Save changes";
+
 }
