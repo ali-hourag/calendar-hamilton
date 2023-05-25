@@ -1,45 +1,4 @@
 /*----Modal Styles----*/
-.section-modal-container {
-    height: 75vh;
-    margin-top: 3rem;
-}
-
-.btn-close-bottom {
-    width: 45%;
-    background-color: steelblue;
-    border: none;
-    font-size: 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-}
-
-.btn-close-bottom:hover {
-    cursor: pointer;
-    background-color: black;
-    color: steelblue
-}
-
-.btn-save-bottom {
-    width: 45%;
-    background-color: rgb(111, 151, 71);
-    border: none;
-    font-size: 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-}
-
-.btn-save-bottom:hover {
-    cursor: pointer;
-    background-color: black;
-    color: rgb(111, 151, 71);
-}
-
 
 .modal-title {
     margin-top: 10px;
@@ -104,6 +63,7 @@
     background-color: #274355;
 }
 
+/*----Styles for select element to change arrow appearance----*/
 .select-hide-arrow {
     -moz-appearance: none;
     text-indent: 0.01px;
@@ -148,4 +108,47 @@
     background-repeat: no-repeat;
     border-color: green;
     outline: 0;
+}
+
+/*----Styles for cancel and save button*/
+
+.modal-container_section {
+    height: 75vh;
+    margin-top: 3rem;
+}
+
+.modal-close_btn {
+    width: 45%;
+    background-color: steelblue;
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.modal-close_btn:hover {
+    cursor: pointer;
+    background-color: black;
+    color: steelblue
+}
+
+.modal-save-btn {
+    width: 45%;
+    background-color: rgb(111, 151, 71);
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.modal-save-btn:hover {
+    cursor: pointer;
+    background-color: black;
+    color: rgb(111, 151, 71);
 }

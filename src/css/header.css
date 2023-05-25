@@ -10,7 +10,7 @@
 }
 
 /*----year date in the middle----*/
-.current-year {
+.header-year_h1 {
     justify-self: center;
     align-self: center;
     font-weight: bold;
@@ -20,7 +20,7 @@
 }
 
 /*----Btn to create new event----*/
-.new-event-btn {
+.header-new-event_btn {
     align-self: center;
     justify-self: center;
     background-color: rgb(2, 68, 57);
@@ -30,18 +30,18 @@
     height: 2.7rem;
 }
 
-.new-event-btn:hover {
+.header-new-event_btn:hover {
     background-color: rgb(1, 39, 33);
     color: white;
 }
 
 /*----empty div on the right sot hat we can center the date----*/
-.empty-div {
+.header-empty_div {
     width: 30px;
 }
 
 /*----Button styles to collapse history of events section----*/
-.burger-btn-history {
+.header-burger-history_btn {
     display: none;
     width: 30px;
     height: 30px;
@@ -51,14 +51,14 @@
     background-color: transparent;
 }
 
-.burger-btn-container {
+.header-burger-container_btn {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.burger-btn-span {
+.header-burger-content_span {
     width: 80%;
     height: 3px;
     margin: 2px;

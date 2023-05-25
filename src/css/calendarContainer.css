@@ -24,7 +24,7 @@
 }
 
 /*----styles for the aside that shows history of events----*/
-.history-events-container {
+.history-events-container_aside {
     grid-column: 1/2;
     grid-row: 1/7;
     background-color: rgb(2, 68, 57);
@@ -42,7 +42,7 @@
 }
 
 /*----styles for the aside that shows days of the week----*/
-.days-of-week {
+.days-of-week-container_aside {
     grid-column: 2/9;
     grid-row: 1/2;
     background-color: rgb(2, 68, 57);
@@ -58,17 +58,17 @@
     -o-border-radius: 10px;
 }
 
-.day-of-week {
+.day-of-week_h4 {
     text-align: center;
     border-right: 1px solid #000000;
 }
 
-.day-of-week:last-child {
+.day-of-week_h4:last-child {
     border-right: none;
 }
 
 /*----styles for the div that contains the entry of each day----*/
-.days-month-container {
+.days-month-container_section {
     grid-column: 2/9;
     grid-row: 2/7;
     background-color: rgb(9, 138, 116);
@@ -80,12 +80,11 @@
     margin-top: 10px;
 }
 
-.entry-day-calendar {
+.entry-day-calendar_div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     background-color: white;
     border-radius: 5px;
+    width: 100%;
     border: 1px solid black;
     -webkit-box-shadow: 1px 10px 17px 0px rgba(0, 0, 0, 1);
     -moz-box-shadow: 1px 10px 17px 0px rgba(0, 0, 0, 1);
@@ -102,7 +101,7 @@
     -o-transition: all .8s ease;
 }
 
-.entry-day-calendar:hover {
+.entry-day-calendar_div:hover {
     transform: scale(1.3);
     -webkit-transform: scale(1.3);
     -moz-transform: scale(1.3);
@@ -111,14 +110,24 @@
     cursor: pointer;
 }
 
-.day-number-calendar {
+.entry-day-info-number_p {
     padding-left: 4px;
     padding-top: 2px;
     color: rgb(2, 68, 57);
+    width: 50%;
 }
 
-.add-event-calendar {
+.entry-day-info-add_span {
+    text-align: right;
     padding-right: 4px;
     padding-top: 2px;
     color: black;
+    width: 50%;
+}
+
+.entry-day-info_div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 30%;
 }

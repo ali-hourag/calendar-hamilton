@@ -14,25 +14,25 @@
 }
 
 /*----styles for div to go backwards or upwards on the year "<" and ">" symbols----*/
-.topbar-next-year,
-.topbar-previous-year {
+.topbar-next-year_div,
+.topbar-previous-year_div {
     width: 5vw;
 }
 
-.topbar-next-year:hover,
-.topbar-previous-year:hover {
+.topbar-next-year_div:hover,
+.topbar-previous-year_div:hover {
     cursor: pointer;
     background-color: rgb(1, 39, 33);
 }
 
 /*----styles for the month container----*/
-.months-container {
+.topbar-months-container {
     width: 90vw;
     box-sizing: border-box;
 }
 
-/*----styles for each month inside the months-container----*/
-.topbar-month {
+/*----styles for each month inside the topbar-months-container----*/
+.topbar-month_div {
     display: flex;
     padding: 0 0;
     background-color: transparent;
@@ -40,13 +40,13 @@
     width: 7.5vw;
 }
 
-.input-topbar-months {
+.topbar-month_input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.label-topbar-months {
+.topbar-month_label {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,12 +56,12 @@
     font-weight: bold;
 }
 
-.label-topbar-months:hover {
+.topbar-month_label:hover {
     cursor: pointer;
     background-color: rgb(1, 39, 33);
 }
 
-.input-topbar-months:checked+label {
+.topbar-month_input:checked+label {
     background-color: lightgreen;
     color: black;
 }
