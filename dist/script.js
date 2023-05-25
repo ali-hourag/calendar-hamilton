@@ -1,6 +1,6 @@
-"use strict";
-const a = 2;
-if (a == 2) {
-    console.log("hola");
+import { validateNewEvent } from "./utils.js";
+window.addEventListener("load", loadPage);
+function loadPage() {
+    validateNewEvent();
 }
 //# sourceMappingURL=script.js.map

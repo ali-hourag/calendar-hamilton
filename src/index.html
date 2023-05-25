@@ -200,7 +200,7 @@
         <!-- Modal -->
         <section class="modal-container_section modal fade" id="modal-new-event" role="document" tabindex="-1"
             aria-labelledby="modal-label-event" aria-hidden="true">
-            <form class="modal-dialog modal-dialog-scrollable modal-dialog-centered fs-3">
+            <form class="modal-dialog modal-dialog-scrollable modal-dialog-centered fs-3" id="modal-form">
                 <div class="modal-content modal-height">
                     <div class="modal-header">
                         <h2 class="modal-title" id="modal-label-event">New Event</h2>
@@ -213,11 +213,11 @@
                         </section>
                         <section class="d-flex justify-content-between mb-2 modal-sections">
                             <label class="modal-label" for="init-date">Initial date</label>
-                            <input class="modal-input" type="date" id="init-date" name="appt-date" value="2017-06-01" />
+                            <input class="modal-input" type="date" id="init-date" name="appt-date" value="" />
                         </section>
                         <section class="d-flex justify-content-between mb-2 modal-sections">
                             <label class="modal-label" for="init-time">Initial time</label>
-                            <input class="modal-input" id="appt-time" type="time" name="appt-time" value="13:30" />
+                            <input class="modal-input" id="appt-time" type="time" name="appt-time" value="" />
                         </section>
                         <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
 
@@ -226,10 +226,13 @@
                                 End date event
                             </label>
 
-                            <label class="modal-label" for="end-date">End date</label>
-                            <input class="modal-input" type="date" id="end-date" name="end-date" value="2017-06-01" />
-                            <label class="modal-label" for="end-time">End time</label>
-                            <input class="modal-input" id="end-time" type="time" name="end-time" value="13:30" />
+                            <div class="modal-div flex-column justify-content-between mb-2 modal-sections" id="end-date-container">
+                                <label class="modal-label" for="end-date">End date</label>
+                                <input class="modal-input" type="date" id="end-date" name="end-date"
+                                    value="" />
+                                <label class="modal-label" for="end-time">End time</label>
+                                <input class="modal-input" id="end-time" type="time" name="end-time" value="" />
+                            </div>
                         </section>
                         <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
                             <label class="modal-label" for="check-end-of-event">
@@ -237,6 +240,7 @@
                                 Remind me when this event expires
                             </label>
 
+                            <div class="modal-div flex-column justify-content-between mb-2 modal-sections" id="end-time-container">
                             <legend>Time</legend>
                             <select class="modal-input select-arrow-styles select-hide-arrow" id="type-of-time"
                                 name="time-option" value="default" required>
@@ -247,9 +251,10 @@
                                 <option value="thirty">30 minute</option>
                                 <option value="hour">1 hour</option>
                             </select>
+                        
 
                             <label class="modal-label" for="Description">Description</label>
-                            <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4"
+                            <textarea class="modal-input mb-2" id="text-area-modal" rows="4"
                                 cols="35"></textarea>
 
                             <select class="modal-input select-arrow-styles select-hide-arrow" id="type-of-date"
@@ -260,12 +265,13 @@
                                 <option value="study">Study</option>
                                 <option value="sports">Sports</option>
                             </select>
+                        </div>
                         </section>
                     </div>
                     <div class="modal-footer d-flex">
                         <button type="button" class="btn btn-danger w-50 p-2 modal-close_btn"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success flex-grow-1 p-2 modal-save-btn">Save
+                        <button type="submit" class="btn btn-success flex-grow-1 p-2 modal-save-btn">Save
                             changes</button>
                     </div>
                 </div>
