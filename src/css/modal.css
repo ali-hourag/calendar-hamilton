@@ -1,0 +1,154 @@
+/*----Modal Styles----*/
+
+.modal-title {
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 2.3rem;
+    color: #274355;
+    letter-spacing: 1px;
+}
+
+.modal-sections {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.modal-label {
+    margin-bottom: 4px;
+}
+
+.modal-body {
+    color: black;
+}
+
+.modal-label:nth-of-type(2) {
+    margin-top: 12px;
+}
+
+.modal-input::placeholder {
+    color: gray;
+}
+
+.modal-input {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+.modal-input-checkbox {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 15px;
+    border: 1px solid;
+    border-radius: 15px;
+    appearance: none;
+}
+
+.modal-input-checkbox:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+}
+
+.modal-input-checkbox:checked {
+    background-color: #274355;
+}
+
+/*----Styles for select element to change arrow appearance----*/
+.select-hide-arrow {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    color: black;
+    background: white;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
+.select-arrow-styles {
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        radial-gradient(#ddd 70%, transparent 72%);
+    background-position:
+        calc(100% - 20px) calc(1em + 10px),
+        calc(100% - 15px) calc(1em + 10px),
+        calc(99.4% - .5em) 1em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1.5em 1.5em;
+    background-repeat: no-repeat;
+}
+
+.select-arrow-styles:focus {
+    background-image:
+        linear-gradient(45deg, white 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, white 50%),
+        radial-gradient(gray 70%, transparent 72%);
+    background-position:
+        calc(100% - 15px) 1.5em,
+        calc(100% - 20px) 1.5em,
+        calc(99.4% - .5em) 1em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1.5em 1.5em;
+    background-repeat: no-repeat;
+    border-color: green;
+    outline: 0;
+}
+
+/*----Styles for cancel and save button*/
+
+.modal-container_section {
+    height: 75vh;
+    margin-top: 3rem;
+}
+
+.modal-close_btn {
+    width: 45%;
+    background-color: steelblue;
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.modal-close_btn:hover {
+    cursor: pointer;
+    background-color: black;
+    color: steelblue
+}
+
+.modal-save-btn {
+    width: 45%;
+    background-color: rgb(111, 151, 71);
+    border: none;
+    font-size: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.modal-save-btn:hover {
+    cursor: pointer;
+    background-color: black;
+    color: rgb(111, 151, 71);
+}

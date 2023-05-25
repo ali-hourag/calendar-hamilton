@@ -1,0 +1,149 @@
+/*---STYLES TO ENHANCE RESPONSIVENESS OF THE PAGE*/
+
+
+/*Styles for when the page is < 1290px*/
+@media only screen and (max-width: 1290px) {
+    .topbar-month_label {
+        font-size: .8rem;
+    }
+}
+
+
+/*Styles for when the page is < 1070px*/
+@media only screen and (max-width: 1070px) {
+    .topbar-months-container {
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+    }
+
+    .topbar-month_div {
+        min-width: 100px;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(1, 39, 33);
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+    }
+
+}
+
+
+
+@media only screen and (max-height: 900px) {
+    .header-new-event_btn {
+        height: 2.5rem;
+    }
+}
+
+@media only screen and (max-height: 800px) {
+    .header-new-event_btn {
+        height: 2rem;
+    }
+
+}
+
+/*Styles for when the page is < 750px*/
+@media only screen and (max-width: 750px) {
+    .header-burger-history_btn {
+        display: inline-block;
+        justify-self: right;
+        align-self: center;
+    }
+
+    .header-new-event_btn {
+        justify-self: left;
+        margin-left: 1rem;
+    }
+
+    .header-empty_div {
+        display: none;
+    }
+
+    .topbar-next-year_div,
+    .topbar-previous-year_div {
+        width: 10vw;
+    }
+
+    .topbar-months-container {
+        width: 80vw;
+    }
+
+    .days-of-week-container_aside {
+        display: none;
+    }
+
+    .history-events-container_aside {
+        z-index: 1;
+        grid-column: 1/9;
+        width: 100%;
+    }
+
+    .days-month-container_section {
+        grid-column: 1/9;
+        grid-row: 1/7;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        height: 75vh;
+        overflow-y: scroll;
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .entry-day-calendar_div {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    .entry-day-calendar_div:hover {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        cursor: pointer;
+    }
+
+    .select-arrow-styles {
+        background-position:
+            calc(100.2% - 20px) calc(1em + 10px),
+            calc(100.2% - 15px) calc(1em + 10px),
+            calc(99.4% - .5em) 1em;
+    }
+
+    .select-arrow-styles:focus {
+        background-position:
+            calc(100.2% - 15px) 1.5em,
+            calc(100.2% - 20px) 1.5em,
+            calc(99.4% - .5em) 1em;
+    }
+
+}
+
+@media only screen and (max-height: 710px) {
+    .header-new-event_btn {
+        height: 1.7rem;
+    }
+
+    .header-burger-history_btn {
+        height: 1.7rem;
+    }
+
+    .header-year_h1 {
+        font-size: 1.2rem;
+    }
+}
