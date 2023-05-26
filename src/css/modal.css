@@ -152,9 +152,3 @@
     background-color: black;
     color: rgb(111, 151, 71);
 }
-
-/* Styles toggle modal sections*/
-
-.modal-div {
-    display: none;
-}
