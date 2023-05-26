@@ -179,6 +179,7 @@ function setModal(): void {
     const modalBodySectionEDate: (HTMLElement) = document.createElement("section");
     const modalBodySectionCheckEDateLabel: (HTMLLabelElement) = document.createElement("label");
     const modalBodySectionCheckEDateInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionEDateEndDiv: (HTMLDivElement) = document.createElement("div");
     const modalBodySectionEDateLabel: (HTMLLabelElement) = document.createElement("label");
     const modalBodySectionEDateInput: (HTMLInputElement) = document.createElement("input");
     const modalBodySectionETimeLabel: (HTMLLabelElement) = document.createElement("label");
@@ -186,6 +187,7 @@ function setModal(): void {
     const modalBodySectionReminder: (HTMLElement) = document.createElement("section");
     const modalBodySectionReminderLabel: (HTMLLabelElement) = document.createElement("label");
     const modalBodySectionReminderInput: (HTMLInputElement) = document.createElement("input");
+    const modalBodySectionReminderContainerDiv: (HTMLDivElement) = document.createElement("div");
     const modalBodySectionReminderLegend: (HTMLLegendElement) = document.createElement("legend");
     const modalBodySectionReminderSelectTime: (HTMLSelectElement) = document.createElement("select");
     const modalBodySectionReminderOptionTime1: (HTMLOptionElement) = document.createElement("option");
@@ -255,6 +257,8 @@ function setModal(): void {
     modalBodySectionCheckEDateInput.classList.add("modal-input-checkbox");
     modalBodySectionCheckEDateInput.setAttribute("type", "checkbox");
     modalBodySectionCheckEDateInput.setAttribute("id", "check-end-date");
+    modalBodySectionEDateEndDiv.setAttribute("class", "modal-div flex-column justify-content-between mb-2 modal-sections");
+    modalBodySectionEDateEndDiv.setAttribute("id", "end-date-container");
     modalBodySectionEDateLabel.classList.add("modal-label");
     modalBodySectionEDateLabel.setAttribute("for", "end-date");
     modalBodySectionEDateInput.classList.add("modal-input");
@@ -275,6 +279,8 @@ function setModal(): void {
     modalBodySectionReminderInput.classList.add("modal-input-checkbox");
     modalBodySectionReminderInput.setAttribute("type", "checkbox");
     modalBodySectionReminderInput.setAttribute("id", "check-end-of-event")
+    modalBodySectionReminderContainerDiv.setAttribute("class", "modal-div flex-column justify-content-between mb-2 modal-sections");
+    modalBodySectionReminderContainerDiv.setAttribute("id", "end-time-container");
     modalBodySectionReminderSelectTime.setAttribute("class", "modal-input select-arrow-styles select-hide-arrow");
     modalBodySectionReminderSelectTime.setAttribute("id", "type-of-time");
     modalBodySectionReminderSelectTime.setAttribute("name", "time-option");
@@ -312,7 +318,7 @@ function setModal(): void {
     modalFooterCloseBtn.setAttribute("type", "button");
     modalFooterCloseBtn.setAttribute("data-bs-dismiss", "modal");
     modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save-btn");
-    modalFooterSaveBtn.setAttribute("type", "button");
+    modalFooterSaveBtn.setAttribute("type", "submit");
 
 
 
@@ -336,24 +342,26 @@ function setModal(): void {
     modalBodyContainerDiv.appendChild(modalBodySectionEDate);
     modalBodySectionEDate.appendChild(modalBodySectionCheckEDateLabel);
     modalBodySectionCheckEDateLabel.appendChild(modalBodySectionCheckEDateInput);
-    modalBodySectionEDate.appendChild(modalBodySectionEDateLabel);
-    modalBodySectionEDate.appendChild(modalBodySectionEDateInput);
-    modalBodySectionEDate.appendChild(modalBodySectionETimeLabel);
-    modalBodySectionEDate.appendChild(modalBodySectionETimeInput);
+    modalBodySectionEDate.appendChild(modalBodySectionEDateEndDiv);
+    modalBodySectionEDateEndDiv.appendChild(modalBodySectionEDateLabel);
+    modalBodySectionEDateEndDiv.appendChild(modalBodySectionEDateInput);
+    modalBodySectionEDateEndDiv.appendChild(modalBodySectionETimeLabel);
+    modalBodySectionEDateEndDiv.appendChild(modalBodySectionETimeInput);
     modalBodyContainerDiv.appendChild(modalBodySectionReminder);
     modalBodySectionReminder.appendChild(modalBodySectionReminderLabel);
     modalBodySectionReminderLabel.appendChild(modalBodySectionReminderInput);
-    modalBodySectionReminder.appendChild(modalBodySectionReminderLegend);
-    modalBodySectionReminder.appendChild(modalBodySectionReminderSelectTime);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderContainerDiv);
+    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderLegend);
+    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderSelectTime);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime1);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime2);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime3);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime4);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime5);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime6);
-    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionLabel);
-    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionTextArea);
-    modalBodySectionReminder.appendChild(modalBodySectionReminderSelectType);
+    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderDescriptionLabel);
+    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderDescriptionTextArea);
+    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderSelectType);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType1);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType2);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType3);

@@ -220,18 +220,21 @@
                                 <input class="modal-input-checkbox" type="checkbox" id="check-end-date" />
                                 End date event
                             </label>
-
+                        <div class="modal-div flex-column justify-content-between mb-2 modal-sections"
+                                id="end-date-container">
                             <label class="modal-label" for="end-date">End date</label>
                             <input class="modal-input" type="date" id="end-date" name="end-date" value="2017-06-01" />
                             <label class="modal-label" for="end-time">End time</label>
                             <input class="modal-input" id="end-time" type="time" name="end-time" value="13:30" />
+                        </div>    
                         </section>
                         <section class="d-flex flex-column justify-content-between mb-2 modal-sections">
                             <label class="modal-label" for="check-end-of-event">
                                 <input class="modal-input-checkbox" type="checkbox" id="check-end-of-event" />
                                 Remind me when this event expires
                             </label>
-
+                        <div class="modal-div flex-column justify-content-between mb-2 modal-sections"
+                                id="end-time-container">
                             <legend>Time</legend>
                             <select class="modal-input select-arrow-styles select-hide-arrow" id="type-of-time"
                                 name="time-option" value="default" required>
@@ -255,12 +258,13 @@
                                 <option value="study">Study</option>
                                 <option value="sports">Sports</option>
                             </select>
+                        </div>    
                         </section>
                     </div>
                     <div class="modal-footer d-flex">
                         <button type="button" class="btn btn-danger w-50 p-2 modal-close_btn"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success flex-grow-1 p-2 modal-save-btn">Save
+                        <button type="submit" class="btn btn-success flex-grow-1 p-2 modal-save-btn">Save
                             changes</button>
                     </div>
                 </div>
