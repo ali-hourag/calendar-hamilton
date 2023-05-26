@@ -219,6 +219,7 @@ function setModal(): void {
     modalSectionContainer.setAttribute("aria-labelledby", "modal-label-event");
     modalSectionContainer.setAttribute("aria-hidden", "true");
     modalFormContainer.classList.add("modal-dialog", "modal-dialog-scrollable", "modal-dialog-centered", "fs-3");
+    modalFormContainer.setAttribute("id", "modal-form");
     modalDivContainer.classList.add("modal-content", "modal-height");
     modalHeaderContainerDiv.classList.add("modal-header");
     modalHeaderTitleH4.classList.add("modal-title");
@@ -242,7 +243,6 @@ function setModal(): void {
     modalBodySectionIDateInput.setAttribute("id", "init-date");
     modalBodySectionIDateInput.setAttribute("type", "date");
     modalBodySectionIDateInput.setAttribute("name", "appt-date");
-    modalBodySectionIDateInput.setAttribute("value", "2017-06-01");
     modalBodySectionITime.setAttribute("class", bodySectionsClasses1);
     modalBodySectionITimeLabel.classList.add("modal-label");
     modalBodySectionITimeLabel.setAttribute("for", "init-time");
@@ -250,7 +250,6 @@ function setModal(): void {
     modalBodySectionITimeInput.setAttribute("id", "init-time");
     modalBodySectionITimeInput.setAttribute("type", "time");
     modalBodySectionITimeInput.setAttribute("name", "appt-time");
-    modalBodySectionITimeInput.setAttribute("value", "13:30");
     modalBodySectionEDate.setAttribute("class", bodySectionsClasses2);
     modalBodySectionCheckEDateLabel.classList.add("modal-label");
     modalBodySectionCheckEDateLabel.setAttribute("for", "check-end-date");
@@ -265,22 +264,20 @@ function setModal(): void {
     modalBodySectionEDateInput.setAttribute("type", "date");
     modalBodySectionEDateInput.setAttribute("id", "end-date");
     modalBodySectionEDateInput.setAttribute("name", "end-date");
-    modalBodySectionEDateInput.setAttribute("value", "2017-06-01");
     modalBodySectionETimeLabel.classList.add("modal-label");
     modalBodySectionETimeLabel.setAttribute("for", "end-time");
     modalBodySectionETimeInput.classList.add("modal-input");
     modalBodySectionETimeInput.setAttribute("id", "end-time");
     modalBodySectionETimeInput.setAttribute("type", "time");
     modalBodySectionETimeInput.setAttribute("name", "end-time");
-    modalBodySectionETimeInput.setAttribute("value", "13:30");
     modalBodySectionReminder.setAttribute("class", bodySectionsClasses2);
     modalBodySectionReminderLabel.classList.add("modal-label");
-    modalBodySectionReminderLabel.setAttribute("for", "check-end-of-event");
+    modalBodySectionReminderLabel.setAttribute("for", "check-reminder-event");
     modalBodySectionReminderInput.classList.add("modal-input-checkbox");
     modalBodySectionReminderInput.setAttribute("type", "checkbox");
-    modalBodySectionReminderInput.setAttribute("id", "check-end-of-event")
+    modalBodySectionReminderInput.setAttribute("id", "check-reminder-event")
     modalBodySectionReminderContainerDiv.setAttribute("class", "modal-div flex-column justify-content-between mb-2 modal-sections");
-    modalBodySectionReminderContainerDiv.setAttribute("id", "end-time-container");
+    modalBodySectionReminderContainerDiv.setAttribute("id", "reminder-container");
     modalBodySectionReminderSelectTime.setAttribute("class", "modal-input select-arrow-styles select-hide-arrow");
     modalBodySectionReminderSelectTime.setAttribute("id", "type-of-time");
     modalBodySectionReminderSelectTime.setAttribute("name", "time-option");
