@@ -158,7 +158,7 @@ function checkValidEndTime() {
     endTimeInput.classList.remove("invalid-input-modal");
     if (endTimeInput.value.trim() !== "" && endDateInput.value === modalInitialDate.value) {
         if (!checkLastTime(endTimeInput.value, modalInitialTime.value) || endTimeInput.value === modalInitialTime.value) {
-            endDateInput.classList.add("invalid-input-modal");
+            endTimeInput.classList.add("invalid-input-modal");
             endTimeInput.value = "";
         }
     }
