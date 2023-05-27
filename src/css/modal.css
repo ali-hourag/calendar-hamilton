@@ -110,6 +110,10 @@
     outline: 0;
 }
 
+#type-of-time:disabled {
+    opacity: .3;
+}
+
 /*----Styles for cancel and save button*/
 
 .modal-container_section {
@@ -153,7 +157,7 @@
     color: rgb(111, 151, 71);
 }
 
-.invalid-input-modal{
+.invalid-input-modal {
     border-color: red;
 }
 

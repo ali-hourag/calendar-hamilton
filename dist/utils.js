@@ -5,6 +5,7 @@ export function checkModalValidity() {
     const modalForm = document.querySelector("#modal-form");
     const modalCheckEndDate = document.querySelector("#check-end-date");
     const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
+    const date = new Date();
     if (modalTitleEvent === null)
         return;
     if (modalInitialDate === null)
@@ -17,6 +18,8 @@ export function checkModalValidity() {
         return;
     if (modalCheckReminderEvent === null)
         return;
+    modalInitialDate.value = getCurrentFormattedDate();
+    modalInitialTime.value = getCurrentFormattedTime();
     modalTitleEvent.addEventListener("focusout", checkModalInputValidity);
     modalInitialDate.addEventListener("focusout", checkModalInputValidity);
     modalInitialTime.addEventListener("focusout", checkModalInputValidity);
@@ -35,12 +38,44 @@ function checkModalInputValidity() {
     else {
         this.classList.remove("invalid-input-modal");
     }
-    if (this.getAttribute("id") === "end-date")
-        checkValidEndDate();
-    else if (this.getAttribute("id") === "end-time")
+    if (this.getAttribute("id") === "init-time") {
+        checkValidInitialTime();
         checkValidEndTime();
-    if (this.getAttribute("id") === "type-of-time")
+        checkReminderValidity();
+    }
+    else if (this.getAttribute("id") === "init-date") {
+        checkValidInitialDate();
+        checkValidEndDate();
+        checkReminderValidity();
+    }
+    else if (this.getAttribute("id") === "end-date") {
+        checkValidEndDate();
+        checkReminderValidity();
+    }
+    else if (this.getAttribute("id") === "end-time") {
+        checkValidEndTime();
+        checkReminderValidity();
+    }
+    else if (this.getAttribute("id") === "type-of-time")
         checkValidTimeSelect();
+}
+function checkValidInitialTime() {
+    const modalInitialTime = document.querySelector("#init-time");
+    if (modalInitialTime === null)
+        return;
+    const date = new Date();
+    if (modalInitialTime.value.trim() === "") {
+        modalInitialTime.value = getCurrentFormattedTime();
+    }
+}
+function checkValidInitialDate() {
+    const modalInitialDate = document.querySelector("#init-date");
+    if (modalInitialDate === null)
+        return;
+    const date = new Date();
+    if (modalInitialDate.value.trim() === "") {
+        modalInitialDate.value = getCurrentFormattedDate();
+    }
 }
 function endDateChecked() {
     const endDateContainerDiv = document.querySelector("#end-date-container");
@@ -66,14 +101,155 @@ function checkReminderValidity() {
     const typeOfTime = document.querySelector("#type-of-time");
     const textAreaModal = document.querySelector("#text-area-modal");
     const typeOfDate = document.querySelector("#type-of-date");
+    const endDateInput = document.querySelector("#end-date");
+    const endTimeInput = document.querySelector("#end-time");
+    if (endDateInput === null)
+        return;
+    if (endTimeInput === null)
+        return;
     if (typeOfTime === null)
         return;
     if (textAreaModal === null)
         return;
     if (typeOfDate === null)
         return;
-    typeOfTime.addEventListener("focusout", checkModalInputValidity);
+    let currentDate = getCurrentFormattedDate();
+    let currentTime = getCurrentFormattedTime();
+    enableTimeSelect();
+    if (endDateInput.value.trim() !== "") {
+        if (!checkLastDate(currentDate, endDateInput.value)) {
+            if (currentDate === endDateInput.value) {
+                console.log("la fecha actual es igual bro, hay que ver klk");
+                if (endTimeInput.value.trim() !== "") {
+                    if (!checkLastTime(currentTime, endTimeInput.value)) {
+                        console.log("im here");
+                        typeOfTime.disabled = false;
+                        let arrCurrentTime = currentTime.split(":");
+                        let arrEndTimeInput = endTimeInput.value.split(":");
+                        let cTimeHour = parseInt(arrCurrentTime[0]), cTimeMin = parseInt(arrCurrentTime[1]);
+                        let eTHour = parseInt(arrEndTimeInput[0]), eTMin = parseInt(arrEndTimeInput[1]);
+                        if (eTHour === cTimeHour) {
+                            if ((eTMin - cTimeMin) > 5) {
+                                typeOfTime.options[1].disabled = true;
+                            }
+                            if ((eTMin - cTimeMin) > 10) {
+                                typeOfTime.options[2].disabled = true;
+                            }
+                            if ((eTMin - cTimeMin) > 15) {
+                                typeOfTime.options[3].disabled = true;
+                            }
+                            if ((eTMin - cTimeMin) > 30) {
+                                typeOfTime.options[4].disabled = true;
+                            }
+                            if ((eTMin - cTimeMin) > 45) {
+                                typeOfTime.options[6].disabled = true;
+                            }
+                        }
+                    }
+                    else {
+                        typeOfTime.disabled = true;
+                        typeOfTime.value = "default";
+                    }
+                }
+                else {
+                    const modalInitialTime = document.querySelector("#init-time");
+                    if (modalInitialTime === null)
+                        return;
+                    if (!checkLastTime(currentTime, modalInitialTime.value)) {
+                        console.log("initial time bigger than current time and same date");
+                        let minutesDifference = getTotalMinutes(modalInitialTime.value, currentTime);
+                        if (minutesDifference < 5) {
+                            typeOfTime.options[1].disabled = true;
+                        }
+                        if (minutesDifference < 10) {
+                            typeOfTime.options[2].disabled = true;
+                        }
+                        if (minutesDifference < 15) {
+                            typeOfTime.options[3].disabled = true;
+                        }
+                        if (minutesDifference < 30) {
+                            typeOfTime.options[4].disabled = true;
+                        }
+                        if (minutesDifference < 60) {
+                            typeOfTime.options[5].disabled = true;
+                        }
+                    }
+                    else {
+                        typeOfTime.disabled = true;
+                        typeOfTime.value = "default";
+                    }
+                }
+            }
+            else {
+                console.log("la fecha actual es menor, hay que ver klk");
+                typeOfTime.disabled = false;
+                typeOfTime.addEventListener("focusout", checkModalInputValidity);
+            }
+        }
+        else {
+            typeOfTime.disabled = true;
+            typeOfTime.value = "default";
+            console.log("la fecha actual es mayor bro");
+        }
+    }
+    else {
+    }
     textAreaModal.addEventListener("focusout", checkModalTextAreaValidity);
+}
+function getTotalMinutes(time1, time2) {
+    let arrTime1 = time1.split(":");
+    let arrTime2 = time2.split(":");
+    let totalMinsTime1 = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
+    let totalMinsTime2 = (parseInt(arrTime2[0]) * 60) + parseInt(arrTime2[1]);
+    return totalMinsTime1 - totalMinsTime2;
+}
+function enableTimeSelect() {
+    const typeOfTime = document.querySelector("#type-of-time");
+    if (typeOfTime === null)
+        return;
+    typeOfTime.disabled = false;
+    let options = Array.from(typeOfTime.children);
+    options.forEach(option => {
+        option.disabled = false;
+    });
+}
+function getCurrentFormattedDate() {
+    let date = new Date();
+    let actualMonth;
+    let actualDay;
+    if ((date.getMonth() + 1) < 10) {
+        actualMonth = `0${date.getMonth() + 1}`;
+    }
+    else {
+        actualMonth = `${date.getMonth() + 1}`;
+    }
+    if ((date.getDate()) < 10) {
+        actualDay = `0${date.getMonth()}`;
+    }
+    else {
+        actualDay = `${date.getDate()}`;
+    }
+    let currentDate = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
+    return currentDate;
+}
+function getCurrentFormattedTime() {
+    let date = new Date();
+    let actualHour;
+    let actualMinutes;
+    if (date.getHours() < 10) {
+        actualHour = `0${date.getHours()}`;
+    }
+    else {
+        actualHour = `${date.getHours()}`;
+    }
+    if ((date.getMinutes()) < 10) {
+        actualMinutes = `0${date.getMinutes()}`;
+    }
+    else {
+        actualMinutes = `${date.getMinutes()}`;
+    }
+    let currentTime = `${actualHour}:${actualMinutes}`;
+    return currentTime;
 }
 function checkModalTextAreaValidity() {
     const textAreaModal = document.querySelector("#text-area-modal");
@@ -90,7 +266,6 @@ function checkValidTimeSelect() {
     const typeOfTime = document.querySelector("#type-of-time");
     if (typeOfTime === null)
         return;
-    console.log(typeOfTime.value);
     if (typeOfTime.value === "default") {
         typeOfTime.classList.add("invalid-input-modal");
     }
