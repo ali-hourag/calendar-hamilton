@@ -63,6 +63,10 @@
     background-color: #274355;
 }
 
+#end-time:disabled {
+    opacity: .3;
+}
+
 /*----Styles for select element to change arrow appearance----*/
 .select-hide-arrow {
     -moz-appearance: none;
