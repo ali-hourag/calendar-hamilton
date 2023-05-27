@@ -41,7 +41,10 @@ export function checkModalValidity(): void {
     modalBtnClose.addEventListener("click", clearModal);
     modalBtnSave.addEventListener("click", saveModalContent);
     modalBtnCancel.addEventListener("click", clearModal);
-    modalSection.addEventListener("focusout", clearModal);
+    // modalSection.addEventListener("focusout", clearModal);
+    // This can not be focusOut like this since it will clear everytime the section
+    // is clicked.
+    // Instead, simulate to clear it, when the New Event button is clicked
 }
 
 //------------------------------------------------------------------------------------------------------------
