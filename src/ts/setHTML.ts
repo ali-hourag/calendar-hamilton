@@ -315,7 +315,7 @@ function setModal(): void {
     modalFooterCancelBtn.setAttribute("type", "button");
     modalFooterCancelBtn.setAttribute("data-bs-dismiss", "modal");
     modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save_btn");
-    modalFooterSaveBtn.setAttribute("type", "submit");
+    modalFooterSaveBtn.setAttribute("type", "button");
 
 
 

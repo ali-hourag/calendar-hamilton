@@ -2,20 +2,17 @@ export function checkModalValidity() {
     const modalTitleEvent = document.querySelector("#title-event");
     const modalInitialDate = document.querySelector("#init-date");
     const modalInitialTime = document.querySelector("#init-time");
-    const modalForm = document.querySelector("#modal-form");
     const modalCheckEndDate = document.querySelector("#check-end-date");
     const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
     const modalBtnClose = document.querySelector(".btn-close");
     const modalBtnSave = document.querySelector(".modal-save_btn");
     const modalBtnCancel = document.querySelector(".modal-cancel_btn");
-    const modalContent = document.querySelector(".modal-content");
+    const modalSection = document.querySelector("#modal-new-event");
     if (modalTitleEvent === null)
         return;
     if (modalInitialDate === null)
         return;
     if (modalInitialTime === null)
-        return;
-    if (modalForm === null)
         return;
     if (modalCheckEndDate === null)
         return;
@@ -27,7 +24,7 @@ export function checkModalValidity() {
         return;
     if (modalBtnCancel === null)
         return;
-    if (modalContent === null)
+    if (modalSection === null)
         return;
     modalInitialDate.value = getCurrentFormattedDate();
     modalInitialTime.value = getCurrentFormattedTime();
@@ -39,7 +36,7 @@ export function checkModalValidity() {
     modalBtnClose.addEventListener("click", clearModal);
     modalBtnSave.addEventListener("click", saveModalContent);
     modalBtnCancel.addEventListener("click", clearModal);
-    modalContent.addEventListener("focusout", clearModal);
+    modalSection.addEventListener("focusout", clearModal);
 }
 function checkModalInputValidity() {
     if (this.value.trim() === "") {
