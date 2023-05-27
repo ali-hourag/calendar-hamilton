@@ -67,6 +67,27 @@
     opacity: .3;
 }
 
+/*----Styles for error messages---*/
+#init-time::after {
+    content: attr(error-init-time);
+    color: red;
+    font-size: .8rem;
+    position: absolute;
+    right: 150px;
+    top: 160px;
+}
+
+#init-date::after {
+    content: attr(error-init-date);
+    color: red;
+    font-size: .8rem;
+    position: absolute;
+    right: 190px;
+    top: 110px;
+}
+
+
+
 /*----Styles for select element to change arrow appearance----*/
 .select-hide-arrow {
     -moz-appearance: none;

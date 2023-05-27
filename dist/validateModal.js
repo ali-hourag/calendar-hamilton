@@ -78,7 +78,11 @@ function checkValidInitialTime() {
         return;
     const date = new Date();
     if (modalInitialTime.value.trim() === "") {
+        modalInitialTime.setAttribute("error-init-time", "Not correct");
         modalInitialTime.value = getCurrentFormattedTime();
+    }
+    else {
+        modalInitialTime.setAttribute("error-init-time", "");
     }
 }
 function checkValidInitialDate() {
@@ -87,8 +91,12 @@ function checkValidInitialDate() {
         return;
     const date = new Date();
     if (modalInitialDate.value.trim() === "" || modalInitialDate.value.length > 10) {
+        modalInitialDate.setAttribute("error-init-date", "Invalid date");
         modalInitialDate.classList.add("invalid-input-modal");
         modalInitialDate.value = getCurrentFormattedDate();
+    }
+    else {
+        modalInitialDate.setAttribute("error-init-date", "");
     }
 }
 function checkEndDateValidity() {
@@ -112,24 +120,26 @@ function checkValidEndDate() {
         return;
     if (endTimeInput === null)
         return;
-    if (modalInitialDate.value.trim() === "") {
-        endDateInput.classList.add("invalid-input-modal");
-        endDateInput.value = "";
-        endTimeInput.disabled = true;
+    console.log(endDateInput.value);
+    if (endDateInput.value.trim() !== "") {
+        if ((checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) &&
+            endDateInput.value.length <= 10) {
+            endDateInput.classList.remove("invalid-input-modal");
+            endTimeInput.disabled = false;
+            checkValidEndTime();
+        }
+        else {
+            endDateInput.value = "";
+            endDateInput.classList.add("invalid-input-modal");
+            endTimeInput.disabled = true;
+            endTimeInput.value = "";
+        }
     }
     else {
-        if (endDateInput.value.trim() !== "") {
-            if (checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) {
-                endDateInput.classList.remove("invalid-input-modal");
-                endTimeInput.disabled = false;
-                checkValidEndTime();
-            }
-            else {
-                endDateInput.value = "";
-                endDateInput.classList.add("invalid-input-modal");
-                endTimeInput.disabled = true;
-            }
-        }
+        endDateInput.value = "";
+        endDateInput.classList.add("invalid-input-modal");
+        endTimeInput.disabled = true;
+        endTimeInput.value = "";
     }
 }
 function checkValidEndTime() {
@@ -146,10 +156,9 @@ function checkValidEndTime() {
     if (modalInitialTime === null)
         return;
     endTimeInput.classList.remove("invalid-input-modal");
-    if (endTimeInput.value.trim() !== "" && modalInitialTime.value.trim() !== ""
-        && endDateInput.value === modalInitialDate.value) {
+    if (endTimeInput.value.trim() !== "" && endDateInput.value === modalInitialDate.value) {
         if (!checkLastTime(endTimeInput.value, modalInitialTime.value) || endTimeInput.value === modalInitialTime.value) {
-            endTimeInput.classList.add("invalid-input-modal");
+            endDateInput.classList.add("invalid-input-modal");
             endTimeInput.value = "";
         }
     }

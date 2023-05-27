@@ -31,9 +31,8 @@ export function checkModalValidity(): void {
 
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
-
-
 }
+
 //------------------------------------------------------------------------------------------------------------
 /**
  * @param receives an input element that has had the event of focusout.
@@ -56,12 +55,8 @@ function checkModalInputValidity(this: HTMLInputElement): void {
         this.classList.remove("invalid-input-modal");
     }
 
-    //CHANGE THIS TO A SWITCH CASE!!!!!!!
-    //and use a finally for the commmon things!!!!
-
     let inputID: (string | null) = this.getAttribute("id");
     if (inputID === null) return;
-
     switch (inputID) {
         case "init-time": checkValidInitialTime();
         case "init-date": checkValidInitialDate();
@@ -125,8 +120,12 @@ function checkValidInitialTime() {
     const modalInitialTime: (HTMLInputElement | null) = document.querySelector("#init-time");
     if (modalInitialTime === null) return;
     const date: Date = new Date();
+
     if (modalInitialTime.value.trim() === "") {
+        modalInitialTime.setAttribute("error-init-time", "Not correct");
         modalInitialTime.value = getCurrentFormattedTime();
+    } else {
+        modalInitialTime.setAttribute("error-init-time", "");
     }
 }
 //------------------------------------------------------------------------------------------------------------
@@ -140,8 +139,11 @@ function checkValidInitialDate() {
     const date: Date = new Date();
 
     if (modalInitialDate.value.trim() === "" || modalInitialDate.value.length > 10) {
+        modalInitialDate.setAttribute("error-init-date", "Invalid date");
         modalInitialDate.classList.add("invalid-input-modal");
         modalInitialDate.value = getCurrentFormattedDate();
+    } else {
+        modalInitialDate.setAttribute("error-init-date", "");
     }
 }
 //------------------------------------------------------------------------------------------------------------
@@ -173,23 +175,25 @@ function checkValidEndDate(): void {
     if (endDateInput === null) return;
     if (modalInitialDate === null) return;
     if (endTimeInput === null) return;
+    console.log(endDateInput.value);
 
-    if (modalInitialDate.value.trim() === "") {
-        endDateInput.classList.add("invalid-input-modal");
-        endDateInput.value = "";
-        endTimeInput.disabled = true;
-    } else {
-        if (endDateInput.value.trim() !== "") {
-            if (checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) {
-                endDateInput.classList.remove("invalid-input-modal");
-                endTimeInput.disabled = false;
-                checkValidEndTime();
-            } else {
-                endDateInput.value = "";
-                endDateInput.classList.add("invalid-input-modal");
-                endTimeInput.disabled = true;
-            }
+    if (endDateInput.value.trim() !== "") {
+        if ((checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) &&
+            endDateInput.value.length <= 10) {
+            endDateInput.classList.remove("invalid-input-modal");
+            endTimeInput.disabled = false;
+            checkValidEndTime();
+        } else {
+            endDateInput.value = "";
+            endDateInput.classList.add("invalid-input-modal");
+            endTimeInput.disabled = true;
+            endTimeInput.value = "";
         }
+    } else {
+        endDateInput.value = "";
+        endDateInput.classList.add("invalid-input-modal");
+        endTimeInput.disabled = true;
+        endTimeInput.value = "";
     }
 }
 
@@ -210,10 +214,9 @@ function checkValidEndTime() {
     if (modalInitialTime === null) return;
     endTimeInput.classList.remove("invalid-input-modal");
 
-    if (endTimeInput.value.trim() !== "" && modalInitialTime.value.trim() !== ""
-        && endDateInput.value === modalInitialDate.value) {
+    if (endTimeInput.value.trim() !== "" && endDateInput.value === modalInitialDate.value) {
         if (!checkLastTime(endTimeInput.value, modalInitialTime.value) || endTimeInput.value === modalInitialTime.value) {
-            endTimeInput.classList.add("invalid-input-modal");
+            endDateInput.classList.add("invalid-input-modal");
             endTimeInput.value = "";
         }
     }
