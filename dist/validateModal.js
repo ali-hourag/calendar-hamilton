@@ -5,6 +5,10 @@ export function checkModalValidity() {
     const modalForm = document.querySelector("#modal-form");
     const modalCheckEndDate = document.querySelector("#check-end-date");
     const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
+    const modalBtnClose = document.querySelector(".btn-close");
+    const modalBtnSave = document.querySelector(".modal-save_btn");
+    const modalBtnCancel = document.querySelector(".modal-cancel_btn");
+    const modalContent = document.querySelector(".modal-content");
     if (modalTitleEvent === null)
         return;
     if (modalInitialDate === null)
@@ -17,6 +21,14 @@ export function checkModalValidity() {
         return;
     if (modalCheckReminderEvent === null)
         return;
+    if (modalBtnClose === null)
+        return;
+    if (modalBtnSave === null)
+        return;
+    if (modalBtnCancel === null)
+        return;
+    if (modalContent === null)
+        return;
     modalInitialDate.value = getCurrentFormattedDate();
     modalInitialTime.value = getCurrentFormattedTime();
     modalTitleEvent.addEventListener("focusout", checkModalInputValidity);
@@ -24,6 +36,10 @@ export function checkModalValidity() {
     modalInitialTime.addEventListener("focusout", checkModalInputValidity);
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
+    modalBtnClose.addEventListener("click", clearModal);
+    modalBtnSave.addEventListener("click", saveModalContent);
+    modalBtnCancel.addEventListener("click", clearModal);
+    modalContent.addEventListener("focusout", clearModal);
 }
 function checkModalInputValidity() {
     if (this.value.trim() === "") {
@@ -353,5 +369,11 @@ function getCurrentFormattedTime() {
     }
     let currentTime = `${actualHour}:${actualMinutes}`;
     return currentTime;
+}
+function clearModal() {
+    console.log("clear");
+}
+function saveModalContent() {
+    console.log("save");
 }
 //# sourceMappingURL=validateModal.js.map

@@ -205,7 +205,7 @@ function setModal(): void {
     const modalBodySectionReminderOptionType4: (HTMLOptionElement) = document.createElement("option");
     const modalBodySectionReminderOptionType5: (HTMLOptionElement) = document.createElement("option");
     const modalFooterContainerDiv: (HTMLDivElement) = document.createElement("div");
-    const modalFooterCloseBtn: (HTMLButtonElement) = document.createElement("button");
+    const modalFooterCancelBtn: (HTMLButtonElement) = document.createElement("button");
     const modalFooterSaveBtn: (HTMLButtonElement) = document.createElement("button");
     if (main === null) return;
 
@@ -311,10 +311,10 @@ function setModal(): void {
     modalBodySectionReminderOptionType4.setAttribute("value", "study");
     modalBodySectionReminderOptionType5.setAttribute("value", "sports");
     modalFooterContainerDiv.classList.add("modal-footer", "d-flex");
-    modalFooterCloseBtn.setAttribute("class", "btn btn-danger w-50 p-2 modal-close_btn");
-    modalFooterCloseBtn.setAttribute("type", "button");
-    modalFooterCloseBtn.setAttribute("data-bs-dismiss", "modal");
-    modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save-btn");
+    modalFooterCancelBtn.setAttribute("class", "btn btn-danger w-50 p-2 modal-cancel_btn");
+    modalFooterCancelBtn.setAttribute("type", "button");
+    modalFooterCancelBtn.setAttribute("data-bs-dismiss", "modal");
+    modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save_btn");
     modalFooterSaveBtn.setAttribute("type", "submit");
 
 
@@ -365,7 +365,7 @@ function setModal(): void {
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType4);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType5);
     modalDivContainer.appendChild(modalFooterContainerDiv);
-    modalFooterContainerDiv.appendChild(modalFooterCloseBtn);
+    modalFooterContainerDiv.appendChild(modalFooterCancelBtn);
     modalFooterContainerDiv.appendChild(modalFooterSaveBtn);
 
 
@@ -390,7 +390,7 @@ function setModal(): void {
     modalBodySectionReminderOptionType3.innerText = "Personal";
     modalBodySectionReminderOptionType4.innerText = "Study";
     modalBodySectionReminderOptionType5.innerText = "Sports";
-    modalFooterCloseBtn.innerText = "Close";
+    modalFooterCancelBtn.innerText = "Cancel";
     modalFooterSaveBtn.innerText = "Save changes";
 
 }

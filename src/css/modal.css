@@ -146,7 +146,7 @@
     margin-top: 3rem;
 }
 
-.modal-close_btn {
+.modal-cancel_btn {
     width: 45%;
     background-color: steelblue;
     border: none;
@@ -158,13 +158,13 @@
     -o-border-radius: 20px;
 }
 
-.modal-close_btn:hover {
+.modal-cancel_btn:hover {
     cursor: pointer;
     background-color: black;
     color: steelblue
 }
 
-.modal-save-btn {
+.modal-save_btn {
     width: 45%;
     background-color: rgb(111, 151, 71);
     border: none;
@@ -176,7 +176,7 @@
     -o-border-radius: 20px;
 }
 
-.modal-save-btn:hover {
+.modal-save_btn:hover {
     cursor: pointer;
     background-color: black;
     color: rgb(111, 151, 71);

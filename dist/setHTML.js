@@ -176,7 +176,7 @@ function setModal() {
     const modalBodySectionReminderOptionType4 = document.createElement("option");
     const modalBodySectionReminderOptionType5 = document.createElement("option");
     const modalFooterContainerDiv = document.createElement("div");
-    const modalFooterCloseBtn = document.createElement("button");
+    const modalFooterCancelBtn = document.createElement("button");
     const modalFooterSaveBtn = document.createElement("button");
     if (main === null)
         return;
@@ -281,10 +281,10 @@ function setModal() {
     modalBodySectionReminderOptionType4.setAttribute("value", "study");
     modalBodySectionReminderOptionType5.setAttribute("value", "sports");
     modalFooterContainerDiv.classList.add("modal-footer", "d-flex");
-    modalFooterCloseBtn.setAttribute("class", "btn btn-danger w-50 p-2 modal-close_btn");
-    modalFooterCloseBtn.setAttribute("type", "button");
-    modalFooterCloseBtn.setAttribute("data-bs-dismiss", "modal");
-    modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save-btn");
+    modalFooterCancelBtn.setAttribute("class", "btn btn-danger w-50 p-2 modal-cancel_btn");
+    modalFooterCancelBtn.setAttribute("type", "button");
+    modalFooterCancelBtn.setAttribute("data-bs-dismiss", "modal");
+    modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save_btn");
     modalFooterSaveBtn.setAttribute("type", "submit");
     main.appendChild(modalSectionContainer);
     modalSectionContainer.appendChild(modalFormContainer);
@@ -331,7 +331,7 @@ function setModal() {
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType4);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType5);
     modalDivContainer.appendChild(modalFooterContainerDiv);
-    modalFooterContainerDiv.appendChild(modalFooterCloseBtn);
+    modalFooterContainerDiv.appendChild(modalFooterCancelBtn);
     modalFooterContainerDiv.appendChild(modalFooterSaveBtn);
     modalHeaderTitleH4.innerText = "New Event";
     modalBodySectionTitleLabel.innerText = "Title";
@@ -354,7 +354,7 @@ function setModal() {
     modalBodySectionReminderOptionType3.innerText = "Personal";
     modalBodySectionReminderOptionType4.innerText = "Study";
     modalBodySectionReminderOptionType5.innerText = "Sports";
-    modalFooterCloseBtn.innerText = "Close";
+    modalFooterCancelBtn.innerText = "Cancel";
     modalFooterSaveBtn.innerText = "Save changes";
 }
 //# sourceMappingURL=setHTML.js.map

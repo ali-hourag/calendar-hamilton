@@ -13,6 +13,10 @@ export function checkModalValidity(): void {
     const modalForm: (HTMLFormElement | null) = document.querySelector("#modal-form");
     const modalCheckEndDate: (HTMLInputElement | null) = document.querySelector("#check-end-date");
     const modalCheckReminderEvent: (HTMLInputElement | null) = document.querySelector("#check-reminder-event");
+    const modalBtnClose: (HTMLButtonElement | null) = document.querySelector(".btn-close");
+    const modalBtnSave: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
+    const modalBtnCancel: (HTMLButtonElement | null) = document.querySelector(".modal-cancel_btn");
+    const modalContent: (HTMLDivElement | null) = document.querySelector(".modal-content");
 
     if (modalTitleEvent === null) return;
     if (modalInitialDate === null) return;
@@ -20,6 +24,10 @@ export function checkModalValidity(): void {
     if (modalForm === null) return;
     if (modalCheckEndDate === null) return;
     if (modalCheckReminderEvent === null) return;
+    if (modalBtnClose === null) return;
+    if (modalBtnSave === null) return;
+    if (modalBtnCancel === null) return;
+    if (modalContent === null) return;
 
     //Set default value for initial date and time
     modalInitialDate.value = getCurrentFormattedDate();
@@ -31,6 +39,11 @@ export function checkModalValidity(): void {
 
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
+
+    modalBtnClose.addEventListener("click", clearModal);
+    modalBtnSave.addEventListener("click", saveModalContent);
+    modalBtnCancel.addEventListener("click", clearModal);
+    modalContent.addEventListener("focusout", clearModal);
 }
 
 //------------------------------------------------------------------------------------------------------------
@@ -491,4 +504,13 @@ function getCurrentFormattedTime(): string {
     let currentTime: string = `${actualHour}:${actualMinutes}`;
 
     return currentTime;
+}
+
+//------------------------------------------------------------------------------------------------------------
+function clearModal() {
+    console.log("clear");
+}
+//------------------------------------------------------------------------------------------------------------
+function saveModalContent() {
+    console.log("save");
 }
