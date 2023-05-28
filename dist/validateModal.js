@@ -36,7 +36,6 @@ export function checkModalValidity() {
     modalBtnClose.addEventListener("click", clearModal);
     modalBtnSave.addEventListener("click", saveModalContent);
     modalBtnCancel.addEventListener("click", clearModal);
-    modalSection.addEventListener("focusout", clearModal);
 }
 function checkModalInputValidity() {
     if (this.value.trim() === "") {
