@@ -1,35 +1,38 @@
-/*****************************************************+
- * 
- */
+
 // Event Properties
-enum Events {
-    meeting = "Meeting",
-    personal = "Personal",
-    study = "Study",
-    sports = "Sports",
-}
+// export enum EventType {
+//     "default",
+//     "meeting",
+//     "personal",
+//     "study",
+//     "sports",
+// }
+export type EventType = "default" | "meeting" | "personal" | "study" | "sports";
+export type ReminderTime = "default" | "five" | "ten" | "fifteen" | "thirty" | "one-hour";
 
-enum Alerts {
-    fiveMinutes = 5,
-    tenMinutes = 10,
-    fifteenMinutes = 15,
-    thirtyMinutes = 30,
-    oneHour = 60
-}
+// export enum ReminderTime {
+//     "default",
+//     "five",
+//     "ten",
+//     "fifteen",
+//     "thirty",
+//     "one-hour"
+// }
 
-
-export interface DateProperties {
+export interface Event {
+    id: number;
     title: string;
-    description: string;
-    eventType: Events;
-    timeAlerts: Alerts;
-    intialDate: Date;
-    initialTime: Date;
-    endDate: Date;
-    endTime: Date;
+    initialDate: Date;
+    initialTime: string;
     isCheckedEndEvent: boolean;
+    endDate: Date | "";
+    endTime: string;
     isCheckedReminder: boolean;
+    reminder: ReminderTime;
+    description: string;
+    eventType: EventType;
 }
+
 
 // Calendar Properties
 interface EnumEventsItem {

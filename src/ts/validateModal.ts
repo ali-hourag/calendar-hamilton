@@ -1,3 +1,6 @@
+import { Event } from "./interface.js";
+import { EventType, ReminderTime } from "./interface.js";
+
 
 /**
  * This function is called from the script.ts and it is responsible
@@ -12,20 +15,20 @@ export function checkModalValidity(): void {
     const modalInitialTime: (HTMLInputElement | null) = document.querySelector("#init-time");
     const modalCheckEndDate: (HTMLInputElement | null) = document.querySelector("#check-end-date");
     const modalCheckReminderEvent: (HTMLInputElement | null) = document.querySelector("#check-reminder-event");
-    const modalBtnClose: (HTMLButtonElement | null) = document.querySelector(".btn-close");
     const modalBtnSave: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
-    const modalBtnCancel: (HTMLButtonElement | null) = document.querySelector(".modal-cancel_btn");
     const modalSection: (HTMLDivElement | null) = document.querySelector("#modal-new-event");
+    const headerNewEventBtn: (HTMLButtonElement | null) = document.querySelector("#header-new-event_btn");
+    const textAreaModal: (HTMLTextAreaElement | null) = document.querySelector("#text-area-modal");
 
     if (modalTitleEvent === null) return;
     if (modalInitialDate === null) return;
     if (modalInitialTime === null) return;
     if (modalCheckEndDate === null) return;
     if (modalCheckReminderEvent === null) return;
-    if (modalBtnClose === null) return;
     if (modalBtnSave === null) return;
-    if (modalBtnCancel === null) return;
     if (modalSection === null) return;
+    if (headerNewEventBtn === null) return;
+    if (textAreaModal === null) return;
 
     //Set default value for initial date and time
     modalInitialDate.value = getCurrentFormattedDate();
@@ -34,17 +37,14 @@ export function checkModalValidity(): void {
     modalTitleEvent.addEventListener("focusout", checkModalInputValidity);
     modalInitialDate.addEventListener("focusout", checkModalInputValidity);
     modalInitialTime.addEventListener("focusout", checkModalInputValidity);
+    textAreaModal.addEventListener("focusout", checkModalTextAreaValidity);
 
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
 
-    modalBtnClose.addEventListener("click", clearModal);
     modalBtnSave.addEventListener("click", saveModalContent);
-    modalBtnCancel.addEventListener("click", clearModal);
-    // modalSection.addEventListener("focusout", clearModal);
-    // This can not be focusOut like this since it will clear everytime the section
-    // is clicked.
-    // Instead, simulate to clear it, when the New Event button is clicked
+    headerNewEventBtn.addEventListener("click", clearModal);
+
 }
 
 //------------------------------------------------------------------------------------------------------------
@@ -172,6 +172,8 @@ function checkEndDateValidity(): void {
     if (endTimeInput === null) return;
 
     endTimeInput.disabled = true;
+    endTimeInput.value = "";
+    endDateInput.value = "";
 
     endDateInput.addEventListener("focusout", checkModalInputValidity);
     endTimeInput.addEventListener("focusout", checkModalInputValidity);
@@ -189,7 +191,6 @@ function checkValidEndDate(): void {
     if (endDateInput === null) return;
     if (modalInitialDate === null) return;
     if (endTimeInput === null) return;
-    console.log(endDateInput.value);
 
     if (endDateInput.value.trim() !== "") {
         if ((checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) &&
@@ -300,15 +301,12 @@ function checkLastDate(date1: string, date2: string): boolean {
 
 function checkReminderValidity(): void {
     const typeOfTime: (HTMLSelectElement | null) = document.querySelector("#type-of-time");
-    const textAreaModal: (HTMLTextAreaElement | null) = document.querySelector("#text-area-modal");
-    const typeOfDate: (HTMLSelectElement | null) = document.querySelector("#type-of-date");
     const initDateInput: (HTMLInputElement | null) = document.querySelector("#init-date");
     const initTimeInput: (HTMLInputElement | null) = document.querySelector("#init-time");
     if (initDateInput === null) return;
     if (initTimeInput === null) return;
     if (typeOfTime === null) return;
-    if (textAreaModal === null) return;
-    if (typeOfDate === null) return;
+
 
     typeOfTime.classList.remove("invalid-input-modal");
 
@@ -373,7 +371,6 @@ function checkReminderValidity(): void {
         typeOfTime.value = "default";
     }
 
-    textAreaModal.addEventListener("focusout", checkModalTextAreaValidity);
 }
 
 
@@ -508,13 +505,173 @@ function getCurrentFormattedTime(): string {
 }
 
 //------------------------------------------------------------------------------------------------------------
+/**
+ * This function clears the inputs and select inside the new event modal
+ */
 function clearModal() {
-    //When the button to close and cancel are clicked this function
-    //is called many times since there is something here with bootstrap
-    //make it not call again until the form is removed
-    console.log("clear");
+    const modalTitleEvent: (HTMLInputElement | null) = document.querySelector("#title-event");
+    const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
+    const modalInitialTime: (HTMLInputElement | null) = document.querySelector("#init-time");
+    const modalCheckEndDate: (HTMLInputElement | null) = document.querySelector("#check-end-date");
+    const modalCheckReminderEvent: (HTMLInputElement | null) = document.querySelector("#check-reminder-event");
+    const endDateInput: (HTMLInputElement | null) = document.querySelector("#end-date");
+    const endTimeInput: (HTMLInputElement | null) = document.querySelector("#end-time");
+    const textAreaDescription: (HTMLTextAreaElement | null) = document.querySelector("#text-area-modal");
+    const typeEventSelect: (HTMLSelectElement | null) = document.querySelector("#type-of-date");
+    const endDateContainerDiv: (HTMLDivElement | null) = document.querySelector("#end-date-container");
+    const reminderContainerDiv: (HTMLDivElement | null) = document.querySelector("#reminder-container");
+    if (endDateContainerDiv === null) return;
+    if (reminderContainerDiv === null) return;
+    if (modalTitleEvent === null) return;
+    if (modalInitialDate === null) return;
+    if (modalInitialTime === null) return;
+    if (modalCheckEndDate === null) return;
+    if (modalCheckReminderEvent === null) return;
+    if (endDateInput === null) return;
+    if (endTimeInput === null) return;
+    if (textAreaDescription === null) return;
+    if (typeEventSelect === null) return;
+    modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
+    modalInitialDate.value = getCurrentFormattedDate();
+    modalInitialTime.value = getCurrentFormattedTime();
+    modalCheckEndDate.checked = false;
+    endDateContainerDiv.classList.add("modal-div");
+    endDateContainerDiv.classList.remove("d-flex");
+    modalCheckReminderEvent.checked = false;
+    reminderContainerDiv.classList.add("modal-div");
+    reminderContainerDiv.classList.remove("d-flex");
+    typeEventSelect.value = "default";
 }
 //------------------------------------------------------------------------------------------------------------
-function saveModalContent() {
-    console.log("save");
+/**
+ * This function saves the information inside the modal if it is correct
+ */
+function saveModalContent(): void {
+    const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
+    const modalTitleEvent: (HTMLInputElement | null) = document.querySelector("#title-event");
+    const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
+    const modalInitialTime: (HTMLInputElement | null) = document.querySelector("#init-time");
+    const modalCheckEndDate: (HTMLInputElement | null) = document.querySelector("#check-end-date");
+    const modalCheckReminderEvent: (HTMLInputElement | null) = document.querySelector("#check-reminder-event");
+    const endDateInput: (HTMLInputElement | null) = document.querySelector("#end-date");
+    const endTimeInput: (HTMLInputElement | null) = document.querySelector("#end-time");
+    const typeOfTime: (HTMLSelectElement | null) = document.querySelector("#type-of-time");
+    const textAreaDescription: (HTMLTextAreaElement | null) = document.querySelector("#text-area-modal");
+    const typeEventSelect: (HTMLSelectElement | null) = document.querySelector("#type-of-date");
+    const modalBtnClose: (HTMLButtonElement | null) = document.querySelector(".btn-close");
+    const modalBtnSave: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
+    const modalBtnCancel: (HTMLButtonElement | null) = document.querySelector(".modal-cancel_btn");
+    const modalSection: (HTMLDivElement | null) = document.querySelector("#modal-new-event");
+    const headerNewEventBtn: (HTMLButtonElement | null) = document.querySelector("#header-new-event_btn");
+
+
+    if (modalSaveBtn === null) return;
+    if (modalTitleEvent === null) return;
+    if (modalInitialDate === null) return;
+    if (modalInitialTime === null) return;
+    if (modalCheckEndDate === null) return;
+    if (modalCheckReminderEvent === null) return;
+    if (endDateInput === null) return;
+    if (endTimeInput === null) return;
+    if (typeOfTime === null) return;
+    if (textAreaDescription === null) return;
+    if (typeEventSelect === null) return;
+    if (modalBtnClose === null) return;
+    if (modalBtnSave === null) return;
+    if (modalBtnCancel === null) return;
+    if (modalSection === null) return;
+    if (headerNewEventBtn === null) return;
+
+
+    //Check that everything has been entered right
+    let rightData: boolean = true;
+
+    //No need to see initial date and initial time, since they will always have a default value
+    if (modalTitleEvent.value !== "") {
+        if (modalCheckEndDate.checked) {
+            if (endDateInput.value === "") {
+                modalSaveBtn.setAttribute("error-save-modal", "please, check again end date");
+                clearErrorMessage();
+                rightData = false;
+            }
+        }
+        if (modalCheckReminderEvent.checked) {
+            if (!typeOfTime.disabled && !typeOfTime.options[1].disabled && typeOfTime.value === "default") {
+                modalSaveBtn.setAttribute("error-save-modal", "please, check the reminder time");
+                clearErrorMessage();
+                rightData = false;
+            }
+        }
+    } else {
+        modalSaveBtn.setAttribute("error-save-modal", "please, check again the title");
+        clearErrorMessage();
+        rightData = false;
+    }
+
+    //If rightData variable is true, then we can proceed to save the event entered
+    if (rightData) {
+
+        let title: string = modalTitleEvent.value;
+        let initialDate: Date = new Date(modalInitialDate.value);
+        let initialTime: string = modalInitialTime.value;
+        let isCheckedEndEvent: boolean = modalCheckEndDate.checked;
+        let endDate: Date | "";
+        if (endDateInput.value === "") endDate = "";
+        else endDate = new Date(endDateInput.value);
+        let endTime: string = endTimeInput.value;
+        let isCheckedReminder: boolean = modalCheckReminderEvent.checked;
+        let reminder: ReminderTime = typeOfTime.value as ReminderTime;
+        let description: string = textAreaDescription.value;
+        let eventType: EventType = typeEventSelect.value as EventType;
+        let id: number = 0;
+
+        let newEvent: Event = {
+            id, title, initialDate, initialTime, isCheckedEndEvent, endDate, endTime,
+            isCheckedReminder, reminder, description, eventType
+        };
+
+        if (localStorage.getItem("events") !== null) {
+            let n: string | null = localStorage.getItem("events");
+            if (n === null) return;
+            let events: Array<Event> = JSON.parse(n);
+            newEvent.id = events.length + 1;
+            events.push(newEvent);
+            localStorage.setItem("events", JSON.stringify(events));
+        } else {
+            newEvent.id = 1;
+            localStorage.setItem("events", `[${JSON.stringify(newEvent)}]`);
+        }
+        successEventSaved();
+    }
+}
+//------------------------------------------------------------------------------------------------------------
+/**
+ * 
+ * This function clears the error message after 3 seconds
+ */
+function clearErrorMessage(): void {
+    const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
+    if (modalSaveBtn === null) return;
+    setTimeout(() => {
+        modalSaveBtn.setAttribute("error-save-modal", "");
+    }, 3000);
+}
+//------------------------------------------------------------------------------------------------------------
+/**
+ * 
+ * Called when the event has been successfully saved.
+ * Shows message and calls the function to clear the modal
+ */
+function successEventSaved(): void {
+    const modalContainerSection: (HTMLElement | null) = document.querySelector(".modal-container_section");
+    const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
+    if (modalContainerSection === null) return;
+    if (modalSaveBtn === null) return;
+    modalSaveBtn.classList.add("save-btn-color-success");
+    modalSaveBtn.setAttribute("success-save-modal", "SUCCESSFULLY SAVED!");
+    setTimeout(() => {
+        modalSaveBtn.setAttribute("success-save-modal", "");
+        modalSaveBtn.classList.remove("save-btn-success");
+        clearModal();
+    }, 2000)
 }

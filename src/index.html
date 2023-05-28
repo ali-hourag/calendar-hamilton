@@ -30,7 +30,7 @@
 <body>
     <!-- <header id="header" class="header">
         
-        <button type="button" class="header-new-event_btn ml-3 btn d-flex justify-content-center align-items-center"
+        <button type="button" id="header-new-event_btn" class="header-new-event_btn ml-3 btn d-flex justify-content-center align-items-center"
             data-bs-toggle="modal" data-bs-target="#modal-new-event">
             New Event
         </button>
@@ -239,13 +239,13 @@
                             <select class="modal-input select-arrow-styles select-hide-arrow" id="type-of-time"
                                 name="time-option" value="default" required>
                                 <option value="default" selected disabled>Choose time</option>
-                                <option value="five">5 minute</option>
-                                <option value="ten">10 minute</option>
-                                <option value="fifteen">15 minute</option>
-                                <option value="thirty">30 minute</option>
-                                <option value="hour">1 hour</option>
+                                <option value="five">5 minutes</option>
+                                <option value="ten">10 minutes</option>
+                                <option value="fifteen">15 minutes</option>
+                                <option value="thirty">30 minutes</option>
+                                <option value="one-hour">1 hour</option>
                             </select>
-
+                        </div> 
                             <label class="modal-label" for="text-area-modal">Description</label>
                             <textarea class="modal-input mb-2" maxlength="500" id="text-area-modal" rows="4"
                                 cols="35"></textarea>
@@ -258,7 +258,7 @@
                                 <option value="study">Study</option>
                                 <option value="sports">Sports</option>
                             </select>
-                        </div>    
+                           
                         </section>
                     </div>
                     <div class="modal-footer d-flex">

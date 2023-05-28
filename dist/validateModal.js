@@ -4,10 +4,10 @@ export function checkModalValidity() {
     const modalInitialTime = document.querySelector("#init-time");
     const modalCheckEndDate = document.querySelector("#check-end-date");
     const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
-    const modalBtnClose = document.querySelector(".btn-close");
     const modalBtnSave = document.querySelector(".modal-save_btn");
-    const modalBtnCancel = document.querySelector(".modal-cancel_btn");
     const modalSection = document.querySelector("#modal-new-event");
+    const headerNewEventBtn = document.querySelector("#header-new-event_btn");
+    const textAreaModal = document.querySelector("#text-area-modal");
     if (modalTitleEvent === null)
         return;
     if (modalInitialDate === null)
@@ -18,24 +18,24 @@ export function checkModalValidity() {
         return;
     if (modalCheckReminderEvent === null)
         return;
-    if (modalBtnClose === null)
-        return;
     if (modalBtnSave === null)
         return;
-    if (modalBtnCancel === null)
-        return;
     if (modalSection === null)
+        return;
+    if (headerNewEventBtn === null)
+        return;
+    if (textAreaModal === null)
         return;
     modalInitialDate.value = getCurrentFormattedDate();
     modalInitialTime.value = getCurrentFormattedTime();
     modalTitleEvent.addEventListener("focusout", checkModalInputValidity);
     modalInitialDate.addEventListener("focusout", checkModalInputValidity);
     modalInitialTime.addEventListener("focusout", checkModalInputValidity);
+    textAreaModal.addEventListener("focusout", checkModalTextAreaValidity);
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
-    modalBtnClose.addEventListener("click", clearModal);
     modalBtnSave.addEventListener("click", saveModalContent);
-    modalBtnCancel.addEventListener("click", clearModal);
+    headerNewEventBtn.addEventListener("click", clearModal);
 }
 function checkModalInputValidity() {
     if (this.value.trim() === "") {
@@ -119,6 +119,8 @@ function checkEndDateValidity() {
     if (endTimeInput === null)
         return;
     endTimeInput.disabled = true;
+    endTimeInput.value = "";
+    endDateInput.value = "";
     endDateInput.addEventListener("focusout", checkModalInputValidity);
     endTimeInput.addEventListener("focusout", checkModalInputValidity);
 }
@@ -132,7 +134,6 @@ function checkValidEndDate() {
         return;
     if (endTimeInput === null)
         return;
-    console.log(endDateInput.value);
     if (endDateInput.value.trim() !== "") {
         if ((checkLastDate(endDateInput.value, modalInitialDate.value) || endDateInput.value === modalInitialDate.value) &&
             endDateInput.value.length <= 10) {
@@ -219,8 +220,6 @@ function checkLastDate(date1, date2) {
 }
 function checkReminderValidity() {
     const typeOfTime = document.querySelector("#type-of-time");
-    const textAreaModal = document.querySelector("#text-area-modal");
-    const typeOfDate = document.querySelector("#type-of-date");
     const initDateInput = document.querySelector("#init-date");
     const initTimeInput = document.querySelector("#init-time");
     if (initDateInput === null)
@@ -228,10 +227,6 @@ function checkReminderValidity() {
     if (initTimeInput === null)
         return;
     if (typeOfTime === null)
-        return;
-    if (textAreaModal === null)
-        return;
-    if (typeOfDate === null)
         return;
     typeOfTime.classList.remove("invalid-input-modal");
     let currentDate = getCurrentFormattedDate();
@@ -276,7 +271,6 @@ function checkReminderValidity() {
         typeOfTime.disabled = true;
         typeOfTime.value = "default";
     }
-    textAreaModal.addEventListener("focusout", checkModalTextAreaValidity);
 }
 function checkValidTimeSelect() {
     const typeOfTime = document.querySelector("#type-of-time");
@@ -367,9 +361,178 @@ function getCurrentFormattedTime() {
     return currentTime;
 }
 function clearModal() {
-    console.log("clear");
+    const modalTitleEvent = document.querySelector("#title-event");
+    const modalInitialDate = document.querySelector("#init-date");
+    const modalInitialTime = document.querySelector("#init-time");
+    const modalCheckEndDate = document.querySelector("#check-end-date");
+    const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
+    const endDateInput = document.querySelector("#end-date");
+    const endTimeInput = document.querySelector("#end-time");
+    const textAreaDescription = document.querySelector("#text-area-modal");
+    const typeEventSelect = document.querySelector("#type-of-date");
+    const endDateContainerDiv = document.querySelector("#end-date-container");
+    const reminderContainerDiv = document.querySelector("#reminder-container");
+    if (endDateContainerDiv === null)
+        return;
+    if (reminderContainerDiv === null)
+        return;
+    if (modalTitleEvent === null)
+        return;
+    if (modalInitialDate === null)
+        return;
+    if (modalInitialTime === null)
+        return;
+    if (modalCheckEndDate === null)
+        return;
+    if (modalCheckReminderEvent === null)
+        return;
+    if (endDateInput === null)
+        return;
+    if (endTimeInput === null)
+        return;
+    if (textAreaDescription === null)
+        return;
+    if (typeEventSelect === null)
+        return;
+    modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
+    modalInitialDate.value = getCurrentFormattedDate();
+    modalInitialTime.value = getCurrentFormattedTime();
+    modalCheckEndDate.checked = false;
+    endDateContainerDiv.classList.add("modal-div");
+    endDateContainerDiv.classList.remove("d-flex");
+    modalCheckReminderEvent.checked = false;
+    reminderContainerDiv.classList.add("modal-div");
+    reminderContainerDiv.classList.remove("d-flex");
+    typeEventSelect.value = "default";
 }
 function saveModalContent() {
-    console.log("save");
+    const modalSaveBtn = document.querySelector(".modal-save_btn");
+    const modalTitleEvent = document.querySelector("#title-event");
+    const modalInitialDate = document.querySelector("#init-date");
+    const modalInitialTime = document.querySelector("#init-time");
+    const modalCheckEndDate = document.querySelector("#check-end-date");
+    const modalCheckReminderEvent = document.querySelector("#check-reminder-event");
+    const endDateInput = document.querySelector("#end-date");
+    const endTimeInput = document.querySelector("#end-time");
+    const typeOfTime = document.querySelector("#type-of-time");
+    const textAreaDescription = document.querySelector("#text-area-modal");
+    const typeEventSelect = document.querySelector("#type-of-date");
+    const modalBtnClose = document.querySelector(".btn-close");
+    const modalBtnSave = document.querySelector(".modal-save_btn");
+    const modalBtnCancel = document.querySelector(".modal-cancel_btn");
+    const modalSection = document.querySelector("#modal-new-event");
+    const headerNewEventBtn = document.querySelector("#header-new-event_btn");
+    if (modalSaveBtn === null)
+        return;
+    if (modalTitleEvent === null)
+        return;
+    if (modalInitialDate === null)
+        return;
+    if (modalInitialTime === null)
+        return;
+    if (modalCheckEndDate === null)
+        return;
+    if (modalCheckReminderEvent === null)
+        return;
+    if (endDateInput === null)
+        return;
+    if (endTimeInput === null)
+        return;
+    if (typeOfTime === null)
+        return;
+    if (textAreaDescription === null)
+        return;
+    if (typeEventSelect === null)
+        return;
+    if (modalBtnClose === null)
+        return;
+    if (modalBtnSave === null)
+        return;
+    if (modalBtnCancel === null)
+        return;
+    if (modalSection === null)
+        return;
+    if (headerNewEventBtn === null)
+        return;
+    let rightData = true;
+    if (modalTitleEvent.value !== "") {
+        if (modalCheckEndDate.checked) {
+            if (endDateInput.value === "") {
+                modalSaveBtn.setAttribute("error-save-modal", "please, check again end date");
+                clearErrorMessage();
+                rightData = false;
+            }
+        }
+        if (modalCheckReminderEvent.checked) {
+            if (!typeOfTime.disabled && !typeOfTime.options[1].disabled && typeOfTime.value === "default") {
+                modalSaveBtn.setAttribute("error-save-modal", "please, check the reminder time");
+                clearErrorMessage();
+                rightData = false;
+            }
+        }
+    }
+    else {
+        modalSaveBtn.setAttribute("error-save-modal", "please, check again the title");
+        clearErrorMessage();
+        rightData = false;
+    }
+    if (rightData) {
+        let title = modalTitleEvent.value;
+        let initialDate = new Date(modalInitialDate.value);
+        let initialTime = modalInitialTime.value;
+        let isCheckedEndEvent = modalCheckEndDate.checked;
+        let endDate;
+        if (endDateInput.value === "")
+            endDate = "";
+        else
+            endDate = new Date(endDateInput.value);
+        let endTime = endTimeInput.value;
+        let isCheckedReminder = modalCheckReminderEvent.checked;
+        let reminder = typeOfTime.value;
+        let description = textAreaDescription.value;
+        let eventType = typeEventSelect.value;
+        let id = 0;
+        let newEvent = {
+            id, title, initialDate, initialTime, isCheckedEndEvent, endDate, endTime,
+            isCheckedReminder, reminder, description, eventType
+        };
+        if (localStorage.getItem("events") !== null) {
+            let n = localStorage.getItem("events");
+            if (n === null)
+                return;
+            let events = JSON.parse(n);
+            newEvent.id = events.length + 1;
+            events.push(newEvent);
+            localStorage.setItem("events", JSON.stringify(events));
+        }
+        else {
+            newEvent.id = 1;
+            localStorage.setItem("events", `[${JSON.stringify(newEvent)}]`);
+        }
+        successEventSaved();
+    }
+}
+function clearErrorMessage() {
+    const modalSaveBtn = document.querySelector(".modal-save_btn");
+    if (modalSaveBtn === null)
+        return;
+    setTimeout(() => {
+        modalSaveBtn.setAttribute("error-save-modal", "");
+    }, 3000);
+}
+function successEventSaved() {
+    const modalContainerSection = document.querySelector(".modal-container_section");
+    const modalSaveBtn = document.querySelector(".modal-save_btn");
+    if (modalContainerSection === null)
+        return;
+    if (modalSaveBtn === null)
+        return;
+    modalSaveBtn.classList.add("save-btn-color-success");
+    modalSaveBtn.setAttribute("success-save-modal", "SUCCESSFULLY SAVED!");
+    setTimeout(() => {
+        modalSaveBtn.setAttribute("success-save-modal", "");
+        modalSaveBtn.classList.remove("save-btn-success");
+        clearModal();
+    }, 2000);
 }
 //# sourceMappingURL=validateModal.js.map

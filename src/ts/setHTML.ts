@@ -14,7 +14,8 @@ export function setHeader(): void {
     header.setAttribute("id", "header");
     headerNewEventButton.classList.add("header-new-event_btn", "ml-3", "btn", "d-flex", "justify-content-center", "align-items-center");
     headerNewEventButton.setAttribute("data-bs-toggle", "modal");
-    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event");
+    headerNewEventButton.setAttribute("id", "header-new-event_btn");
+    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event"); //modal-new-event or modal-info-event to see info event
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
     headerYearH1.setAttribute("id", "currentYear");
@@ -155,10 +156,10 @@ function setCalendarContainer(): void {
 
         daysOfWeekAside.appendChild(dayOfWeekH4);
     })
-    setModal();
+    setModalNewEvent();
 }
 
-function setModal(): void {
+function setModalNewEvent(): void {
     const main: (HTMLElement | null) = document.querySelector(".main");
     const modalSectionContainer: (HTMLElement) = document.createElement("section");
     const modalFormContainer: (HTMLFormElement) = document.createElement("form");
@@ -290,7 +291,7 @@ function setModal(): void {
     modalBodySectionReminderOptionTime3.setAttribute("value", "ten");
     modalBodySectionReminderOptionTime4.setAttribute("value", "fifteen");
     modalBodySectionReminderOptionTime5.setAttribute("value", "thirty");
-    modalBodySectionReminderOptionTime6.setAttribute("value", "one hour");
+    modalBodySectionReminderOptionTime6.setAttribute("value", "one-hour");
     modalBodySectionReminderDescriptionLabel.classList.add("modal-label");
     modalBodySectionReminderDescriptionLabel.setAttribute("for", "text-area-modal");
     modalBodySectionReminderDescriptionTextArea.setAttribute("class", "modal-input mb-2");
@@ -356,9 +357,9 @@ function setModal(): void {
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime4);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime5);
     modalBodySectionReminderSelectTime.appendChild(modalBodySectionReminderOptionTime6);
-    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderDescriptionLabel);
-    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderDescriptionTextArea);
-    modalBodySectionReminderContainerDiv.appendChild(modalBodySectionReminderSelectType);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionLabel);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderDescriptionTextArea);
+    modalBodySectionReminder.appendChild(modalBodySectionReminderSelectType);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType1);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType2);
     modalBodySectionReminderSelectType.appendChild(modalBodySectionReminderOptionType3);
@@ -378,7 +379,7 @@ function setModal(): void {
     modalBodySectionETimeLabel.innerText = "End time";
     modalBodySectionReminderLabel.innerHTML += " Remind me when this event expires";
     modalBodySectionReminderLegend.innerText = "Time";
-    modalBodySectionReminderOptionTime1.innerText = "Choose time";
+    modalBodySectionReminderOptionTime1.innerText = "Choose Time";
     modalBodySectionReminderOptionTime2.innerText = "5 minutes";
     modalBodySectionReminderOptionTime3.innerText = "10 minutes";
     modalBodySectionReminderOptionTime4.innerText = "15 minutes";
@@ -392,5 +393,58 @@ function setModal(): void {
     modalBodySectionReminderOptionType5.innerText = "Sports";
     modalFooterCancelBtn.innerText = "Cancel";
     modalFooterSaveBtn.innerText = "Save changes";
+
+    setModalInfoEvent();
+
+}
+
+function setModalInfoEvent() {
+    const main: (HTMLBodyElement | null) = document.querySelector(".main");
+    const modalContainerDiv1: (HTMLDivElement | null) = document.createElement("div");
+    const modalContainerDiv2: (HTMLDivElement | null) = document.createElement("div");
+    const modalContentDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalHeaderContainerDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalHeaderH1: (HTMLHeadingElement | null) = document.createElement("h1");
+    const modalHeaderBtn: (HTMLButtonElement | null) = document.createElement("button");
+    const modalBodyContainerDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalFooterContainerDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalFooterCancelBtn: (HTMLButtonElement | null) = document.createElement("button");
+    if (main === null) return;
+
+    modalContainerDiv1.classList.add("modal", "fade");
+    modalContainerDiv1.setAttribute("id", "modal-info-event");
+    modalContainerDiv1.setAttribute("tabindex", "-1");
+    modalContainerDiv1.setAttribute("role", "dialog");
+    modalContainerDiv1.setAttribute("aria-labelledby", "modaliInfoEvent");
+    modalContainerDiv1.setAttribute("aria-hidden", "true");
+    modalContainerDiv2.setAttribute("class", "modal-dialog modal-dialog-centered modal-dialog-scrollable");
+    modalContainerDiv2.setAttribute("role", "document");
+    modalContentDiv.classList.add("modal-content");
+    modalHeaderContainerDiv.classList.add("modal-header");
+    modalHeaderH1.classList.add("modal-title");
+    modalHeaderH1.setAttribute("id", "modal-info-title_h1");
+    modalHeaderBtn.classList.add("btn-close");
+    modalHeaderBtn.setAttribute("type", "button");
+    modalHeaderBtn.setAttribute("data-bs-dismiss", "modal");
+    modalHeaderBtn.setAttribute("aria-label", "close");
+    modalBodyContainerDiv.classList.add("modal-body");
+    modalFooterContainerDiv.classList.add("modal-footer");
+    modalFooterCancelBtn.classList.add("btn", "btn-secondary", "modal-cancel_btn");
+    modalFooterCancelBtn.setAttribute("type", "button");
+    modalFooterCancelBtn.setAttribute("data-bs-dismiss", "modal");
+
+    modalContainerDiv1.appendChild(modalContainerDiv2);
+    modalContainerDiv2.appendChild(modalContentDiv);
+    modalContentDiv.appendChild(modalHeaderContainerDiv);
+    modalHeaderContainerDiv.appendChild(modalHeaderH1);
+    modalHeaderContainerDiv.appendChild(modalHeaderBtn);
+    modalContentDiv.appendChild(modalBodyContainerDiv);
+    modalContentDiv.appendChild(modalFooterContainerDiv);
+    modalFooterContainerDiv.appendChild(modalFooterCancelBtn);
+
+    main.appendChild(modalContainerDiv1);
+
+    modalHeaderH1.innerText = "Event Info";
+    modalFooterCancelBtn.innerText = "close";
 
 }
