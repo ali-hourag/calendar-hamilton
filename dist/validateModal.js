@@ -72,15 +72,15 @@ function checkboxChecked() {
     if (reminderContainerDiv === null)
         return;
     if (this.id === "check-end-date") {
-        endDateContainerDiv.classList.toggle("modal-div");
+        endDateContainerDiv.classList.toggle("modal-display-none");
         endDateContainerDiv.classList.toggle("d-flex");
-        if (!endDateContainerDiv.classList.contains("modal-div"))
+        if (!endDateContainerDiv.classList.contains("modal-display-none"))
             checkEndDateValidity();
     }
     else {
-        reminderContainerDiv.classList.toggle("modal-div");
+        reminderContainerDiv.classList.toggle("modal-display-none");
         reminderContainerDiv.classList.toggle("d-flex");
-        if (!reminderContainerDiv.classList.contains("modal-div"))
+        if (!reminderContainerDiv.classList.contains("modal-display-none"))
             checkReminderValidity();
     }
 }
@@ -398,10 +398,10 @@ function clearModal() {
     modalInitialDate.value = getCurrentFormattedDate();
     modalInitialTime.value = getCurrentFormattedTime();
     modalCheckEndDate.checked = false;
-    endDateContainerDiv.classList.add("modal-div");
+    endDateContainerDiv.classList.add("modal-display-none");
     endDateContainerDiv.classList.remove("d-flex");
     modalCheckReminderEvent.checked = false;
-    reminderContainerDiv.classList.add("modal-div");
+    reminderContainerDiv.classList.add("modal-display-none");
     reminderContainerDiv.classList.remove("d-flex");
     typeEventSelect.value = "default";
 }

@@ -219,6 +219,22 @@
     border-color: red;
 }
 
-.modal-div {
+
+/*Styles for info event modal*/
+.info-description-textarea {
+    resize: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.modal-info-content {
+    font-weight: bold;
+}
+
+/*Class that will be toggled*/
+.modal-display-none {
     display: none;
 }

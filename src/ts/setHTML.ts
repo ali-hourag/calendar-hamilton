@@ -15,7 +15,7 @@ export function setHeader(): void {
     headerNewEventButton.classList.add("header-new-event_btn", "ml-3", "btn", "d-flex", "justify-content-center", "align-items-center");
     headerNewEventButton.setAttribute("data-bs-toggle", "modal");
     headerNewEventButton.setAttribute("id", "header-new-event_btn");
-    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event"); //modal-new-event or modal-info-event to see info event
+    headerNewEventButton.setAttribute("data-bs-target", "#modal-info-event"); //modal-new-event or modal-info-event to see info event
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
     headerYearH1.setAttribute("id", "currentYear");
@@ -257,7 +257,7 @@ function setModalNewEvent(): void {
     modalBodySectionCheckEDateInput.classList.add("modal-input-checkbox");
     modalBodySectionCheckEDateInput.setAttribute("type", "checkbox");
     modalBodySectionCheckEDateInput.setAttribute("id", "check-end-date");
-    modalBodySectionEDateEndDiv.setAttribute("class", "modal-div flex-column justify-content-between mb-2 modal-sections");
+    modalBodySectionEDateEndDiv.setAttribute("class", "modal-display-none flex-column justify-content-between mb-2 modal-sections");
     modalBodySectionEDateEndDiv.setAttribute("id", "end-date-container");
     modalBodySectionEDateLabel.classList.add("modal-label");
     modalBodySectionEDateLabel.setAttribute("for", "end-date");
@@ -277,7 +277,7 @@ function setModalNewEvent(): void {
     modalBodySectionReminderInput.classList.add("modal-input-checkbox");
     modalBodySectionReminderInput.setAttribute("type", "checkbox");
     modalBodySectionReminderInput.setAttribute("id", "check-reminder-event")
-    modalBodySectionReminderContainerDiv.setAttribute("class", "modal-div flex-column justify-content-between mb-2 modal-sections");
+    modalBodySectionReminderContainerDiv.setAttribute("class", "modal-display-none flex-column justify-content-between mb-2 modal-sections");
     modalBodySectionReminderContainerDiv.setAttribute("id", "reminder-container");
     modalBodySectionReminderSelectTime.setAttribute("class", "modal-input select-arrow-styles select-hide-arrow");
     modalBodySectionReminderSelectTime.setAttribute("id", "type-of-time");
@@ -407,9 +407,24 @@ function setModalInfoEvent() {
     const modalHeaderH1: (HTMLHeadingElement | null) = document.createElement("h1");
     const modalHeaderBtn: (HTMLButtonElement | null) = document.createElement("button");
     const modalBodyContainerDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalBodyTitleH2: (HTMLHeadingElement | null) = document.createElement("h2");
+    const modalBodyInitialDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalBodyInitialP1: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyInitialP2: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyEndDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalBodyEndP1: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyEndP2: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyReminderDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalBodyReminderP: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyDescriptionDiv: (HTMLDivElement | null) = document.createElement("div");
+    const modalBodyDescriptionP1: (HTMLParagraphElement | null) = document.createElement("p");
+    const modalBodyDescriptionTArea: (HTMLTextAreaElement | null) = document.createElement("textarea");
+    const modalBodyDescriptionP2: (HTMLParagraphElement | null) = document.createElement("p");
     const modalFooterContainerDiv: (HTMLDivElement | null) = document.createElement("div");
     const modalFooterCancelBtn: (HTMLButtonElement | null) = document.createElement("button");
     if (main === null) return;
+
+    let classInfoModal: string = "d-flex flex-row justify-content-between align-items-center";
 
     modalContainerDiv1.classList.add("modal", "fade");
     modalContainerDiv1.setAttribute("id", "modal-info-event");
@@ -419,7 +434,7 @@ function setModalInfoEvent() {
     modalContainerDiv1.setAttribute("aria-hidden", "true");
     modalContainerDiv2.setAttribute("class", "modal-dialog modal-dialog-centered modal-dialog-scrollable");
     modalContainerDiv2.setAttribute("role", "document");
-    modalContentDiv.classList.add("modal-content");
+    modalContentDiv.classList.add("modal-content", "modal-info-content");
     modalHeaderContainerDiv.classList.add("modal-header");
     modalHeaderH1.classList.add("modal-title");
     modalHeaderH1.setAttribute("id", "modal-info-title_h1");
@@ -427,7 +442,25 @@ function setModalInfoEvent() {
     modalHeaderBtn.setAttribute("type", "button");
     modalHeaderBtn.setAttribute("data-bs-dismiss", "modal");
     modalHeaderBtn.setAttribute("aria-label", "close");
-    modalBodyContainerDiv.classList.add("modal-body");
+    modalBodyContainerDiv.classList.add("modal-body", "d-flex", "flex-column", "justify-content-center");
+    modalBodyTitleH2.setAttribute("class", `modal-info-title text-center`);
+    modalBodyInitialDiv.setAttribute("class", `initial-values ${classInfoModal}`);
+    modalBodyInitialP1.classList.add("initial-values-p");
+    modalBodyInitialP2.classList.add("initial-values-p");
+    modalBodyEndDiv.setAttribute("class", `end-values ${classInfoModal}`);
+    modalBodyEndP1.classList.add("end-values-p");
+    modalBodyEndP2.classList.add("end-values-p");
+    modalBodyReminderDiv.setAttribute("class", `info-reminder ${classInfoModal}`);
+    modalBodyReminderP.classList.add("info-reminder-p");
+    modalBodyDescriptionDiv.setAttribute("class", "info-description d-flex flex-column justify-content-center align-items-center");
+    modalBodyDescriptionP1.classList.add("info-description-p1");
+    modalBodyDescriptionTArea.classList.add("info-description-textarea", "mb-2");
+    modalBodyDescriptionTArea.setAttribute("maxlength", "500");
+    modalBodyDescriptionTArea.setAttribute("rows", "4");
+    modalBodyDescriptionTArea.setAttribute("cols", "35");
+    modalBodyDescriptionTArea.setAttribute("disabled", "true");
+    modalBodyDescriptionP2.classList.add("info-event-type");
+
     modalFooterContainerDiv.classList.add("modal-footer");
     modalFooterCancelBtn.classList.add("btn", "btn-secondary", "modal-cancel_btn");
     modalFooterCancelBtn.setAttribute("type", "button");
@@ -439,6 +472,19 @@ function setModalInfoEvent() {
     modalHeaderContainerDiv.appendChild(modalHeaderH1);
     modalHeaderContainerDiv.appendChild(modalHeaderBtn);
     modalContentDiv.appendChild(modalBodyContainerDiv);
+    modalBodyContainerDiv.appendChild(modalBodyTitleH2);
+    modalBodyContainerDiv.appendChild(modalBodyInitialDiv);
+    modalBodyInitialDiv.appendChild(modalBodyInitialP1);
+    modalBodyInitialDiv.appendChild(modalBodyInitialP2);
+    modalBodyContainerDiv.appendChild(modalBodyEndDiv);
+    modalBodyEndDiv.appendChild(modalBodyEndP1);
+    modalBodyEndDiv.appendChild(modalBodyEndP2);
+    modalBodyContainerDiv.appendChild(modalBodyReminderDiv);
+    modalBodyReminderDiv.appendChild(modalBodyReminderP);
+    modalBodyContainerDiv.appendChild(modalBodyDescriptionDiv);
+    modalBodyDescriptionDiv.appendChild(modalBodyDescriptionP1);
+    modalBodyDescriptionDiv.appendChild(modalBodyDescriptionTArea);
+    modalBodyDescriptionDiv.appendChild(modalBodyDescriptionP2);
     modalContentDiv.appendChild(modalFooterContainerDiv);
     modalFooterContainerDiv.appendChild(modalFooterCancelBtn);
 
@@ -446,5 +492,13 @@ function setModalInfoEvent() {
 
     modalHeaderH1.innerText = "Event Info";
     modalFooterCancelBtn.innerText = "close";
+    modalBodyTitleH2.innerText = "TITLE";
+    modalBodyInitialP1.innerText = "Starts on: ";
+    modalBodyInitialP2.innerText = "12/12/2023 at 13:45";
+    modalBodyEndP1.innerText = "Ends on: ";
+    modalBodyEndP2.innerText = "12/12/2023 at 13:45";
+    modalBodyReminderP.innerText = "Reminder set 30 minutes before.";
+    modalBodyDescriptionP1.innerText = "Description:";
+    modalBodyDescriptionP2.innerText = "Type of event: Meeting";
 
 }
