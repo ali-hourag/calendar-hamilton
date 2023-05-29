@@ -675,3 +675,50 @@ function successEventSaved(): void {
         clearModal();
     }, 2000)
 }
+
+function setReminderEvent() {
+
+
+    let currentHour:string = getCurrentFormattedTime();
+    let currentDay: string = getCurrentFormattedDate();
+
+    if (localStorage.getItem("events") !== null) {
+
+        let arrEndDate: string | null  = localStorage.getItem("events");
+        if (arrEndDate === null) return;
+        let events: Array<Event> = JSON.parse(arrEndDate);
+
+            events.forEach((event)=>{
+
+                let { initialDate, initialTime, isCheckedReminder } = event;
+
+
+                    const initDate = initialDate.toString().slice(0,10);
+                    let minutesDifference: number = getTotalMinutes(initialTime, currentHour);
+
+                    if(initDate === currentDay){
+                        console.log('es el mismo dia');
+                            if(isCheckedReminder){
+                                if(minutesDifference <= 5){
+                                    console.log('Faltan menos de 5');
+                                } else if(minutesDifference <= 10){
+
+                                }
+                                console.log(minutesDifference);
+                                isCheckedReminder = false;
+                                } else {
+                            console.log('No tiene recordatorio');
+                            }
+                    } else {
+                        console.log('No es el mismo dia');
+                    }
+
+                   
+
+                })
+
+        } 
+}
+
+
+setReminderEvent();
