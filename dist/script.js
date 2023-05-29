@@ -1,10 +1,13 @@
 import { setHeader } from "./setHTML.js";
 import { checkModalValidity } from "./validateModal.js";
-import { setAsideHistoryOfEvents } from "./utils.js";
+import { setAsideHistoryOfEvents, eventListenerChangeYear } from "./utils.js";
+import { setCalendar } from "./setCalendar.js";
 window.addEventListener("load", loadPage);
 function loadPage() {
     setHeader();
-    checkModalValidity();
     setAsideHistoryOfEvents();
+    eventListenerChangeYear();
+    setCalendar();
+    checkModalValidity();
 }
 //# sourceMappingURL=script.js.map

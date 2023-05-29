@@ -1,13 +1,14 @@
 import { setHeader } from "./setHTML.js";
-import { checkModalValidity } from "./validateModal.js";
-import { setAsideHistoryOfEvents } from "./utils.js";
-import { ReminderTime } from "./interface.js";
+import { checkModalValidity} from "./validateModal.js";
+import { setAsideHistoryOfEvents, eventListenerChangeYear} from "./utils.js";
+import { setCalendar } from "./setCalendar.js";
 
 window.addEventListener("load", loadPage);
 
-
 function loadPage(): void {
     setHeader();
-    checkModalValidity();
     setAsideHistoryOfEvents();
+    eventListenerChangeYear();
+    setCalendar();
+    checkModalValidity();
 }

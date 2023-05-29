@@ -16,7 +16,7 @@ export function setHeader() {
     headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event");
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
-    headerYearH1.setAttribute("id", "currentYear");
+    headerYearH1.setAttribute("id", "selected-year");
     headerEmptyDiv.classList.add("header-empty_div");
     headerBurguerButton.classList.add("header-burger-history_btn");
     headerBurguerButton.setAttribute("type", "button");
@@ -120,6 +120,7 @@ function setCalendarContainer() {
     historyEventsAside.appendChild(historyEventsAsideTitleH4);
     calendarContainerSection.appendChild(daysOfWeekAside);
     calendarContainerSection.appendChild(daysOfMonthCalendarSection);
+    setEntryDaysCalendar();
     const arrayDaysOfWeek = ["M", "T", "W", "T", "F", "S", "S"];
     arrayDaysOfWeek.forEach((day, i) => {
         const dayOfWeekH4 = document.createElement("h4");
@@ -129,6 +130,35 @@ function setCalendarContainer() {
         daysOfWeekAside.appendChild(dayOfWeekH4);
     });
     setModalNewEvent();
+}
+function setEntryDaysCalendar() {
+    const daysOfMonthCalendarSection = document.querySelector(".days-month-container_section");
+    if (daysOfMonthCalendarSection === null)
+        return;
+    for (let i = 1; i <= 42; i++) {
+        const entryDayContainerDiv = document.createElement("div");
+        const entryDayInfoDiv = document.createElement("div");
+        const entryDayInfoP = document.createElement("p");
+        const entryDayInfoSpan = document.createElement("span");
+        if (entryDayContainerDiv === null)
+            return;
+        if (entryDayInfoDiv === null)
+            return;
+        if (entryDayInfoP === null)
+            return;
+        if (entryDayInfoSpan === null)
+            return;
+        entryDayContainerDiv.classList.add("entry-day-calendar_div");
+        entryDayContainerDiv.setAttribute("id", `weekday-${i.toString()}`);
+        entryDayInfoDiv.classList.add("entry-day-info_div");
+        entryDayInfoP.classList.add("entry-day-info-number_p");
+        entryDayInfoSpan.classList.add("entry-day-info-add_span");
+        daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
+        entryDayContainerDiv.appendChild(entryDayInfoDiv);
+        entryDayInfoDiv.appendChild(entryDayInfoP);
+        entryDayInfoDiv.appendChild(entryDayInfoSpan);
+        entryDayInfoSpan.innerText = "+";
+    }
 }
 function setModalNewEvent() {
     const main = document.querySelector(".main");

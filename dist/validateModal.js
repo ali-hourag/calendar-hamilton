@@ -322,7 +322,7 @@ function disableTimeSelectOptions() {
         option.disabled = true;
     });
 }
-function getCurrentFormattedDate() {
+export function getCurrentFormattedDate() {
     let date = new Date();
     let actualMonth;
     let actualDay;
@@ -333,7 +333,7 @@ function getCurrentFormattedDate() {
         actualMonth = `${date.getMonth() + 1}`;
     }
     if ((date.getDate()) < 10) {
-        actualDay = `0${date.getMonth()}`;
+        actualDay = `0${date.getDate()}`;
     }
     else {
         actualDay = `${date.getDate()}`;

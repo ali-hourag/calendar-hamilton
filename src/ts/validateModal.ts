@@ -460,7 +460,7 @@ function disableTimeSelectOptions() {
  * This functions solves that and returns the correct date if needed.
  * @return returns current formatted date
  */
-function getCurrentFormattedDate(): string {
+export function getCurrentFormattedDate(): string {
     let date: Date = new Date();
     let actualMonth: string;
     let actualDay: string;
@@ -470,7 +470,7 @@ function getCurrentFormattedDate(): string {
         actualMonth = `${date.getMonth() + 1}`;
     }
     if ((date.getDate()) < 10) {
-        actualDay = `0${date.getMonth()}`;
+        actualDay = `0${date.getDate()}`;
     } else {
         actualDay = `${date.getDate()}`;
     }

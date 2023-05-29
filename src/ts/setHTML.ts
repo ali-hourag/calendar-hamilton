@@ -18,7 +18,7 @@ export function setHeader(): void {
     headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event"); //modal-new-event or modal-info-event to see info event
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
-    headerYearH1.setAttribute("id", "currentYear");
+    headerYearH1.setAttribute("id", "selected-year");
     headerEmptyDiv.classList.add("header-empty_div");
     headerBurguerButton.classList.add("header-burger-history_btn");
     headerBurguerButton.setAttribute("type", "button");
@@ -139,12 +139,14 @@ function setCalendarContainer(): void {
     daysOfWeekAside.classList.add("days-of-week-container_aside");
     daysOfMonthCalendarSection.classList.add("days-month-container_section");
 
+
     main.appendChild(calendarContainerSection);
     calendarContainerSection.appendChild(historyEventsAside);
     historyEventsAside.appendChild(historyEventsAsideTitleH4);
     calendarContainerSection.appendChild(daysOfWeekAside);
     calendarContainerSection.appendChild(daysOfMonthCalendarSection);
 
+    setEntryDaysCalendar();
 
     //Add days inside the aside element of daysOfWeek
     const arrayDaysOfWeek: Array<string> = ["M", "T", "W", "T", "F", "S", "S"];
@@ -157,6 +159,41 @@ function setCalendarContainer(): void {
         daysOfWeekAside.appendChild(dayOfWeekH4);
     })
     setModalNewEvent();
+}
+
+//                 <div class="entry-day-calendar_div">
+//                     <div class="entry-day-info_div">
+//                         <p class="entry-day-info-number_p">1</p>
+//                         <span class="entry-day-info-add_span">+</span>
+//                     </div>
+//                 </div>
+function setEntryDaysCalendar(){
+    const daysOfMonthCalendarSection: (HTMLElement | null) = document.querySelector(".days-month-container_section");
+    if(daysOfMonthCalendarSection === null) return;
+    for(let i = 1; i <= 42; i++){
+        const entryDayContainerDiv: (HTMLDivElement | null) = document.createElement("div");
+        const entryDayInfoDiv: (HTMLDivElement | null) = document.createElement("div");
+        const entryDayInfoP: (HTMLParagraphElement | null) = document.createElement("p");
+        const entryDayInfoSpan: (HTMLSpanElement | null) = document.createElement("span");
+        if(entryDayContainerDiv === null) return;
+        if(entryDayInfoDiv === null) return;
+        if(entryDayInfoP === null) return;
+        if(entryDayInfoSpan === null) return;
+        
+        entryDayContainerDiv.classList.add("entry-day-calendar_div");
+        entryDayContainerDiv.setAttribute("id", `weekday-${i.toString()}`);
+        entryDayInfoDiv.classList.add("entry-day-info_div");
+        entryDayInfoP.classList.add("entry-day-info-number_p");
+        entryDayInfoSpan.classList.add("entry-day-info-add_span");
+
+        daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
+        entryDayContainerDiv.appendChild(entryDayInfoDiv);
+        entryDayInfoDiv.appendChild(entryDayInfoP);
+        entryDayInfoDiv.appendChild(entryDayInfoSpan);
+
+        //entryDayInfoP.innerText = i.toString();
+        entryDayInfoSpan.innerText = "+";
+    }
 }
 
 function setModalNewEvent(): void {
