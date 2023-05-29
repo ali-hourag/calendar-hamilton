@@ -631,9 +631,9 @@ function saveModalContent(): void {
         };
 
         if (localStorage.getItem("events") !== null) {
-            let n: string | null = localStorage.getItem("events");
-            if (n === null) return;
-            let events: Array<Event> = JSON.parse(n);
+            let eventEntered: string | null = localStorage.getItem("events");
+            if (eventEntered === null) return;
+            let events: Array<Event> = JSON.parse(eventEntered);
             newEvent.id = events.length + 1;
             events.push(newEvent);
             localStorage.setItem("events", JSON.stringify(events));

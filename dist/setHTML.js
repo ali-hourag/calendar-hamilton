@@ -13,7 +13,7 @@ export function setHeader() {
     headerNewEventButton.classList.add("header-new-event_btn", "ml-3", "btn", "d-flex", "justify-content-center", "align-items-center");
     headerNewEventButton.setAttribute("data-bs-toggle", "modal");
     headerNewEventButton.setAttribute("id", "header-new-event_btn");
-    headerNewEventButton.setAttribute("data-bs-target", "#modal-info-event");
+    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event");
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
     headerYearH1.setAttribute("id", "currentYear");

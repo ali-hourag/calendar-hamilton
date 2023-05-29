@@ -1,23 +1,8 @@
 
-// Event Properties
-// export enum EventType {
-//     "default",
-//     "meeting",
-//     "personal",
-//     "study",
-//     "sports",
-// }
 export type EventType = "default" | "meeting" | "personal" | "study" | "sports";
 export type ReminderTime = "default" | "five" | "ten" | "fifteen" | "thirty" | "one-hour";
 
-// export enum ReminderTime {
-//     "default",
-//     "five",
-//     "ten",
-//     "fifteen",
-//     "thirty",
-//     "one-hour"
-// }
+
 
 export interface Event {
     id: number;

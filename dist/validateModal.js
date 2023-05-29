@@ -497,10 +497,10 @@ function saveModalContent() {
             isCheckedReminder, reminder, description, eventType
         };
         if (localStorage.getItem("events") !== null) {
-            let n = localStorage.getItem("events");
-            if (n === null)
+            let eventEntered = localStorage.getItem("events");
+            if (eventEntered === null)
                 return;
-            let events = JSON.parse(n);
+            let events = JSON.parse(eventEntered);
             newEvent.id = events.length + 1;
             events.push(newEvent);
             localStorage.setItem("events", JSON.stringify(events));
