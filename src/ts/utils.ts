@@ -50,15 +50,18 @@ function changeYearClicked(this: HTMLDivElement) {
     } else selectedYear.innerText = (parseInt(selectedYear.innerText) + 1).toString();
     setCalendar();
 }
-
-function getTotalDaysOfMonth(month: number, year: number): number {
+//---------------------------------------------------------------------------------------------------
+export function getTotalDaysOfMonth(month: number, year: number): number {
     let daysFebruary: number = 28;
     if (isLeapYear(year)) {
         daysFebruary = 29;
     }
+
     const arrayOfTotalDays: Array<number> = [31, daysFebruary, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    return 1;
+
+    return arrayOfTotalDays[month - 1];
 }
+
 
 function isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 4 === 0 && year % 100 === 0 && year % 400 === 0);

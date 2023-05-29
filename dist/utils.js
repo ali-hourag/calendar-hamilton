@@ -37,25 +37,15 @@ function changeYearClicked() {
         selectedYear.innerText = (parseInt(selectedYear.innerText) + 1).toString();
     setCalendar();
 }
-function getTotalDaysOfMonth(month, year) {
+export function getTotalDaysOfMonth(month, year) {
     let daysFebruary = 28;
     if (isLeapYear(year)) {
         daysFebruary = 29;
     }
     const arrayOfTotalDays = [31, daysFebruary, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    return 1;
+    return arrayOfTotalDays[month - 1];
 }
 function isLeapYear(year) {
-    let isLeapYearTrue = false;
-    if (year % 4 === 0) {
-        if (year % 400 === 0) {
-            isLeapYearTrue = true;
-        }
-        else {
-            if (year % 100 !== 0)
-                isLeapYearTrue = true;
-        }
-    }
-    return isLeapYearTrue;
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 4 === 0 && year % 100 === 0 && year % 400 === 0);
 }
 //# sourceMappingURL=utils.js.map

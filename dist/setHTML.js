@@ -86,10 +86,10 @@ function setTopBar() {
         topBarMonthInput.setAttribute("type", "radio");
         topBarMonthInput.setAttribute("name", "months");
         topBarMonthInput.setAttribute("value", monthId);
-        topBarMonthInput.setAttribute("numberMonth", `${i + 1}`);
+        topBarMonthInput.setAttribute("number-month", `${i + 1}`);
         topBarMonthLabel.classList.add("topbar-month_label");
         topBarMonthLabel.setAttribute("for", monthId);
-        topBarMonthLabel.setAttribute("numberMonth", `${i + 1}`);
+        topBarMonthLabel.setAttribute("number-month", `${i + 1}`);
         topBarMonthLabel.innerText = month;
         topBarMonthDiv.appendChild(topBarMonthInput);
         topBarMonthDiv.appendChild(topBarMonthLabel);
@@ -149,9 +149,10 @@ function setEntryDaysCalendar() {
         if (entryDayInfoSpan === null)
             return;
         entryDayContainerDiv.classList.add("entry-day-calendar_div");
-        entryDayContainerDiv.setAttribute("id", `weekday-${i.toString()}`);
+        entryDayContainerDiv.setAttribute("id", `weekday-${i}`);
         entryDayInfoDiv.classList.add("entry-day-info_div");
         entryDayInfoP.classList.add("entry-day-info-number_p");
+        entryDayInfoP.setAttribute("id", `p-day-${i}`);
         entryDayInfoSpan.classList.add("entry-day-info-add_span");
         daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
         entryDayContainerDiv.appendChild(entryDayInfoDiv);

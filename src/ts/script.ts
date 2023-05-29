@@ -5,6 +5,7 @@ import { setCalendar } from "./setCalendar.js";
 
 window.addEventListener("load", loadPage);
 
+
 function loadPage(): void {
     setHeader();
     setAsideHistoryOfEvents();
