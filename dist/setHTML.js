@@ -151,14 +151,15 @@ function setEntryDaysCalendar() {
         entryDayContainerDiv.classList.add("entry-day-calendar_div");
         entryDayContainerDiv.setAttribute("id", `weekday-${i}`);
         entryDayInfoDiv.classList.add("entry-day-info_div");
+        entryDayInfoDiv.setAttribute("id", `div-day-info-${i}`);
         entryDayInfoP.classList.add("entry-day-info-number_p");
         entryDayInfoP.setAttribute("id", `p-day-${i}`);
         entryDayInfoSpan.classList.add("entry-day-info-add_span");
+        entryDayInfoSpan.setAttribute("id", `span-day-${i}`);
         daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
         entryDayContainerDiv.appendChild(entryDayInfoDiv);
         entryDayInfoDiv.appendChild(entryDayInfoP);
         entryDayInfoDiv.appendChild(entryDayInfoSpan);
-        entryDayInfoSpan.innerText = "+";
     }
 }
 function setModalNewEvent() {

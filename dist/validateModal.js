@@ -35,7 +35,7 @@ export function checkModalValidity() {
     modalCheckEndDate.addEventListener("change", checkboxChecked);
     modalCheckReminderEvent.addEventListener("change", checkboxChecked);
     modalBtnSave.addEventListener("click", saveModalContent);
-    headerNewEventBtn.addEventListener("click", clearModal);
+    headerNewEventBtn.addEventListener("click", newEventBtnClicked);
 }
 function checkModalInputValidity() {
     if (this.value.trim() === "") {
@@ -360,7 +360,11 @@ function getCurrentFormattedTime() {
     let currentTime = `${actualHour}:${actualMinutes}`;
     return currentTime;
 }
-function clearModal() {
+function newEventBtnClicked() {
+    localStorage.setItem("new-event-day", "none");
+    clearModal();
+}
+export function clearModal() {
     const modalTitleEvent = document.querySelector("#title-event");
     const modalInitialDate = document.querySelector("#init-date");
     const modalInitialTime = document.querySelector("#init-time");
@@ -395,7 +399,10 @@ function clearModal() {
     if (typeEventSelect === null)
         return;
     modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
-    modalInitialDate.value = getCurrentFormattedDate();
+    if (localStorage.getItem("new-event-day") === "none")
+        modalInitialDate.value = getCurrentFormattedDate();
+    else {
+    }
     modalInitialTime.value = getCurrentFormattedTime();
     modalCheckEndDate.checked = false;
     endDateContainerDiv.classList.add("modal-display-none");
@@ -404,6 +411,24 @@ function clearModal() {
     reminderContainerDiv.classList.add("modal-display-none");
     reminderContainerDiv.classList.remove("d-flex");
     typeEventSelect.value = "default";
+}
+function getYearMonthSelected() {
+    const yearSelected = document.querySelector("#selected-year");
+    const topBarMonths = document.querySelectorAll(".topbar-month_input");
+    if (yearSelected === null)
+        return;
+    if (topBarMonths === null)
+        return;
+    let month = 0;
+    topBarMonths.forEach((topBarMonth) => {
+        let numberMonth = topBarMonth.getAttribute("number-month");
+        if (numberMonth === null)
+            return;
+        if (topBarMonth.checked)
+            month = parseInt(numberMonth);
+    });
+    let year = parseInt(yearSelected.innerText);
+    return [year, month];
 }
 function saveModalContent() {
     const modalSaveBtn = document.querySelector(".modal-save_btn");

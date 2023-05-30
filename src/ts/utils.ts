@@ -14,7 +14,13 @@ export function setAsideHistoryOfEvents(): void {
     if (asideHistoryOfEvents === null) return;
 
     const displayBurgerBtn: string = window.getComputedStyle(burgerBtn).display;
-    (displayBurgerBtn === "none") ? asideHistoryOfEvents.classList.add("show") : asideHistoryOfEvents.classList.remove("show");
+    if(displayBurgerBtn === "none"){
+        localStorage.setItem("view", "desktop");
+        asideHistoryOfEvents.classList.add("show");
+    } else {
+        localStorage.setItem("view", "small");
+        asideHistoryOfEvents.classList.remove("show");
+    } 
 
     window.addEventListener("resize", setResizedAsideHistoryOfEvents);
 }
@@ -26,7 +32,20 @@ export function setAsideHistoryOfEvents(): void {
 function setResizedAsideHistoryOfEvents(): void {
     const asideHistoryOfEvents: (HTMLElement | null) = document.querySelector(".history-events-container_aside");
     if (asideHistoryOfEvents === null) return;
-    (window.innerWidth > 1100) ? asideHistoryOfEvents.classList.add("show") : asideHistoryOfEvents.classList.remove("show");
+    if (window.innerWidth > 1100) {
+        asideHistoryOfEvents.classList.add("show");
+        if(localStorage.getItem("view") === "small"){
+            setCalendar();
+            localStorage.setItem("view", "desktop");
+        }
+        
+    }else {
+        asideHistoryOfEvents.classList.remove("show");
+        if(localStorage.getItem("view") === "desktop"){
+            setCalendar();
+            localStorage.setItem("view", "small");
+        } 
+    } 
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -61,7 +80,7 @@ export function getTotalDaysOfMonth(month: number, year: number): number {
 
     return arrayOfTotalDays[month - 1];
 }
-
+//---------------------------------------------------------------------------------------------------
 
 function isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 4 === 0 && year % 100 === 0 && year % 400 === 0);

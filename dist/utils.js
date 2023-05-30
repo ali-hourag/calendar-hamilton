@@ -7,14 +7,34 @@ export function setAsideHistoryOfEvents() {
     if (asideHistoryOfEvents === null)
         return;
     const displayBurgerBtn = window.getComputedStyle(burgerBtn).display;
-    (displayBurgerBtn === "none") ? asideHistoryOfEvents.classList.add("show") : asideHistoryOfEvents.classList.remove("show");
+    if (displayBurgerBtn === "none") {
+        localStorage.setItem("view", "desktop");
+        asideHistoryOfEvents.classList.add("show");
+    }
+    else {
+        localStorage.setItem("view", "small");
+        asideHistoryOfEvents.classList.remove("show");
+    }
     window.addEventListener("resize", setResizedAsideHistoryOfEvents);
 }
 function setResizedAsideHistoryOfEvents() {
     const asideHistoryOfEvents = document.querySelector(".history-events-container_aside");
     if (asideHistoryOfEvents === null)
         return;
-    (window.innerWidth > 1100) ? asideHistoryOfEvents.classList.add("show") : asideHistoryOfEvents.classList.remove("show");
+    if (window.innerWidth > 1100) {
+        asideHistoryOfEvents.classList.add("show");
+        if (localStorage.getItem("view") === "small") {
+            setCalendar();
+            localStorage.setItem("view", "desktop");
+        }
+    }
+    else {
+        asideHistoryOfEvents.classList.remove("show");
+        if (localStorage.getItem("view") === "desktop") {
+            setCalendar();
+            localStorage.setItem("view", "small");
+        }
+    }
 }
 export function eventListenerChangeYear() {
     const getPreviousYear = document.querySelector(".topbar-previous-year_div");
