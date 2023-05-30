@@ -1,5 +1,6 @@
 import {getTotalDaysOfMonth } from "./utils.js";
 import {clearModal} from "./validateModal.js"
+import { Event } from "./interface.js";
 
 export function setCalendar(): void {
     const burgerBtn: (HTMLButtonElement | null) = document.querySelector(".header-burger-history_btn");
@@ -84,6 +85,11 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
         spanEntryDay.classList.add("show-entry-day-span");
         spanEntryDay.setAttribute("number-day", counterMonthDays.toString());
         entryDayInfoDiv.classList.add("show-entry-day_div");
+
+
+        let eventsDivId: string = `#div-events-day-${i}`;
+        setEntryDayEvents(year, month, counterMonthDays, eventsDivId);
+        
         counterMonthDays += 1;
 
         spanEntryDay.addEventListener("click", entryDayEventClicked);
@@ -96,6 +102,7 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
         const entryCurrentDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
         if(entryCurrentDay !== null) entryCurrentDay.classList.remove("bg-current-day");
     }
+    //To hide remaining days so that they are not showing on mobile devices
     if(displayBurguerBtn !== "none") {
         const entryDaysDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-calendar_div");
         for (let i = daysOfMonth; i < 42; i++) {
@@ -144,6 +151,14 @@ function cleanDaysInCalendar(): void {
             entryDayInfoDiv[day].classList.remove("show-entry-day_div");
         });
     }
+}
+//------------------------------------------------------------------------------------------------------
+function setEntryDayEvents(year: number, month: number, dayOfMonth: number, divId: string): void{
+    let eventEntered: string | null = localStorage.getItem("events");
+    if (eventEntered === null) return;
+    let events: Array<Event> = JSON.parse(eventEntered);
+    let dateEvent: Date = new Date(events[0].initialDate);
+    console.log(dateEvent.getFullYear());
 }
 //------------------------------------------------------------------------------------------------------
 function entryDayEventClicked(this:HTMLSpanElement): void {

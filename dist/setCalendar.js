@@ -81,6 +81,8 @@ function showDaysInCalendar(year, month, dayOfWeek) {
         spanEntryDay.classList.add("show-entry-day-span");
         spanEntryDay.setAttribute("number-day", counterMonthDays.toString());
         entryDayInfoDiv.classList.add("show-entry-day_div");
+        let eventsDivId = `#div-events-day-${i}`;
+        setEntryDayEvents(year, month, counterMonthDays, eventsDivId);
         counterMonthDays += 1;
         spanEntryDay.addEventListener("click", entryDayEventClicked);
     }
@@ -142,6 +144,14 @@ function cleanDaysInCalendar() {
             entryDayInfoDiv[day].classList.remove("show-entry-day_div");
         });
     }
+}
+function setEntryDayEvents(year, month, dayOfMonth, divId) {
+    let eventEntered = localStorage.getItem("events");
+    if (eventEntered === null)
+        return;
+    let events = JSON.parse(eventEntered);
+    let dateEvent = new Date(events[0].initialDate);
+    console.log(dateEvent.getFullYear());
 }
 function entryDayEventClicked() {
     let dayClicked = this.getAttribute("number-day");

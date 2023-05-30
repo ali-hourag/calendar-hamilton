@@ -104,6 +104,7 @@ function setCalendarContainer() {
     const calendarContainerSection = document.createElement("section");
     const historyEventsAside = document.createElement("aside");
     const historyEventsAsideTitleH4 = document.createElement("h4");
+    const historyEventsContainerDiv = document.createElement("div");
     const daysOfWeekAside = document.createElement("aside");
     const daysOfMonthCalendarSection = document.createElement("section");
     if (main === null)
@@ -113,11 +114,13 @@ function setCalendarContainer() {
     historyEventsAside.setAttribute("id", "burger-event");
     historyEventsAsideTitleH4.classList.add("history-events-title_h4", "p-3");
     historyEventsAsideTitleH4.innerText = "HISTORY";
+    historyEventsContainerDiv.classList.add("history-events-container_div", "overflow-auto");
     daysOfWeekAside.classList.add("days-of-week-container_aside");
     daysOfMonthCalendarSection.classList.add("days-month-container_section");
     main.appendChild(calendarContainerSection);
     calendarContainerSection.appendChild(historyEventsAside);
     historyEventsAside.appendChild(historyEventsAsideTitleH4);
+    historyEventsAside.appendChild(historyEventsContainerDiv);
     calendarContainerSection.appendChild(daysOfWeekAside);
     calendarContainerSection.appendChild(daysOfMonthCalendarSection);
     setEntryDaysCalendar();
@@ -140,6 +143,7 @@ function setEntryDaysCalendar() {
         const entryDayInfoDiv = document.createElement("div");
         const entryDayInfoP = document.createElement("p");
         const entryDayInfoSpan = document.createElement("span");
+        const entryDayEventsContainer = document.createElement("div");
         if (entryDayContainerDiv === null)
             return;
         if (entryDayInfoDiv === null)
@@ -148,7 +152,9 @@ function setEntryDaysCalendar() {
             return;
         if (entryDayInfoSpan === null)
             return;
-        entryDayContainerDiv.classList.add("entry-day-calendar_div");
+        if (entryDayEventsContainer === null)
+            return;
+        entryDayContainerDiv.classList.add("entry-day-calendar_div", "overflow-auto");
         entryDayContainerDiv.setAttribute("id", `weekday-${i}`);
         entryDayInfoDiv.classList.add("entry-day-info_div");
         entryDayInfoDiv.setAttribute("id", `div-day-info-${i}`);
@@ -156,10 +162,16 @@ function setEntryDaysCalendar() {
         entryDayInfoP.setAttribute("id", `p-day-${i}`);
         entryDayInfoSpan.classList.add("entry-day-info-add_span");
         entryDayInfoSpan.setAttribute("id", `span-day-${i}`);
+        entryDayInfoSpan.setAttribute("data-bs-toggle", "modal");
+        entryDayInfoSpan.setAttribute("data-bs-target", "#modal-new-event");
+        entryDayEventsContainer.classList.add("entry-day-events-container", "overflow-auto");
+        entryDayEventsContainer.setAttribute("id", `div-events-day-${i}`);
+        entryDayEventsContainer.innerText = `s un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo)`;
         daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
         entryDayContainerDiv.appendChild(entryDayInfoDiv);
         entryDayInfoDiv.appendChild(entryDayInfoP);
         entryDayInfoDiv.appendChild(entryDayInfoSpan);
+        entryDayContainerDiv.appendChild(entryDayEventsContainer);
     }
 }
 function setModalNewEvent() {

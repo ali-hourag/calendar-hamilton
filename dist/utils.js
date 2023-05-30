@@ -68,4 +68,13 @@ export function getTotalDaysOfMonth(month, year) {
 function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 4 === 0 && year % 100 === 0 && year % 400 === 0);
 }
+export function getFormattedDate(year, month, day) {
+    let correctMonth = month.toString();
+    let correctDay = day.toString();
+    if (month < 10)
+        correctMonth = `0${correctMonth}`;
+    if (day < 10)
+        correctDay = `0${correctDay}`;
+    return `${year}-${correctMonth}-${correctDay}`;
+}
 //# sourceMappingURL=utils.js.map

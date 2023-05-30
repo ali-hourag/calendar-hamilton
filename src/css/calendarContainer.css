@@ -53,6 +53,11 @@
     text-align: center;
 }
 
+.history-events-container_div{
+    width: 100%;
+    height: 100%;
+}
+
 
 /*----styles for the aside that shows days of the week----*/
 .days-of-week-container_aside {
@@ -173,5 +178,10 @@
 }
 .entry-day-info-add_span:hover {
     cursor: pointer;
+}
+
+.entry-day-events-container {
+    width: 100%;
+    height: 100%;
 }
 

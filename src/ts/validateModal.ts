@@ -1,6 +1,6 @@
 import { Event } from "./interface.js";
 import { EventType, ReminderTime } from "./interface.js";
-
+import { getFormattedDate } from "./utils.js";
 
 /**
  * This function is called from the script.ts and it is responsible
@@ -80,27 +80,6 @@ function checkModalInputValidity(this: HTMLInputElement): void {
     if (["init-time", "end-time"].indexOf(inputID) !== -1) checkValidEndTime();
     if (["init-time", "init-date", "end-date", "end-time"].indexOf(inputID) !== -1) checkReminderValidity();
     if (["init-date", "end-date"].indexOf(inputID) !== -1) checkValidEndDate();
-
-
-    // if (this.getAttribute("id") === "init-time") {
-    //     checkValidInitialTime();
-    //     checkValidEndTime();
-    //     checkReminderValidity();
-    // }
-    // else if (this.getAttribute("id") === "init-date") {
-    //     checkValidInitialDate();
-    //     checkValidEndDate();
-    //     checkReminderValidity();
-    // }
-    // else if (this.getAttribute("id") === "end-date") {
-    //     checkValidEndDate();
-    //     checkReminderValidity();
-    // }
-    // else if (this.getAttribute("id") === "end-time") {
-    //     checkValidEndTime();
-    //     checkReminderValidity();
-    // }
-    // else if (this.getAttribute("id") === "type-of-time") checkValidTimeSelect();
 }
 
 //------------------------------------------------------------------------------------------------------------
@@ -155,7 +134,7 @@ function checkValidInitialDate() {
     if (modalInitialDate.value.trim() === "" || modalInitialDate.value.length > 10) {
         modalInitialDate.setAttribute("error-init-date", "Invalid date");
         modalInitialDate.classList.add("invalid-input-modal");
-        modalInitialDate.value = getCurrentFormattedDate();
+        setInitialDate();
     } else {
         modalInitialDate.setAttribute("error-init-date", "");
     }
@@ -174,6 +153,7 @@ function checkEndDateValidity(): void {
     endTimeInput.disabled = true;
     endTimeInput.value = "";
     endDateInput.value = "";
+    endDateInput.classList.remove("invalid-input-modal");
 
     endDateInput.addEventListener("focusout", checkModalInputValidity);
     endTimeInput.addEventListener("focusout", checkModalInputValidity);
@@ -536,10 +516,7 @@ export function clearModal() {
     if (textAreaDescription === null) return;
     if (typeEventSelect === null) return;
     modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
-    if(localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
-    else {
-        //let year: number, month: number = ...getYearMonthSelected();
-    }
+    setInitialDate();
     
     modalInitialTime.value = getCurrentFormattedTime();
     modalCheckEndDate.checked = false;
@@ -549,8 +526,28 @@ export function clearModal() {
     reminderContainerDiv.classList.add("modal-display-none");
     reminderContainerDiv.classList.remove("d-flex");
     typeEventSelect.value = "default";
+    if(modalInitialDate.classList.contains("invalid-input-modal")) modalInitialDate.classList.remove("invalid-input-modal");
+    if(modalInitialTime.classList.contains("invalid-input-modal")) modalInitialTime.classList.remove("invalid-input-modal");
+    modalInitialDate.setAttribute("error-init-date", "");
+    modalInitialTime.setAttribute("error-init-time", "");
 }
-
+//------------------------------
+function setInitialDate(){
+    const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
+    if(modalInitialDate === null) return;
+    if(localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
+    else {
+        let getYM: Array<number> | undefined = getYearMonthSelected();
+        if (getYM === undefined) return;
+        let year: number = getYM[0];
+        let month: number = getYM[1];
+        let getDay: string | null = localStorage.getItem("new-event-day");
+        let day: number = 1;
+        if(getDay !== null) day = parseInt(getDay);
+        modalInitialDate.value = getFormattedDate(year, month, day);
+    }
+}
+//------------------------------------------------------------------------------------------------------------
 function getYearMonthSelected(): Array<number> | undefined{
     const yearSelected: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
     const topBarMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input")

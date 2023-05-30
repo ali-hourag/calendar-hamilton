@@ -1,3 +1,4 @@
+import { getFormattedDate } from "./utils.js";
 export function checkModalValidity() {
     const modalTitleEvent = document.querySelector("#title-event");
     const modalInitialDate = document.querySelector("#init-date");
@@ -105,7 +106,7 @@ function checkValidInitialDate() {
     if (modalInitialDate.value.trim() === "" || modalInitialDate.value.length > 10) {
         modalInitialDate.setAttribute("error-init-date", "Invalid date");
         modalInitialDate.classList.add("invalid-input-modal");
-        modalInitialDate.value = getCurrentFormattedDate();
+        setInitialDate();
     }
     else {
         modalInitialDate.setAttribute("error-init-date", "");
@@ -121,6 +122,7 @@ function checkEndDateValidity() {
     endTimeInput.disabled = true;
     endTimeInput.value = "";
     endDateInput.value = "";
+    endDateInput.classList.remove("invalid-input-modal");
     endDateInput.addEventListener("focusout", checkModalInputValidity);
     endTimeInput.addEventListener("focusout", checkModalInputValidity);
 }
@@ -399,10 +401,7 @@ export function clearModal() {
     if (typeEventSelect === null)
         return;
     modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
-    if (localStorage.getItem("new-event-day") === "none")
-        modalInitialDate.value = getCurrentFormattedDate();
-    else {
-    }
+    setInitialDate();
     modalInitialTime.value = getCurrentFormattedTime();
     modalCheckEndDate.checked = false;
     endDateContainerDiv.classList.add("modal-display-none");
@@ -411,6 +410,31 @@ export function clearModal() {
     reminderContainerDiv.classList.add("modal-display-none");
     reminderContainerDiv.classList.remove("d-flex");
     typeEventSelect.value = "default";
+    if (modalInitialDate.classList.contains("invalid-input-modal"))
+        modalInitialDate.classList.remove("invalid-input-modal");
+    if (modalInitialTime.classList.contains("invalid-input-modal"))
+        modalInitialTime.classList.remove("invalid-input-modal");
+    modalInitialDate.setAttribute("error-init-date", "");
+    modalInitialTime.setAttribute("error-init-time", "");
+}
+function setInitialDate() {
+    const modalInitialDate = document.querySelector("#init-date");
+    if (modalInitialDate === null)
+        return;
+    if (localStorage.getItem("new-event-day") === "none")
+        modalInitialDate.value = getCurrentFormattedDate();
+    else {
+        let getYM = getYearMonthSelected();
+        if (getYM === undefined)
+            return;
+        let year = getYM[0];
+        let month = getYM[1];
+        let getDay = localStorage.getItem("new-event-day");
+        let day = 1;
+        if (getDay !== null)
+            day = parseInt(getDay);
+        modalInitialDate.value = getFormattedDate(year, month, day);
+    }
 }
 function getYearMonthSelected() {
     const yearSelected = document.querySelector("#selected-year");

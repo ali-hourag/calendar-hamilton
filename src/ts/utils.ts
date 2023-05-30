@@ -85,3 +85,12 @@ export function getTotalDaysOfMonth(month: number, year: number): number {
 function isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 4 === 0 && year % 100 === 0 && year % 400 === 0);
 }
+
+//---------------------------------------------------------------------------------------------------
+export function getFormattedDate(year: number, month: number, day: number): string{
+    let correctMonth: string = month.toString();
+    let correctDay: string = day.toString();
+    if(month < 10) correctMonth = `0${correctMonth}`;
+    if(day < 10) correctDay = `0${correctDay}`;
+    return `${year}-${correctMonth}-${correctDay}`;
+}
