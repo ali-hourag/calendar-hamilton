@@ -1,6 +1,6 @@
 import { setCalendar } from "./setCalendar.js";
-import { getFormattedDate } from "./utils.js";
-import { setHistoryOfEvents } from "./functions.js";
+import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate } from "./utils.js";
+import { setHistoryOfEvents, getYearMonthSelected } from "./functions.js";
 import { checkReminders } from "./reminder.js";
 export function checkModalValidity() {
     const modalTitleEvent = document.querySelector("#title-event");
@@ -298,13 +298,6 @@ function checkModalTextAreaValidity() {
     else
         textAreaModal.classList.remove("invalid-input-modal");
 }
-function getTotalMinutes(time1, time2) {
-    let arrTime1 = time1.split(":");
-    let arrTime2 = time2.split(":");
-    let totalMinsTime1 = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
-    let totalMinsTime2 = (parseInt(arrTime2[0]) * 60) + parseInt(arrTime2[1]);
-    return totalMinsTime1 - totalMinsTime2;
-}
 function enableTimeSelect() {
     const typeOfTime = document.querySelector("#type-of-time");
     if (typeOfTime === null)
@@ -326,25 +319,6 @@ function disableTimeSelectOptions() {
     options.forEach(option => {
         option.disabled = true;
     });
-}
-export function getCurrentFormattedDate() {
-    let date = new Date();
-    let actualMonth;
-    let actualDay;
-    if ((date.getMonth() + 1) < 10) {
-        actualMonth = `0${date.getMonth() + 1}`;
-    }
-    else {
-        actualMonth = `${date.getMonth() + 1}`;
-    }
-    if ((date.getDate()) < 10) {
-        actualDay = `0${date.getDate()}`;
-    }
-    else {
-        actualDay = `${date.getDate()}`;
-    }
-    let currentDate = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
-    return currentDate;
 }
 function getCurrentFormattedTime() {
     let date = new Date();
@@ -438,24 +412,6 @@ function setInitialDate() {
             day = parseInt(getDay);
         modalInitialDate.value = getFormattedDate(year, month, day);
     }
-}
-function getYearMonthSelected() {
-    const yearSelected = document.querySelector("#selected-year");
-    const topBarMonths = document.querySelectorAll(".topbar-month_input");
-    if (yearSelected === null)
-        return;
-    if (topBarMonths === null)
-        return;
-    let month = 0;
-    topBarMonths.forEach((topBarMonth) => {
-        let numberMonth = topBarMonth.getAttribute("number-month");
-        if (numberMonth === null)
-            return;
-        if (topBarMonth.checked)
-            month = parseInt(numberMonth);
-    });
-    let year = parseInt(yearSelected.innerText);
-    return [year, month];
 }
 function saveModalContent() {
     const modalSaveBtn = document.querySelector(".modal-save_btn");

@@ -1,8 +1,11 @@
 import { sortEventsByDateTime } from "./setCalendar.js";
 import { Event, ReminderTime } from "./interface.js";
 import { getFormattedDate } from "./utils.js";
-
-export function checkReminders() {
+//-----------------------------------------------------------------------------------------------------------
+/**
+ * checks if there is any reminder on the current day and sets a reminder
+ */
+export function checkReminders(): void {
     let eventEntered: string | null = localStorage.getItem("events");
     if (eventEntered !== null) {
         let events: Array<Event> | undefined = sortEventsByDateTime();
@@ -139,6 +142,12 @@ export function checkReminders() {
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * @param arrayEntered array of arrays of numbers --> [[1, 960], [2, 970], [3, 560]]
+ * @return Array<Array<number>> returns the Array of arrays ordered in an ascendenting manner
+ * by the second number of the internal array.
+ * It uses the bubble sort method
+ */
 function sortArrayBySecondElemByBubble(arrayEntered: Array<Array<number>>): Array<Array<number>> {
     const arrayL: number = arrayEntered.length;
     for (let i = 0; i < arrayL; i++) {

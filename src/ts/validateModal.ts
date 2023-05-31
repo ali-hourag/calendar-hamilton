@@ -1,8 +1,8 @@
 import { Event } from "./interface.js";
 import { EventType, ReminderTime } from "./interface.js";
-import { setCalendar, setEntryDayEvents } from "./setCalendar.js";
-import { getFormattedDate } from "./utils.js";
-import { setHistoryOfEvents } from "./functions.js";
+import { setCalendar } from "./setCalendar.js";
+import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate } from "./utils.js";
+import { setHistoryOfEvents, getYearMonthSelected } from "./functions.js";
 import { checkReminders } from "./reminder.js";
 
 /**
@@ -58,7 +58,6 @@ export function checkModalValidity(): void {
  * redirect it to another more specific validation function
  */
 function checkModalInputValidity(this: HTMLInputElement): void {
-    //Para el error llamar una función que le pasamos el mensaje y el elemento.
 
     if (this.value.trim() === "") {
         this.value = ""; //In the case of the date and clock input
@@ -163,7 +162,7 @@ function checkEndDateValidity(): void {
 }
 //------------------------------------------------------------------------------------------------------------
 /**
- * Thi cuntion checks if the end date entered is valid or not.
+ * Thi function checks if the end date entered is valid or not.
  * It puts the border on red if needed. If the end date is before the
  * initial date or the initial date has not been entered
  */
@@ -391,21 +390,7 @@ function checkModalTextAreaValidity(): void {
     } else textAreaModal.classList.remove("invalid-input-modal");
 }
 
-//------------------------------------------------------------------------------------------------------------
-/**
- * @param time1 hour:minutes PRE
- * @param time2 hour:minutes PRE
- * PRE: time1 has to be bigger (>) than time 2
- * @return returns total minutes between those 2 times
- */
-function getTotalMinutes(time1: string, time2: string): number {
-    let arrTime1: string[] = time1.split(":");
-    let arrTime2: string[] = time2.split(":");
-    let totalMinsTime1: number = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
-    let totalMinsTime2: number = (parseInt(arrTime2[0]) * 60) + parseInt(arrTime2[1]);
 
-    return totalMinsTime1 - totalMinsTime2;
-}
 //------------------------------------------------------------------------------------------------------------
 /**
  * Does not return or receive anything, just enables the time select
@@ -435,32 +420,7 @@ function disableTimeSelectOptions() {
         option.disabled = true;
     })
 }
-//------------------------------------------------------------------------------------------------------------
-/**
- * If the current date the month is less than 10, it will be 1, 2, 3
- * However, for some functions we want it to be 01, 02, 03..
- * the same happens for the days.
- * This functions solves that and returns the correct date if needed.
- * @return returns current formatted date
- */
-export function getCurrentFormattedDate(): string {
-    let date: Date = new Date();
-    let actualMonth: string;
-    let actualDay: string;
-    if ((date.getMonth() + 1) < 10) {
-        actualMonth = `0${date.getMonth() + 1}`;
-    } else {
-        actualMonth = `${date.getMonth() + 1}`;
-    }
-    if ((date.getDate()) < 10) {
-        actualDay = `0${date.getDate()}`;
-    } else {
-        actualDay = `${date.getDate()}`;
-    }
-    let currentDate: string = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
 
-    return currentDate;
-}
 //------------------------------------------------------------------------------------------------------------
 /**
  * If the current time the hour or minute is less than 10, it will be 1, 2, 3
@@ -535,6 +495,9 @@ export function clearModal() {
     modalInitialTime.setAttribute("error-init-time", "");
 }
 //------------------------------
+/**
+ * Set initial date value on the input
+ */
 function setInitialDate() {
     const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
     if (modalInitialDate === null) return;
@@ -550,24 +513,10 @@ function setInitialDate() {
         modalInitialDate.value = getFormattedDate(year, month, day);
     }
 }
-//------------------------------------------------------------------------------------------------------------
-function getYearMonthSelected(): Array<number> | undefined {
-    const yearSelected: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
-    const topBarMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input")
-    if (yearSelected === null) return;
-    if (topBarMonths === null) return;
-    let month: number = 0;
-    topBarMonths.forEach((topBarMonth: HTMLInputElement): void => {
-        let numberMonth: string | null = topBarMonth.getAttribute("number-month");
-        if (numberMonth === null) return;
-        if (topBarMonth.checked) month = parseInt(numberMonth);
-    })
-    let year: number = parseInt(yearSelected.innerText);
-    return [year, month];
-}
+
 //------------------------------------------------------------------------------------------------------------
 /**
- * This function saves the information inside the modal if it is correct
+ * This function saves the information inside the modal if it is correct.
  */
 function saveModalContent(): void {
     const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
@@ -587,8 +536,6 @@ function saveModalContent(): void {
     const modalSection: (HTMLDivElement | null) = document.querySelector("#modal-new-event");
     const headerNewEventBtn: (HTMLButtonElement | null) = document.querySelector("#header-new-event_btn");
 
-
-
     if (modalSaveBtn === null) return;
     if (modalTitleEvent === null) return;
     if (modalInitialDate === null) return;
@@ -606,9 +553,7 @@ function saveModalContent(): void {
     if (modalSection === null) return;
     if (headerNewEventBtn === null) return;
 
-
-
-    //Check that everything has been entered right
+    //Check that everything has been entered right.
     let rightData: boolean = true;
 
     //No need to see initial date and initial time, since they will always have a default value
@@ -675,7 +620,10 @@ function saveModalContent(): void {
 //------------------------------------------------------------------------------------------------------------
 /**
  * this function updates the calendar with new events if they are added on the
- * same month
+ * same month.
+ * This is done so that the web is dynamic and upadtes automatically
+ * without the need of a reload of the web page.
+ * 
  * @param year year of an event entered
  * @param month month of an event entered
  * @returns anything
@@ -697,8 +645,7 @@ function setEventAdded(year: number, month: number): void {
 }
 //------------------------------------------------------------------------------------------------------------
 /**
- * 
- * This function clears the error message after 3 seconds
+ * This function clears the error message after 3 seconds.
  */
 function clearErrorMessage(): void {
     const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
@@ -709,7 +656,6 @@ function clearErrorMessage(): void {
 }
 //------------------------------------------------------------------------------------------------------------
 /**
- * 
  * Called when the event has been successfully saved.
  * Shows message and calls the function to clear the modal
  */
@@ -725,5 +671,4 @@ function successEventSaved(): void {
         modalSaveBtn.classList.remove("save-btn-color-success");
         clearModal();
     }, 2000)
-
 }

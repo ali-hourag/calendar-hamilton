@@ -1,8 +1,13 @@
-import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar } from "./utils.js";
+import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar, getDayOfWeekOfDayEntered } from "./utils.js";
 import { clearModal, checkLastTime, checkLastDate } from "./validateModal.js"
 import { Event } from "./interface.js";
-import { eventInfoClicked } from "./functions.js";
+import { eventInfoClicked, setPreviousMonth, setNextMonth, getYearMonth, fillEntryDays, cleanDaysInCalendar } from "./functions.js";
 
+
+/**
+ * Function called when the web is loaded and when a new event
+ * has been saved or a month or year has been changed or clicked.
+ */
 export function setCalendar(): void {
     const burgerBtn: (HTMLButtonElement | null) = document.querySelector(".header-burger-history_btn");
     if (burgerBtn === null) return;
@@ -12,6 +17,9 @@ export function setCalendar(): void {
 }
 
 //------------------------------------------------------------------------------------------------------
+/**
+ * If the web is on desktop size, this one is called by the setCalendar
+ */
 function setCalendarDesktop(): void {
     let arrayYM: Array<number> | undefined = getYearMonth();
     if (arrayYM === undefined) return;
@@ -23,6 +31,9 @@ function setCalendarDesktop(): void {
     showDaysInCalendar(year, month, dayOfWeek);
 }
 //------------------------------------------------------------------------------------------------------
+/**
+ * If the web is on small size, this one is called by the setCalendar
+ */
 function setCalendarSmallDevice(): void {
     let arrayYM: Array<number> | undefined = getYearMonth();
     if (arrayYM === undefined) return;
@@ -31,32 +42,16 @@ function setCalendarSmallDevice(): void {
     //Always starts at the top, since there is no topbar with the days of the week
     showDaysInCalendar(year, month, 1);
 }
-//------------------------------------------------------------------------------------------------------
-function getYearMonth(): Array<number> | undefined {
-    const selectedYear: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
-    const topBarMonthsInput: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input");
-    const date: Date = new Date();
-    const currentYear: number = date.getFullYear();
-    let month: number;
-    if (selectedYear === null) return;
-    if (currentYear === parseInt(selectedYear.innerText)) {
-        month = date.getMonth() + 1;
-        topBarMonthsInput[month - 1].checked = true;
-    } else {
-        month = 1;
-        topBarMonthsInput[0].checked = true;
-    }
-    let year: number = parseInt(selectedYear.innerText);
-
-    topBarMonthsInput.forEach(topBarMonth => {
-        topBarMonth.addEventListener("click", topBarMonthClicked);
-    })
-
-    return [year, month];
-}
 
 
 //------------------------------------------------------------------------------------------------------
+/**
+ * This one sets the calendar up and shows the assigned month.
+ * @param year 
+ * @param month
+ * @param dayOfWeek day of the week in which the month starts
+ *                  dayOfWeek = 1 (Monday) --> (2,3,4,5,6) --> dayOfWeek = 0 (sunday)
+ */
 function showDaysInCalendar(year: number, month: number, dayOfWeek: number): void {
     const entryDaysDisplayNone: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-display-none");
     if (entryDaysDisplayNone.length > 0) fillEntryDays();
@@ -90,9 +85,6 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
         entryDayEventsDiv.classList.add("show-entry-day-events_div");
 
 
-        // let eventsDivId: string = `#div-events-day-${i}`;
-        // setEntryDayEvents(year, month, counterMonthDays, eventsDivId);
-
         counterMonthDays += 1;
 
         spanEntryDay.addEventListener("click", entryDayEventClicked);
@@ -121,45 +113,13 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
     setNextMonth(year, month, dayOfWeek);
 }
 //------------------------------------------------------------------------------------------------------
+/**
+ * 
+ * @param year 
+ * @param month 
+ * show events each month in respective day
+ */
 
-function setPreviousMonth(year: number, month: number, dayOfWeek: number): void {
-    let emptyDays: number = 7 - dayOfWeek + 1;
-    let daysToFill: number = 7 - emptyDays;
-    let previousMonth: number = month - 1;
-    let previousYear: number = year;
-    if (month === 1) {
-        previousYear = year - 1;
-        previousMonth = 12;
-    }
-    let totaDaysPreviousMonth: number = getTotalDaysOfMonth(previousMonth, previousYear);
-    let i = 0;
-    while (i < daysToFill) {
-        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i + 1}`);
-        if (emptyEntryDayP === null) return;
-        emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
-        i++;
-    }
-}
-//------------------------------------------------------------------------------------------------------
-function setNextMonth(year: number, month: number, dayOfWeek: number): void{
-    let nextMonth: number = month + 1;
-    let nextYear: number = year;
-    if (month === 12) {
-        nextYear = year + 1;
-        nextMonth = 1;
-    }
-    let totalDaysNextMonth: number = getTotalDaysOfMonth(nextMonth, nextYear);
-    let totalDaysOfThisMonth: number = getTotalDaysOfMonth(month, year);
-    let counterNextMonth: number = 1;
-    let posFirstDayNextMonth: number = dayOfWeek + totalDaysOfThisMonth;
-    for(let i = posFirstDayNextMonth; i <= 42; i++) {
-        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i}`);
-        if (emptyEntryDayP === null) return;
-        emptyEntryDayP.innerText = counterNextMonth.toString();
-        counterNextMonth++;
-    }
-}
-//------------------------------------------------------------------------------------------------------
 export function setEntryDayEvents(year: number, month: number): void {
     const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");
     let eventEntered: string | null = localStorage.getItem("events");
@@ -202,15 +162,16 @@ export function setEntryDayEvents(year: number, month: number): void {
         }
     })
 }
+
 //------------------------------------------------------------------------------------------------------
-function fillEntryDays(): void {
-    const entryDaysDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-calendar_div");
-    for (let i = 28; i < 42; i++) {
-        entryDaysDiv[i].classList.remove("entry-day-display-none");
-    }
-}
-//------------------------------------------------------------------------------------------------------
-function topBarMonthClicked(this: HTMLInputElement): void {
+/**
+ * 
+ * @param -> input checkbox checked elements
+ * set calendar when month is clicked
+ * 
+ */
+
+export function topBarMonthClicked(this: HTMLInputElement): void {
     const burgerBtn: (HTMLButtonElement | null) = document.querySelector(".header-burger-history_btn");
     if (burgerBtn === null) return;
     let displayBurguerBtn: string = window.getComputedStyle(burgerBtn).display;
@@ -225,28 +186,15 @@ function topBarMonthClicked(this: HTMLInputElement): void {
         showDaysInCalendar(year, month, dayOfWeek);
     } else showDaysInCalendar(year, month, 1);
 }
-//------------------------------------------------------------------------------------------------------
-function cleanDaysInCalendar(): void {
-    const nListdaysInCalendar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-calendar");
-    const nListentryDayInfoP: NodeListOf<HTMLParagraphElement> = document.querySelectorAll(".show-entry-paragraph");
-    const nListentryDayInfoSpan: NodeListOf<HTMLSpanElement> = document.querySelectorAll(".show-entry-day-span");
-    const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");
-
-    if (nListdaysInCalendar.length > 0) {
-        nListdaysInCalendar.forEach((dayInCalendar, day) => {
-            dayInCalendar.classList.remove("show-entry-day-calendar");
-            nListentryDayInfoP[day].classList.remove("show-entry-paragraph");
-            nListentryDayInfoP[day].innerText = "";
-            nListentryDayInfoSpan[day].innerText = "";
-            nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
-            nListentryDayInfoSpan[day].removeAttribute("number-day");
-            nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
-            nListentryDayEventsDiv[day].replaceChildren();
-        });
-    }
-}
 
 //------------------------------------------------------------------------------------------------------
+/**
+ * This function orders the event by the initialDate and
+ * the initial time, being the date and time by the
+ * following format: 23-03-11  and time being,  12:34
+ * @returns Array<Event> Array of ordered events
+ */
+
 export function sortEventsByDateTime(): Array<Event> | undefined {
     let eventEntered: string | null = localStorage.getItem("events");
     if (eventEntered === null) return;
@@ -278,30 +226,23 @@ export function sortEventsByDateTime(): Array<Event> | undefined {
                     j = orderedEvents.length;
                 }
             }
-
             if (j === orderedEvents.length - 1) {
                 orderedEvents.push(events[i]);
                 j = orderedEvents.length;
             }
-
         }
     }
     return orderedEvents;
 }
 //------------------------------------------------------------------------------------------------------
+/**
+ * @param span element containing a + and toggles the new event modal
+ * so that we can enter new events
+ */
 function entryDayEventClicked(this: HTMLSpanElement): void {
     let dayClicked: string | null = this.getAttribute("number-day");
     if (dayClicked !== null) localStorage.setItem("new-event-day", dayClicked);
     clearModal();
 }
 
-
-//------------------------------------------------------------------------------------------------------
-/**
- * @return the return is a number that indicates the day of the week
- * goin from 0-6 being 0 sunday and 6 saturday
- */
-function getDayOfWeekOfDayEntered(year: number, month: number, dayOfMonth: number): number {
-    return new Date(`${year}-${month}-${dayOfMonth}`).getDay();
-}
 
