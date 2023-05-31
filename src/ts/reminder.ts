@@ -40,7 +40,7 @@ export function checkReminders() {
                 // 16:30 --> 990 
                 // Recordatorio --> 30 min
                 // 960
-                // [11, 970], [7, 960]
+                // [[11, 970], [7, 960]]
                 let arrayDataEvents: Array<Array<number>> = [];
                 eventsReminderToday.forEach((event: Event): void => {
                     let timeArray: Array<string> = event.initialTime.split(":");
@@ -72,7 +72,7 @@ export function checkReminders() {
 
 
                 if (totalMinsReminder > totalMinsCurrentTime) {
-                    let timeToTimeout: number = (totalMinsCurrentTime - totalMinsReminder) * 60000;
+                    let timeToTimeout: number = (totalMinsReminder - totalMinsCurrentTime) * 60000;
                     setTimeout(() => {
                         checkReminders();
                     }, timeToTimeout);
