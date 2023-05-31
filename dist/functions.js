@@ -21,8 +21,8 @@ export function setHistoryOfEvents() {
         containerOfEvent.setAttribute("data-bs-target", "#modal-info-event");
         containerOfEvent.addEventListener("click", eventInfoClicked);
         let displayBurguerBtn = window.getComputedStyle(burgerBtn).display;
-        if (event.title.length > 8 && displayBurguerBtn === "none")
-            titleEvent.innerText = `${event.title.slice(0, 8)}..`;
+        if (event.title.length > 6 && displayBurguerBtn === "none")
+            titleEvent.innerText = `${event.title.slice(0, 6)}..`;
         else
             titleEvent.innerText = event.title;
         let dateE = new Date(event.initialDate);

@@ -97,3 +97,25 @@ export function getFormattedDate(year: number, month: number, day: number): stri
     if (day < 10) correctDay = `0${correctDay}`;
     return `${year}-${correctMonth}-${correctDay}`;
 }
+
+//---------------------------------------------------------------------------------------------------
+
+export function adjustTopScrollBar(): void {
+    const topBarMonthsContainer: (HTMLDivElement | null) = document.querySelector(".topbar-months-container");
+    const topBarInputMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input");
+    if (topBarMonthsContainer === null) return;
+    let posMonth: number = 0;
+    for (let i = 0; i < topBarInputMonths.length; i++) {
+        if (topBarInputMonths[i].checked) {
+            posMonth = i;
+            i = topBarInputMonths.length;
+        }
+    }
+    topBarMonthsContainer.scrollLeft = 100 * (posMonth - 1);
+}
+//---------------------------------------------------------------------------------------------------
+export function adjustCalendarScrollBar() {
+    const entryDaysCalendarContainer: (HTMLDivElement | null) = document.querySelector(".days-month-container_section");
+    if (entryDaysCalendarContainer === null) return;
+    entryDaysCalendarContainer.scrollTop = 0;
+}

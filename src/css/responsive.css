@@ -50,6 +50,7 @@
         grid-template-rows: repeat(5, 1fr);
         height: 75vh;
         overflow-y: scroll;
+        scroll-behavior: smooth;
         gap: 10px;
         padding: 10px 12px;
     }
@@ -82,10 +83,7 @@
             calc(99.4% - .5em) 1em;
     }
 
-}
-
-/*Styles for when the page is < 1070px*/
-@media only screen and (max-width: 1070px) {
+    /*SCROLLBAR*/
     .topbar-months-container {
         overflow-x: scroll;
         scroll-behavior: smooth;
@@ -116,6 +114,7 @@
     }
 
 }
+
 
 
 

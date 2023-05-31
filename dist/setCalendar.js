@@ -1,4 +1,4 @@
-import { getTotalDaysOfMonth, getFormattedDate } from "./utils.js";
+import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar } from "./utils.js";
 import { clearModal, checkLastTime, checkLastDate } from "./validateModal.js";
 import { eventInfoClicked } from "./functions.js";
 export function setCalendar() {
@@ -63,7 +63,7 @@ function showDaysInCalendar(year, month, dayOfWeek) {
     const date = new Date();
     let counterMonthDays = 1;
     for (let i = dayOfWeek; i < (daysOfMonth + dayOfWeek); i++) {
-        const containerEntryDay = document.querySelector(`#weekday-${i}`);
+        const containerEntryDay = document.querySelector(`#entry-day-${i}`);
         const paragraphEntryDay = document.querySelector(`#p-day-${i}`);
         const spanEntryDay = document.querySelector(`#span-day-${i}`);
         const entryDayInfoDiv = document.querySelector(`#div-day-info-${i}`);
@@ -84,7 +84,6 @@ function showDaysInCalendar(year, month, dayOfWeek) {
         spanEntryDay.innerText = "+";
         spanEntryDay.classList.add("show-entry-day-span");
         spanEntryDay.setAttribute("number-day", counterMonthDays.toString());
-        entryDayInfoDiv.classList.add("show-entry-day-info_div");
         entryDayEventsDiv.classList.add("show-entry-day-events_div");
         counterMonthDays += 1;
         spanEntryDay.addEventListener("click", entryDayEventClicked);
@@ -103,8 +102,37 @@ function showDaysInCalendar(year, month, dayOfWeek) {
         for (let i = daysOfMonth; i < 42; i++) {
             entryDaysDiv[i].classList.add("entry-day-display-none");
         }
+        adjustTopScrollBar();
+        adjustCalendarScrollBar();
     }
     setEntryDayEvents(year, month);
+    setPreviousMonth(year, month, dayOfWeek);
+}
+function setPreviousMonth(year, month, dayOfWeek) {
+    const entryDaysDiv = document.querySelectorAll(".entry-day-calendar_div");
+    let emptyDays = 7 - dayOfWeek + 1;
+    let daysToFill = 7 - emptyDays;
+    let previousMonth = month - 1;
+    let previousYear = year;
+    if (month === 1) {
+        previousYear = year - 1;
+        previousMonth = 12;
+    }
+    let totaDaysPreviousMonth = getTotalDaysOfMonth(previousMonth, previousYear);
+    console.log(totaDaysPreviousMonth);
+    let i = 0;
+    while (i < daysToFill) {
+        const emptyEntryDayP = document.querySelector(`#p-day-${i + 1}`);
+        const emptyEntryDayInfoDiv = document.querySelector(`#div-day-info-${i + 1}`);
+        if (emptyEntryDayP === null)
+            return;
+        if (emptyEntryDayInfoDiv === null)
+            return;
+        emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
+        emptyEntryDayP.classList.add("show-previous-month-p");
+        emptyEntryDayInfoDiv.classList.add("show-previous-month-div");
+        i++;
+    }
 }
 export function setEntryDayEvents(year, month) {
     const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
@@ -181,7 +209,6 @@ function cleanDaysInCalendar() {
     const nListdaysInCalendar = document.querySelectorAll(".show-entry-day-calendar");
     const nListentryDayInfoP = document.querySelectorAll(".show-entry-paragraph");
     const nListentryDayInfoSpan = document.querySelectorAll(".show-entry-day-span");
-    const nListentryDayInfoDiv = document.querySelectorAll(".show-entry-day-info_div");
     const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
     if (nListdaysInCalendar.length > 0) {
         nListdaysInCalendar.forEach((dayInCalendar, day) => {
@@ -191,7 +218,6 @@ function cleanDaysInCalendar() {
             nListentryDayInfoSpan[day].innerText = "";
             nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
             nListentryDayInfoSpan[day].removeAttribute("number-day");
-            nListentryDayInfoDiv[day].classList.remove("show-entry-day-info_div");
             nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
             nListentryDayEventsDiv[day].replaceChildren();
         });

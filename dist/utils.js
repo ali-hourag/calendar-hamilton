@@ -80,4 +80,24 @@ export function getFormattedDate(year, month, day) {
         correctDay = `0${correctDay}`;
     return `${year}-${correctMonth}-${correctDay}`;
 }
+export function adjustTopScrollBar() {
+    const topBarMonthsContainer = document.querySelector(".topbar-months-container");
+    const topBarInputMonths = document.querySelectorAll(".topbar-month_input");
+    if (topBarMonthsContainer === null)
+        return;
+    let posMonth = 0;
+    for (let i = 0; i < topBarInputMonths.length; i++) {
+        if (topBarInputMonths[i].checked) {
+            posMonth = i;
+            i = topBarInputMonths.length;
+        }
+    }
+    topBarMonthsContainer.scrollLeft = 100 * (posMonth - 1);
+}
+export function adjustCalendarScrollBar() {
+    const entryDaysCalendarContainer = document.querySelector(".days-month-container_section");
+    if (entryDaysCalendarContainer === null)
+        return;
+    entryDaysCalendarContainer.scrollTop = 0;
+}
 //# sourceMappingURL=utils.js.map

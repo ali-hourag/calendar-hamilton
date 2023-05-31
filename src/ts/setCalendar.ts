@@ -1,4 +1,4 @@
-import { getTotalDaysOfMonth, getFormattedDate } from "./utils.js";
+import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar } from "./utils.js";
 import { clearModal, checkLastTime, checkLastDate } from "./validateModal.js"
 import { Event } from "./interface.js";
 import { eventInfoClicked } from "./functions.js";
@@ -70,7 +70,7 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
     let counterMonthDays: number = 1;
 
     for (let i = dayOfWeek; i < (daysOfMonth + dayOfWeek); i++) {
-        const containerEntryDay: (HTMLDivElement | null) = document.querySelector(`#weekday-${i}`);
+        const containerEntryDay: (HTMLDivElement | null) = document.querySelector(`#entry-day-${i}`);
         const paragraphEntryDay: (HTMLParagraphElement | null) = document.querySelector(`#p-day-${i}`);
         const spanEntryDay: (HTMLSpanElement | null) = document.querySelector(`#span-day-${i}`);
         const entryDayInfoDiv: (HTMLDivElement | null) = document.querySelector(`#div-day-info-${i}`);
@@ -87,7 +87,6 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
         spanEntryDay.innerText = "+";
         spanEntryDay.classList.add("show-entry-day-span");
         spanEntryDay.setAttribute("number-day", counterMonthDays.toString());
-        entryDayInfoDiv.classList.add("show-entry-day-info_div");
         entryDayEventsDiv.classList.add("show-entry-day-events_div");
 
 
@@ -112,10 +111,45 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
         for (let i = daysOfMonth; i < 42; i++) {
             entryDaysDiv[i].classList.add("entry-day-display-none");
         }
+        adjustTopScrollBar();
+        adjustCalendarScrollBar();
+
     }
 
     setEntryDayEvents(year, month);
+    setPreviousMonth(year, month, dayOfWeek);
+    //setNextMonth(year, month, dayOfWeek);
 }
+//------------------------------------------------------------------------------------------------------
+
+function setPreviousMonth(year: number, month: number, dayOfWeek: number): void {
+    const entryDaysDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-calendar_div");
+    let emptyDays: number = 7 - dayOfWeek + 1;
+    let daysToFill: number = 7 - emptyDays;
+    let previousMonth: number = month - 1;
+    let previousYear: number = year;
+    if (month === 1) {
+        previousYear = year - 1;
+        previousMonth = 12;
+    }
+    let totaDaysPreviousMonth: number = getTotalDaysOfMonth(previousMonth, previousYear);
+    console.log(totaDaysPreviousMonth);
+    let i = 0;
+    while (i < daysToFill) {
+        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i + 1}`);
+        const emptyEntryDayInfoDiv: HTMLDivElement | null = document.querySelector(`#div-day-info-${i + 1}`);
+        if (emptyEntryDayP === null) return;
+        if (emptyEntryDayInfoDiv === null) return;
+        emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
+        emptyEntryDayP.classList.add("show-previous-month-p");
+        emptyEntryDayInfoDiv.classList.add("show-previous-month-div");
+        i++;
+    }
+}
+//------------------------------------------------------------------------------------------------------
+// function setNextMonth(year: number, month: number, dayOfWeek: number){
+
+// }
 //------------------------------------------------------------------------------------------------------
 export function setEntryDayEvents(year: number, month: number): void {
     const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");
@@ -187,7 +221,6 @@ function cleanDaysInCalendar(): void {
     const nListdaysInCalendar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-calendar");
     const nListentryDayInfoP: NodeListOf<HTMLParagraphElement> = document.querySelectorAll(".show-entry-paragraph");
     const nListentryDayInfoSpan: NodeListOf<HTMLSpanElement> = document.querySelectorAll(".show-entry-day-span");
-    const nListentryDayInfoDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-info_div");
     const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");
 
     if (nListdaysInCalendar.length > 0) {
@@ -198,7 +231,6 @@ function cleanDaysInCalendar(): void {
             nListentryDayInfoSpan[day].innerText = "";
             nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
             nListentryDayInfoSpan[day].removeAttribute("number-day");
-            nListentryDayInfoDiv[day].classList.remove("show-entry-day-info_div");
             nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
             nListentryDayEventsDiv[day].replaceChildren();
         });

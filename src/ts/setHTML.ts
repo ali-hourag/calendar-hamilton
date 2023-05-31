@@ -181,7 +181,7 @@ function setEntryDaysCalendar() {
         if (entryDayEventsContainerDiv === null) return;
 
         entryDayContainerDiv.classList.add("entry-day-calendar_div", "overflow-auto");
-        entryDayContainerDiv.setAttribute("id", `weekday-${i}`);
+        entryDayContainerDiv.setAttribute("id", `entry-day-${i}`);
         entryDayInfoDiv.classList.add("entry-day-info_div");
         entryDayInfoDiv.setAttribute("id", `div-day-info-${i}`);
         entryDayInfoP.classList.add("entry-day-info-number_p");
