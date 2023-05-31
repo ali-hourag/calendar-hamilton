@@ -235,6 +235,65 @@
 }
 
 /*Class that will be toggled*/
-.modal-display-none {
-    display: none;
-}
+
+
+/*modal***************************************************************/
+.modal-container {
+   
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(9, 138, 116);
+  }
+  
+  .modal-dialog {
+    width: 400px;
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+  .modal-header {
+    justify-content: center;
+    padding: 10px;
+   
+  }
+  
+  .modal-title {
+    
+    text-align: center;
+    font-size: 20px;
+   
+  }
+  
+  .modal-body {
+    padding: 10px;
+  }
+  
+  .modalP {
+    text-align: center;
+
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+   
+  }
+  
+  .button-name {
+    align-content: center;
+    padding: 5px 10px;
+    background-color: rgb(9, 138, 116);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .button-name:hover {
+    background-color: rgb(4, 71, 60);
+  }
+  

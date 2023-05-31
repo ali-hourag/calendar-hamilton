@@ -40,7 +40,7 @@ export function setHeader(): void {
 
     body.appendChild(header);
     header.appendChild(headerNewEventButton),
-        header.appendChild(headerYearH1);
+    header.appendChild(headerYearH1);
     header.appendChild(headerEmptyDiv);
     header.appendChild(headerBurguerButton);
     headerBurguerButton.appendChild(burguerDiv);
@@ -157,7 +157,7 @@ function setCalendarContainer(): void {
         daysOfWeekAside.appendChild(dayOfWeekH4);
     })
     setModalNewEvent();
-    
+
 }
 
 function setModalNewEvent(): void {
@@ -503,39 +503,5 @@ function setModalInfoEvent() {
     modalBodyDescriptionP2.innerText = "Type of event: Meeting";
 
 
-
-
 }
 
-function modalInfo (){
-
-    const modalContainer = document.createElement("div");
-    modalContainer.classList.add("modal-container");
-    const modalDialog = document.createElement("div");
-    modalDialog.classList.add("modal-dialog");
-    const modalContent = document.createElement(".div");
-    modalContent.classList.add("modal-content");
-    const modalHeader = document.createElement("div");
-    modalHeader.classList.add("modal-header");
-    const h1ModalHeader = document.createElement("h1");
-    h1ModalHeader.classList.add("modal-title");
-    const modalBody = document.createElement("div");
-    modalBody.classList.add("modal-body");
-    const modalBodyP = document.createElement("p");
-    modalBodyP.classList.add("modalP");
-    const modalFooter = document.createElement("div");
-    modalFooter.classList.add("modal-footer");
-    const buttonName = document.createElement("button");
-    buttonName.classList.add("button-name");
-
-    modalContainer.appendChild(modalDialog);
-    modalDialog.appendChild(modalContent);
-    modalContent.appendChild(modalHeader);
-    modalHeader.appendChild(h1ModalHeader);
-    modalContent.appendChild(modalBody);
-    modalBody.appendChild(modalBodyP);
-    modalContent.appendChild(modalFooter);
-    modalFooter.appendChild(buttonName);
-
-
-}

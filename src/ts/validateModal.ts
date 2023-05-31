@@ -415,7 +415,7 @@ function checkModalTextAreaValidity(): void {
  * PRE: time1 has to be bigger (>) than time 2
  * @return returns total minutes between those 2 times
  */
-function getTotalMinutes(time1: string, time2: string): number {
+ export function getTotalMinutes(time1: string, time2: string): number {
     let arrTime1: string[] = time1.split(":");
     let arrTime2: string[] = time2.split(":");
     let totalMinsTime1: number = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
@@ -460,7 +460,7 @@ function disableTimeSelectOptions() {
  * This functions solves that and returns the correct date if needed.
  * @return returns current formatted date
  */
-function getCurrentFormattedDate(): string {
+ export function getCurrentFormattedDate(): string {
     let date: Date = new Date();
     let actualMonth: string;
     let actualDay: string;
@@ -485,7 +485,7 @@ function getCurrentFormattedDate(): string {
  * This functions solves that and returns the correct date if needed.
  * @return returns current formatted date
  */
-function getCurrentFormattedTime(): string {
+ export function getCurrentFormattedTime(): string {
     let date: Date = new Date();
     let actualHour: string;
     let actualMinutes: string;
@@ -546,7 +546,7 @@ function clearModal() {
 /**
  * This function saves the information inside the modal if it is correct
  */
-function saveModalContent(): void {
+  function saveModalContent(): void {
     const modalSaveBtn: (HTMLButtonElement | null) = document.querySelector(".modal-save_btn");
     const modalTitleEvent: (HTMLInputElement | null) = document.querySelector("#title-event");
     const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
@@ -681,44 +681,81 @@ function setReminderEvent() {
 
     let currentHour:string = getCurrentFormattedTime();
     let currentDay: string = getCurrentFormattedDate();
+    let defCurrentDay:string =  currentDay.split('-').reverse().join('-');
 
     if (localStorage.getItem("events") !== null) {
 
         let arrEndDate: string | null  = localStorage.getItem("events");
         if (arrEndDate === null) return;
+
         let events: Array<Event> = JSON.parse(arrEndDate);
 
-            events.forEach((event)=>{
+        events.forEach((event)=>{
 
-                let { initialDate, initialTime, isCheckedReminder } = event;
+            let { initialDate, initialTime, isCheckedReminder } = event;
+            events.sort((firstDate, secondDate) => (firstDate.initialDate > secondDate.initialDate) ? 1 : -1);
+            events.sort((firstTime, secondTime) => (firstTime.initialDate > secondTime.initialDate) ? 1 : -1);
 
+                        let initDate = initialDate.toString().slice(0,10);
+                        let defDate = initDate.split('-').reverse().join('-');
 
-                    const initDate = initialDate.toString().slice(0,10);
-                    let minutesDifference: number = getTotalMinutes(initialTime, currentHour);
+                        let minutesDifference:number = getTotalMinutes(initialTime, currentHour);
+                        if(defDate === defCurrentDay){
 
-                    if(initDate === currentDay){
-                        console.log('es el mismo dia');
                             if(isCheckedReminder){
-                                if(minutesDifference <= 5){
-                                    console.log('Faltan menos de 5');
-                                } else if(minutesDifference <= 10){
 
-                                }
-                                console.log(minutesDifference);
-                                isCheckedReminder = false;
-                                } else {
-                            console.log('No tiene recordatorio');
+                               
+
+                                  
+                                console.log(event);
+                            } else {
+                                console.log(event);
                             }
-                    } else {
-                        console.log('No es el mismo dia');
-                    }
+                        } else{
+                            console.log(event);
+                        }
 
-                   
+                    })
 
-                })
-
-        } 
+                }
 }
+setReminderEvent()
 
 
-setReminderEvent();
+
+const body: (HTMLBodyElement | null) = document.querySelector("body");
+
+    const modalContainer = document.createElement("div");
+    modalContainer.classList.add("modal", "modal-sheet", "position-static", "d-block", "bg-body-secondary", "p-4", "py-md-5", "modal-container");
+    const modalDialog = document.createElement("div");
+    modalDialog.classList.add("modal-dialog1");
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modal-content", "rounded-4", "shadow");
+    const modalHeader = document.createElement("div");
+    modalHeader.classList.add("modal-header", "border-bottom-0");
+    const h1ModalHeader = document.createElement("h1");
+    h1ModalHeader.classList.add("modal-title", "fs-5");
+    h1ModalHeader.textContent = "Title";
+    const modalBody = document.createElement("div");
+    modalBody.classList.add("modal-body1", "py-0");
+    const modalBodyP = document.createElement("p");
+    modalBodyP.classList.add("modalP");
+    modalBodyP.textContent = "Texto de prueba";
+    const modalFooter = document.createElement("div");
+    modalFooter.classList.add("modal-footer", "flex-column", "align-items-stretch", "w-100", "gap-2", "pb-3", "border-top-0");
+    const buttonName = document.createElement("button");
+    buttonName.classList.add("btn", "btn-lg", "btn-primary", "button-name");
+    buttonName.textContent = "Save changes";
+    
+    body?.appendChild(modalContainer);
+    modalContainer.appendChild(modalDialog);
+    modalDialog.appendChild(modalContent);
+    modalContent.appendChild(modalHeader);
+    modalHeader.appendChild(h1ModalHeader);
+    modalContent.appendChild(modalBody);
+    modalBody.appendChild(modalBodyP);
+    modalContent.appendChild(modalFooter);
+    modalFooter.appendChild(buttonName);
+
+
+

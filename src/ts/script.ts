@@ -3,6 +3,7 @@ import { checkModalValidity } from "./validateModal.js";
 import { setAsideHistoryOfEvents } from "./utils.js";
 import { ReminderTime } from "./interface.js";
 
+
 window.addEventListener("load", loadPage);
 
 

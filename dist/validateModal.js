@@ -293,7 +293,7 @@ function checkModalTextAreaValidity() {
     else
         textAreaModal.classList.remove("invalid-input-modal");
 }
-function getTotalMinutes(time1, time2) {
+export function getTotalMinutes(time1, time2) {
     let arrTime1 = time1.split(":");
     let arrTime2 = time2.split(":");
     let totalMinsTime1 = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
@@ -322,7 +322,7 @@ function disableTimeSelectOptions() {
         option.disabled = true;
     });
 }
-function getCurrentFormattedDate() {
+export function getCurrentFormattedDate() {
     let date = new Date();
     let actualMonth;
     let actualDay;
@@ -341,7 +341,7 @@ function getCurrentFormattedDate() {
     let currentDate = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
     return currentDate;
 }
-function getCurrentFormattedTime() {
+export function getCurrentFormattedTime() {
     let date = new Date();
     let actualHour;
     let actualMinutes;
@@ -538,6 +538,7 @@ function successEventSaved() {
 function setReminderEvent() {
     let currentHour = getCurrentFormattedTime();
     let currentDay = getCurrentFormattedDate();
+    let defCurrentDay = currentDay.split('-').reverse().join('-');
     if (localStorage.getItem("events") !== null) {
         let arrEndDate = localStorage.getItem("events");
         if (arrEndDate === null)
@@ -545,28 +546,55 @@ function setReminderEvent() {
         let events = JSON.parse(arrEndDate);
         events.forEach((event) => {
             let { initialDate, initialTime, isCheckedReminder } = event;
-            const initDate = initialDate.toString().slice(0, 10);
+            events.sort((firstDate, secondDate) => (firstDate.initialDate > secondDate.initialDate) ? 1 : -1);
+            events.sort((firstTime, secondTime) => (firstTime.initialDate > secondTime.initialDate) ? 1 : -1);
+            let initDate = initialDate.toString().slice(0, 10);
+            let defDate = initDate.split('-').reverse().join('-');
             let minutesDifference = getTotalMinutes(initialTime, currentHour);
-            if (initDate === currentDay) {
-                console.log('es el mismo dia');
+            if (defDate === defCurrentDay) {
                 if (isCheckedReminder) {
-                    if (minutesDifference <= 5) {
-                        console.log('Faltan menos de 5');
-                    }
-                    else if (minutesDifference <= 10) {
-                    }
-                    console.log(minutesDifference);
-                    isCheckedReminder = false;
+                    console.log(event);
                 }
                 else {
-                    console.log('No tiene recordatorio');
+                    console.log(event);
                 }
             }
             else {
-                console.log('No es el mismo dia');
+                console.log(event);
             }
         });
     }
 }
 setReminderEvent();
+const body = document.querySelector("body");
+const modalContainer = document.createElement("div");
+modalContainer.classList.add("modal", "modal-sheet", "position-static", "d-block", "bg-body-secondary", "p-4", "py-md-5", "modal-container");
+const modalDialog = document.createElement("div");
+modalDialog.classList.add("modal-dialog1");
+const modalContent = document.createElement("div");
+modalContent.classList.add("modal-content", "rounded-4", "shadow");
+const modalHeader = document.createElement("div");
+modalHeader.classList.add("modal-header", "border-bottom-0");
+const h1ModalHeader = document.createElement("h1");
+h1ModalHeader.classList.add("modal-title", "fs-5");
+h1ModalHeader.textContent = "Title";
+const modalBody = document.createElement("div");
+modalBody.classList.add("modal-body1", "py-0");
+const modalBodyP = document.createElement("p");
+modalBodyP.classList.add("modalP");
+modalBodyP.textContent = "Texto de prueba";
+const modalFooter = document.createElement("div");
+modalFooter.classList.add("modal-footer", "flex-column", "align-items-stretch", "w-100", "gap-2", "pb-3", "border-top-0");
+const buttonName = document.createElement("button");
+buttonName.classList.add("btn", "btn-lg", "btn-primary", "button-name");
+buttonName.textContent = "Save changes";
+body === null || body === void 0 ? void 0 : body.appendChild(modalContainer);
+modalContainer.appendChild(modalDialog);
+modalDialog.appendChild(modalContent);
+modalContent.appendChild(modalHeader);
+modalHeader.appendChild(h1ModalHeader);
+modalContent.appendChild(modalBody);
+modalBody.appendChild(modalBodyP);
+modalContent.appendChild(modalFooter);
+modalFooter.appendChild(buttonName);
 //# sourceMappingURL=validateModal.js.map
