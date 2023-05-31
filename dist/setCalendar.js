@@ -107,9 +107,9 @@ function showDaysInCalendar(year, month, dayOfWeek) {
     }
     setEntryDayEvents(year, month);
     setPreviousMonth(year, month, dayOfWeek);
+    setNextMonth(year, month, dayOfWeek);
 }
 function setPreviousMonth(year, month, dayOfWeek) {
-    const entryDaysDiv = document.querySelectorAll(".entry-day-calendar_div");
     let emptyDays = 7 - dayOfWeek + 1;
     let daysToFill = 7 - emptyDays;
     let previousMonth = month - 1;
@@ -122,15 +122,29 @@ function setPreviousMonth(year, month, dayOfWeek) {
     let i = 0;
     while (i < daysToFill) {
         const emptyEntryDayP = document.querySelector(`#p-day-${i + 1}`);
-        const emptyEntryDayInfoDiv = document.querySelector(`#div-day-info-${i + 1}`);
         if (emptyEntryDayP === null)
             return;
-        if (emptyEntryDayInfoDiv === null)
-            return;
         emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
-        emptyEntryDayP.classList.add("show-previous-month-p");
-        emptyEntryDayInfoDiv.classList.add("show-previous-month-div");
         i++;
+    }
+}
+function setNextMonth(year, month, dayOfWeek) {
+    let nextMonth = month + 1;
+    let nextYear = year;
+    if (month === 12) {
+        nextYear = year + 1;
+        nextMonth = 1;
+    }
+    let totalDaysNextMonth = getTotalDaysOfMonth(nextMonth, nextYear);
+    let totalDaysOfThisMonth = getTotalDaysOfMonth(month, year);
+    let counterNextMonth = 1;
+    let posFirstDayNextMonth = dayOfWeek + totalDaysOfThisMonth;
+    for (let i = posFirstDayNextMonth; i <= 42; i++) {
+        const emptyEntryDayP = document.querySelector(`#p-day-${i}`);
+        if (emptyEntryDayP === null)
+            return;
+        emptyEntryDayP.innerText = counterNextMonth.toString();
+        counterNextMonth++;
     }
 }
 export function setEntryDayEvents(year, month) {

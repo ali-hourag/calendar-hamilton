@@ -58,12 +58,57 @@ export function checkReminders() {
                 let hourToday = dateToday.getHours();
                 let minToday = dateToday.getMinutes();
                 let totalMinsCurrentTime = hourToday * 60 + minToday;
-                let totalMinsReminder = sortedArrayByReminderTime[0][1];
-                if (totalMinsReminder > totalMinsCurrentTime) {
-                    let timeToTimeout = (totalMinsCurrentTime - totalMinsReminder) * 60000;
-                    setTimeout(() => {
-                        checkReminders();
-                    }, timeToTimeout);
+                let finalArray = [];
+                sortedArrayByReminderTime.forEach((arrayEvent) => {
+                    if (arrayEvent[1] > totalMinsCurrentTime)
+                        finalArray.push(arrayEvent);
+                });
+                if (finalArray.length > 0) {
+                    let totalMinsReminder = finalArray[0][1];
+                    const eventId = finalArray[0][0];
+                    let eventsInLS = JSON.parse(eventEntered);
+                    const eventToRemind = eventsInLS[eventId - 1];
+                    if (totalMinsReminder > totalMinsCurrentTime) {
+                        let timeToTimeout = (totalMinsReminder - totalMinsCurrentTime) * 60000;
+                        setTimeout(() => {
+                            const containerReminderDiv = document.querySelector("#container-reminder");
+                            const textReminder = document.querySelector("#paragraph-reminder");
+                            const textReminderTime = document.querySelector("#paragraph-reminder-time");
+                            if (textReminder === null)
+                                return;
+                            if (textReminderTime === null)
+                                return;
+                            if (containerReminderDiv === null)
+                                return;
+                            textReminder.innerText = eventToRemind.title;
+                            let minReminder = eventToRemind.reminder;
+                            let timeToRemind = 0;
+                            switch (minReminder) {
+                                case "five":
+                                    timeToRemind = 5;
+                                    break;
+                                case "ten":
+                                    timeToRemind = 10;
+                                    break;
+                                case "fifteen":
+                                    timeToRemind = 15;
+                                    break;
+                                case "thirty":
+                                    timeToRemind = 30;
+                                    break;
+                                case "one-hour":
+                                    timeToRemind = 60;
+                                    break;
+                            }
+                            textReminderTime.innerText = `${timeToRemind} minute left to event`;
+                            containerReminderDiv.classList.remove("reminder-div-display-none");
+                            setTimeout(() => {
+                                eventsInLS[eventId - 1].isCheckedReminder = false;
+                                localStorage.setItem("events", JSON.stringify(eventsInLS));
+                                containerReminderDiv.classList.add("reminder-div-display-none");
+                            }, 10000);
+                        }, timeToTimeout);
+                    }
                 }
             }
         }

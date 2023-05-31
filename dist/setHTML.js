@@ -494,5 +494,28 @@ function setModalInfoEvent() {
     modalBodyInitialP1.innerText = "Starts on: ";
     modalBodyEndP1.innerText = "Ends on: ";
     modalBodyDescriptionP1.innerText = "Description:";
+    showReminderAlert();
+}
+function showReminderAlert() {
+    const body = document.querySelector("body");
+    const containerDivReminderAlert = document.createElement("div");
+    const titleReminderAlert = document.createElement("h2");
+    const paragraphReminderAlert = document.createElement("p");
+    const paragraphReminderAlertTime = document.createElement("p");
+    if (body === null)
+        return;
+    containerDivReminderAlert.setAttribute("id", "container-reminder");
+    containerDivReminderAlert.classList.add("container-reminder-alert", "reminder-div-display-none");
+    titleReminderAlert.setAttribute("id", "title-reminder");
+    titleReminderAlert.classList.add("title-reminder-alert");
+    paragraphReminderAlert.setAttribute("id", "paragraph-reminder");
+    paragraphReminderAlert.classList.add("paragraph-reminder-alert");
+    paragraphReminderAlertTime.setAttribute("id", "paragraph-reminder-time");
+    paragraphReminderAlertTime.classList.add("paragraph-reminder-alert");
+    titleReminderAlert.innerText = "REMINDER OF AN EVENT!";
+    body.appendChild(containerDivReminderAlert);
+    containerDivReminderAlert.appendChild(titleReminderAlert);
+    containerDivReminderAlert.appendChild(paragraphReminderAlert);
+    containerDivReminderAlert.appendChild(paragraphReminderAlertTime);
 }
 //# sourceMappingURL=setHTML.js.map

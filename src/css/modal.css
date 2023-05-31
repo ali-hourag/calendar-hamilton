@@ -245,6 +245,33 @@
     padding: 10px;
 }
 
+
+/*ALERT DIV FOR A REMINDER*/
+.container-reminder-alert{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 10vh;
+    right: 10vw;
+    width: 30vw;
+    height: 25vh;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: #fff;
+    z-index: 2;
+}
+
+.title-reminder-alert {
+    text-align: center;
+    padding: 2vh;
+}
+
+.reminder-div-display-none{
+    display: none;
+}
+
 /*Class that will be toggled*/
 .modal-display-none {
     display: none;

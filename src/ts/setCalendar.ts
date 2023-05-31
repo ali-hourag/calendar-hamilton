@@ -118,12 +118,11 @@ function showDaysInCalendar(year: number, month: number, dayOfWeek: number): voi
 
     setEntryDayEvents(year, month);
     setPreviousMonth(year, month, dayOfWeek);
-    //setNextMonth(year, month, dayOfWeek);
+    setNextMonth(year, month, dayOfWeek);
 }
 //------------------------------------------------------------------------------------------------------
 
 function setPreviousMonth(year: number, month: number, dayOfWeek: number): void {
-    const entryDaysDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-calendar_div");
     let emptyDays: number = 7 - dayOfWeek + 1;
     let daysToFill: number = 7 - emptyDays;
     let previousMonth: number = month - 1;
@@ -136,19 +135,30 @@ function setPreviousMonth(year: number, month: number, dayOfWeek: number): void 
     let i = 0;
     while (i < daysToFill) {
         const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i + 1}`);
-        const emptyEntryDayInfoDiv: HTMLDivElement | null = document.querySelector(`#div-day-info-${i + 1}`);
         if (emptyEntryDayP === null) return;
-        if (emptyEntryDayInfoDiv === null) return;
         emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
-        emptyEntryDayP.classList.add("show-previous-month-p");
-        emptyEntryDayInfoDiv.classList.add("show-previous-month-div");
         i++;
     }
 }
 //------------------------------------------------------------------------------------------------------
-// function setNextMonth(year: number, month: number, dayOfWeek: number){
-
-// }
+function setNextMonth(year: number, month: number, dayOfWeek: number): void{
+    let nextMonth: number = month + 1;
+    let nextYear: number = year;
+    if (month === 12) {
+        nextYear = year + 1;
+        nextMonth = 1;
+    }
+    let totalDaysNextMonth: number = getTotalDaysOfMonth(nextMonth, nextYear);
+    let totalDaysOfThisMonth: number = getTotalDaysOfMonth(month, year);
+    let counterNextMonth: number = 1;
+    let posFirstDayNextMonth: number = dayOfWeek + totalDaysOfThisMonth;
+    for(let i = posFirstDayNextMonth; i <= 42; i++) {
+        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i}`);
+        if (emptyEntryDayP === null) return;
+        emptyEntryDayP.innerText = counterNextMonth.toString();
+        counterNextMonth++;
+    }
+}
 //------------------------------------------------------------------------------------------------------
 export function setEntryDayEvents(year: number, month: number): void {
     const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");

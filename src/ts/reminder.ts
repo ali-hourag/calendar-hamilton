@@ -1,11 +1,13 @@
 import { sortEventsByDateTime } from "./setCalendar.js";
-import { Event } from "./interface.js";
+import { Event, ReminderTime } from "./interface.js";
 import { getFormattedDate } from "./utils.js";
 
 export function checkReminders() {
     let eventEntered: string | null = localStorage.getItem("events");
     if (eventEntered !== null) {
         let events: Array<Event> | undefined = sortEventsByDateTime();
+        
+
         let eventsWithReminder: Array<Event> = [];
         events?.forEach((event: Event): void => {
             if (event.isCheckedReminder && event.reminder !== "default") eventsWithReminder.push(event);
@@ -29,8 +31,8 @@ export function checkReminders() {
                     eventsReminderToday.push(event);
                 }
             })
-
             if (eventsReminderToday.length > 0) {
+
                 // 16:20 --> 16*60 + 20 = 980
                 // Recordatorio --> 10 min
                 // 980 - 10 = 970 min para el aviso
@@ -60,23 +62,76 @@ export function checkReminders() {
                         case "one-hour": reminderTime = 60;
                             break;
                     }
+                    
                     let arrayDataEvent: Array<number> = [event.id, totalMin - reminderTime];
                     arrayDataEvents.push(arrayDataEvent);
                 })
-
+                
                 let sortedArrayByReminderTime: Array<Array<number>> = sortArrayBySecondElemByBubble(arrayDataEvents);
                 let hourToday: number = dateToday.getHours();
                 let minToday: number = dateToday.getMinutes();
                 let totalMinsCurrentTime: number = hourToday * 60 + minToday;
-                let totalMinsReminder: number = sortedArrayByReminderTime[0][1];
 
+                let finalArray: Array<Array<number>> = [];
+                sortedArrayByReminderTime.forEach((arrayEvent: Array<number>): void =>{
+                    if(arrayEvent[1] > totalMinsCurrentTime) finalArray.push(arrayEvent);
+                })
+                
+                if(finalArray.length > 0){
+                    let totalMinsReminder: number = finalArray[0][1];
+                    const eventId: number = finalArray[0][0];
+    
+                    let eventsInLS: Array<Event> = JSON.parse(eventEntered);
+                    
+                    const eventToRemind: Event = eventsInLS[eventId - 1];
+                    
 
-                if (totalMinsReminder > totalMinsCurrentTime) {
-                    let timeToTimeout: number = (totalMinsReminder - totalMinsCurrentTime) * 60000;
-                    setTimeout(() => {
-                        checkReminders();
-                    }, timeToTimeout);
+                    if (totalMinsReminder > totalMinsCurrentTime) {
+                        
+                       
+                        let timeToTimeout: number = (totalMinsReminder - totalMinsCurrentTime) * 60000;
+                        
+                        setTimeout(() => {
+                            const containerReminderDiv: (HTMLDivElement | null) = document.querySelector("#container-reminder");
+                            const textReminder: (HTMLParagraphElement | null) = document.querySelector("#paragraph-reminder");
+                            const textReminderTime: (HTMLParagraphElement | null) = document.querySelector("#paragraph-reminder-time");
+    
+                            if(textReminder === null) return;
+                            if(textReminderTime === null) return;
+                            if(containerReminderDiv === null) return;
+                            
+                            
+
+                            textReminder.innerText = eventToRemind.title;
+                            let minReminder: ReminderTime = eventToRemind.reminder;
+                            let timeToRemind: number = 0;
+                            switch(minReminder){
+                                case "five": timeToRemind = 5;
+                                break;
+                                case "ten": timeToRemind = 10;
+                                break;
+                                case "fifteen": timeToRemind = 15;
+                                break;
+                                case "thirty": timeToRemind = 30;
+                                break;
+                                case "one-hour": timeToRemind = 60;
+                                break;
+                            }
+
+                            textReminderTime.innerText = `${timeToRemind} minute left to event`;
+
+                            containerReminderDiv.classList.remove("reminder-div-display-none");
+                            setTimeout(()=>{
+                                eventsInLS[eventId - 1].isCheckedReminder = false;
+                                localStorage.setItem("events", JSON.stringify(eventsInLS));
+                                containerReminderDiv.classList.add("reminder-div-display-none");
+                            }, 10000)
+                            
+                        }, timeToTimeout);
+                        
+                    }
                 }
+                 
             }
         }
     }
@@ -92,6 +147,6 @@ function sortArrayBySecondElemByBubble(arrayEntered: Array<Array<number>>): Arra
                 [arrayEntered[j], arrayEntered[j + 1]] = [arrayEntered[j + 1], arrayEntered[j]];
             }
         }
-    }
+    } 
     return arrayEntered;
 }
