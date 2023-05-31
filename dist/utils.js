@@ -39,6 +39,26 @@ function setResizedAsideHistoryOfEvents() {
         }
     }
 }
+export function adjustTopScrollBar() {
+    const topBarMonthsContainer = document.querySelector(".topbar-months-container");
+    const topBarInputMonths = document.querySelectorAll(".topbar-month_input");
+    if (topBarMonthsContainer === null)
+        return;
+    let posMonth = 0;
+    for (let i = 0; i < topBarInputMonths.length; i++) {
+        if (topBarInputMonths[i].checked) {
+            posMonth = i;
+            i = topBarInputMonths.length;
+        }
+    }
+    topBarMonthsContainer.scrollLeft = 100 * (posMonth - 1);
+}
+export function adjustCalendarScrollBar() {
+    const entryDaysCalendarContainer = document.querySelector(".days-month-container_section");
+    if (entryDaysCalendarContainer === null)
+        return;
+    entryDaysCalendarContainer.scrollTop = 0;
+}
 export function eventListenerChangeYear() {
     const getPreviousYear = document.querySelector(".topbar-previous-year_div");
     const getNextYear = document.querySelector(".topbar-next-year_div");
@@ -80,24 +100,33 @@ export function getFormattedDate(year, month, day) {
         correctDay = `0${correctDay}`;
     return `${year}-${correctMonth}-${correctDay}`;
 }
-export function adjustTopScrollBar() {
-    const topBarMonthsContainer = document.querySelector(".topbar-months-container");
-    const topBarInputMonths = document.querySelectorAll(".topbar-month_input");
-    if (topBarMonthsContainer === null)
-        return;
-    let posMonth = 0;
-    for (let i = 0; i < topBarInputMonths.length; i++) {
-        if (topBarInputMonths[i].checked) {
-            posMonth = i;
-            i = topBarInputMonths.length;
-        }
-    }
-    topBarMonthsContainer.scrollLeft = 100 * (posMonth - 1);
+export function getDayOfWeekOfDayEntered(year, month, dayOfMonth) {
+    return new Date(`${year}-${month}-${dayOfMonth}`).getDay();
 }
-export function adjustCalendarScrollBar() {
-    const entryDaysCalendarContainer = document.querySelector(".days-month-container_section");
-    if (entryDaysCalendarContainer === null)
-        return;
-    entryDaysCalendarContainer.scrollTop = 0;
+export function getTotalMinutes(time1, time2) {
+    let arrTime1 = time1.split(":");
+    let arrTime2 = time2.split(":");
+    let totalMinsTime1 = (parseInt(arrTime1[0]) * 60) + parseInt(arrTime1[1]);
+    let totalMinsTime2 = (parseInt(arrTime2[0]) * 60) + parseInt(arrTime2[1]);
+    return totalMinsTime1 - totalMinsTime2;
+}
+export function getCurrentFormattedDate() {
+    let date = new Date();
+    let actualMonth;
+    let actualDay;
+    if ((date.getMonth() + 1) < 10) {
+        actualMonth = `0${date.getMonth() + 1}`;
+    }
+    else {
+        actualMonth = `${date.getMonth() + 1}`;
+    }
+    if ((date.getDate()) < 10) {
+        actualDay = `0${date.getDate()}`;
+    }
+    else {
+        actualDay = `${date.getDate()}`;
+    }
+    let currentDate = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
+    return currentDate;
 }
 //# sourceMappingURL=utils.js.map

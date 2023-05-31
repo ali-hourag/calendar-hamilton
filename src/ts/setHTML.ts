@@ -15,7 +15,7 @@ export function setHeader(): void {
     headerNewEventButton.classList.add("header-new-event_btn", "ml-3", "btn", "d-flex", "justify-content-center", "align-items-center");
     headerNewEventButton.setAttribute("data-bs-toggle", "modal");
     headerNewEventButton.setAttribute("id", "header-new-event_btn");
-    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event"); //modal-new-event or modal-info-event to see info event
+    headerNewEventButton.setAttribute("data-bs-target", "#modal-new-event"); 
     headerNewEventButton.setAttribute("type", "button");
     headerYearH1.classList.add("header-year_h1");
     headerYearH1.setAttribute("id", "selected-year");
@@ -33,10 +33,8 @@ export function setHeader(): void {
         burguerDiv.appendChild(burgerSpan);
     }
 
-
     headerNewEventButton.innerText = "New Event";
     headerYearH1.innerText = "2023";
-
 
     body.appendChild(header);
     header.appendChild(headerNewEventButton),
@@ -47,8 +45,6 @@ export function setHeader(): void {
 
     setTopBar();
 }
-
-
 
 function setTopBar(): void {
     const body: (HTMLBodyElement | null) = document.querySelector("body");
@@ -165,7 +161,7 @@ function setCalendarContainer(): void {
 }
 
 
-function setEntryDaysCalendar() {
+function setEntryDaysCalendar(): void {
     const daysOfMonthCalendarSection: (HTMLElement | null) = document.querySelector(".days-month-container_section");
     if (daysOfMonthCalendarSection === null) return;
     for (let i = 1; i <= 42; i++) {
@@ -362,9 +358,6 @@ function setModalNewEvent(): void {
     modalFooterSaveBtn.setAttribute("class", "btn btn-success flex-grow-1 p-2 modal-save_btn");
     modalFooterSaveBtn.setAttribute("type", "button");
 
-
-
-
     main.appendChild(modalSectionContainer);
     modalSectionContainer.appendChild(modalFormContainer);
     modalFormContainer.appendChild(modalDivContainer);
@@ -413,7 +406,6 @@ function setModalNewEvent(): void {
     modalFooterContainerDiv.appendChild(modalFooterCancelBtn);
     modalFooterContainerDiv.appendChild(modalFooterSaveBtn);
 
-
     modalHeaderTitleH4.innerText = "New Event";
     modalBodySectionTitleLabel.innerText = "Title";
     modalBodySectionIDateLabel.innerText = "Initial date";
@@ -442,7 +434,7 @@ function setModalNewEvent(): void {
 
 }
 
-function setModalInfoEvent() {
+function setModalInfoEvent(): void {
     const main: (HTMLBodyElement | null) = document.querySelector(".main");
     const modalContainerDiv1: (HTMLDivElement | null) = document.createElement("div");
     const modalContainerDiv2: (HTMLDivElement | null) = document.createElement("div");
@@ -565,8 +557,6 @@ function showReminderAlert(): void {
 
     titleReminderAlert.innerText = "REMINDER OF AN EVENT!";
  
-
-
     body.appendChild(containerDivReminderAlert);
     containerDivReminderAlert.appendChild(titleReminderAlert);
     containerDivReminderAlert.appendChild(paragraphReminderAlert);

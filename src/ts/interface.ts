@@ -17,18 +17,3 @@ export interface Event {
     description: string;
     eventType: EventType;
 }
-
-
-// Calendar Properties
-interface EnumEventsItem {
-    id: number;
-    label: string;
-    key: any;
-}
-export interface CalendarProperties {
-    currentMonth: string;
-    currentYear: string;
-    currentDay: string;
-    title: string;
-    eventList: EnumEventsItem[];
-}

@@ -1,7 +1,7 @@
 import { setHeader } from "./setHTML.js";
-import { checkModalValidity, checkLastDate } from "./validateModal.js";
+import { checkModalValidity } from "./validateModal.js";
 import { setAsideHistoryOfEvents, eventListenerChangeYear } from "./utils.js";
-import { setCalendar, sortEventsByDateTime } from "./setCalendar.js";
+import { setCalendar } from "./setCalendar.js";
 import { setHistoryOfEvents } from "./functions.js";
 import { checkReminders } from "./reminder.js";
 

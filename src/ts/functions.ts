@@ -1,8 +1,12 @@
 import { sortEventsByDateTime } from "./setCalendar.js";
 import { Event, ReminderTime, EventType } from "./interface.js";
-import { getFormattedDate } from "./utils.js";
+import { getFormattedDate,  getTotalDaysOfMonth } from "./utils.js";
+import { topBarMonthClicked } from "./setCalendar.js";
 
-
+/**
+ * This function sets the history of events on the aside element.
+ * It fills it with all the events in an ordered manner.
+ */
 export function setHistoryOfEvents() {
     let arrayEvents = sortEventsByDateTime();
     const historyDiv: (HTMLDivElement | null) = document.querySelector(".history-events-container_div");
@@ -32,7 +36,12 @@ export function setHistoryOfEvents() {
         containerOfEvent.appendChild(dateEvent);
     })
 }
-
+//-------------------------------------------------------------------------------------------------------------------------
+/**
+ * This function is called when an event is clicked and shows us the modal
+ * with the information of the event.
+ * This is set on the functions of showCalendar and setHistoryOfEvents
+ */
 export function eventInfoClicked(this: HTMLParagraphElement | HTMLDivElement) {
     const eventsItem: string | null = localStorage.getItem("events");
     const eventId: string | null = this.getAttribute("event-id");
@@ -117,4 +126,132 @@ export function eventInfoClicked(this: HTMLParagraphElement | HTMLDivElement) {
         eventTypeP.innerText = `Type of event: ${typeEvent}`;
     } else eventTypeP.innerText = "";
 
+}
+//------------------------------------------------------------------------------------------------------
+/**
+ * This one is called by setCalendar functions and
+ * gives us the year and month
+ * @return an array of year and month on the page [year, month]
+ */
+export function getYearMonth(): Array<number> | undefined {
+    const selectedYear: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
+    const topBarMonthsInput: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input");
+    const date: Date = new Date();
+    const currentYear: number = date.getFullYear();
+    let month: number;
+    if (selectedYear === null) return;
+    if (currentYear === parseInt(selectedYear.innerText)) {
+        month = date.getMonth() + 1;
+        topBarMonthsInput[month - 1].checked = true;
+    } else {
+        month = 1;
+        topBarMonthsInput[0].checked = true;
+    }
+    let year: number = parseInt(selectedYear.innerText);
+
+    topBarMonthsInput.forEach(topBarMonth => {
+        topBarMonth.addEventListener("click", topBarMonthClicked);
+    })
+
+    return [year, month];
+}
+
+//------------------------------------------------------------------------------------------------------
+/**
+ * Receives a year month and day of week and fills the previous empty spaces.
+ * @param year 
+ * @param month
+ * @param dayOfWeek day of the week in which the month starts
+ *                  dayOfWeek = 1 (Monday) --> (2,3,4,5,6) --> dayOfWeek = 0 (sunday)
+ */
+export function setPreviousMonth(year: number, month: number, dayOfWeek: number): void {
+    let emptyDays: number = 7 - dayOfWeek + 1;
+    let daysToFill: number = 7 - emptyDays;
+    let previousMonth: number = month - 1;
+    let previousYear: number = year;
+    if (month === 1) {
+        previousYear = year - 1;
+        previousMonth = 12;
+    }
+    let totaDaysPreviousMonth: number = getTotalDaysOfMonth(previousMonth, previousYear);
+    let i = 0;
+    while (i < daysToFill) {
+        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i + 1}`);
+        if (emptyEntryDayP === null) return;
+        emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
+        i++;
+    }
+}
+//------------------------------------------------------------------------------------------------------
+/**
+ * Receives a year month and day of week and fills the next empty spaces.
+ * @param year 
+ * @param month
+ * @param dayOfWeek day of the week in which the month starts
+ *                  dayOfWeek = 1 (Monday) --> (2,3,4,5,6) --> dayOfWeek = 0 (sunday)
+ */
+export function setNextMonth(year: number, month: number, dayOfWeek: number): void{
+    let totalDaysOfThisMonth: number = getTotalDaysOfMonth(month, year);
+    let counterNextMonth: number = 1;
+    let posFirstDayNextMonth: number = dayOfWeek + totalDaysOfThisMonth;
+    for(let i = posFirstDayNextMonth; i <= 42; i++) {
+        const emptyEntryDayP: HTMLDivElement | null = document.querySelector(`#p-day-${i}`);
+        if (emptyEntryDayP === null) return;
+        emptyEntryDayP.innerText = counterNextMonth.toString();
+        counterNextMonth++;
+    }
+}
+
+//------------------------------------------------------------------------------------------------------
+/**
+ * remove unnecesary div in responsive design 
+ */
+export function fillEntryDays(): void {
+    const entryDaysDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".entry-day-calendar_div");
+    for (let i = 28; i < 42; i++) {
+        entryDaysDiv[i].classList.remove("entry-day-display-none");
+    }
+}
+//------------------------------------------------------------------------------------------------------
+/**
+ * clean show days in calendar
+ */
+export function cleanDaysInCalendar(): void {
+    const nListdaysInCalendar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-calendar");
+    const nListentryDayInfoP: NodeListOf<HTMLParagraphElement> = document.querySelectorAll(".show-entry-paragraph");
+    const nListentryDayInfoSpan: NodeListOf<HTMLSpanElement> = document.querySelectorAll(".show-entry-day-span");
+    const nListentryDayEventsDiv: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-events_div");
+
+    if (nListdaysInCalendar.length > 0) {
+        nListdaysInCalendar.forEach((dayInCalendar, day) => {
+            dayInCalendar.classList.remove("show-entry-day-calendar");
+            nListentryDayInfoP[day].classList.remove("show-entry-paragraph");
+            nListentryDayInfoP[day].innerText = "";
+            nListentryDayInfoSpan[day].innerText = "";
+            nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
+            nListentryDayInfoSpan[day].removeAttribute("number-day");
+            nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
+            nListentryDayEventsDiv[day].replaceChildren();
+        });
+    }
+}
+//------------------------------------------------------------------------------------------------------------
+/**
+ * This function return an array of the selected year and month.
+ * The year is the heading number and the month is the 
+ * input checked in the topBar months container div
+ */
+export function getYearMonthSelected(): Array<number> | undefined {
+    const yearSelected: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
+    const topBarMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input")
+    if (yearSelected === null) return;
+    if (topBarMonths === null) return;
+    let month: number = 0;
+    topBarMonths.forEach((topBarMonth: HTMLInputElement): void => {
+        let numberMonth: string | null = topBarMonth.getAttribute("number-month");
+        if (numberMonth === null) return;
+        if (topBarMonth.checked) month = parseInt(numberMonth);
+    })
+    let year: number = parseInt(yearSelected.innerText);
+    return [year, month];
 }

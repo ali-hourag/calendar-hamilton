@@ -1,6 +1,6 @@
-import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar } from "./utils.js";
+import { getTotalDaysOfMonth, getFormattedDate, adjustTopScrollBar, adjustCalendarScrollBar, getDayOfWeekOfDayEntered } from "./utils.js";
 import { clearModal, checkLastTime, checkLastDate } from "./validateModal.js";
-import { eventInfoClicked } from "./functions.js";
+import { eventInfoClicked, setPreviousMonth, setNextMonth, getYearMonth, fillEntryDays, cleanDaysInCalendar } from "./functions.js";
 export function setCalendar() {
     const burgerBtn = document.querySelector(".header-burger-history_btn");
     if (burgerBtn === null)
@@ -25,28 +25,6 @@ function setCalendarSmallDevice() {
     let year = arrayYM[0];
     let month = arrayYM[1];
     showDaysInCalendar(year, month, 1);
-}
-function getYearMonth() {
-    const selectedYear = document.querySelector("#selected-year");
-    const topBarMonthsInput = document.querySelectorAll(".topbar-month_input");
-    const date = new Date();
-    const currentYear = date.getFullYear();
-    let month;
-    if (selectedYear === null)
-        return;
-    if (currentYear === parseInt(selectedYear.innerText)) {
-        month = date.getMonth() + 1;
-        topBarMonthsInput[month - 1].checked = true;
-    }
-    else {
-        month = 1;
-        topBarMonthsInput[0].checked = true;
-    }
-    let year = parseInt(selectedYear.innerText);
-    topBarMonthsInput.forEach(topBarMonth => {
-        topBarMonth.addEventListener("click", topBarMonthClicked);
-    });
-    return [year, month];
 }
 function showDaysInCalendar(year, month, dayOfWeek) {
     const entryDaysDisplayNone = document.querySelectorAll(".entry-day-display-none");
@@ -109,44 +87,6 @@ function showDaysInCalendar(year, month, dayOfWeek) {
     setPreviousMonth(year, month, dayOfWeek);
     setNextMonth(year, month, dayOfWeek);
 }
-function setPreviousMonth(year, month, dayOfWeek) {
-    let emptyDays = 7 - dayOfWeek + 1;
-    let daysToFill = 7 - emptyDays;
-    let previousMonth = month - 1;
-    let previousYear = year;
-    if (month === 1) {
-        previousYear = year - 1;
-        previousMonth = 12;
-    }
-    let totaDaysPreviousMonth = getTotalDaysOfMonth(previousMonth, previousYear);
-    let i = 0;
-    while (i < daysToFill) {
-        const emptyEntryDayP = document.querySelector(`#p-day-${i + 1}`);
-        if (emptyEntryDayP === null)
-            return;
-        emptyEntryDayP.innerText = (totaDaysPreviousMonth - daysToFill + i + 1).toString();
-        i++;
-    }
-}
-function setNextMonth(year, month, dayOfWeek) {
-    let nextMonth = month + 1;
-    let nextYear = year;
-    if (month === 12) {
-        nextYear = year + 1;
-        nextMonth = 1;
-    }
-    let totalDaysNextMonth = getTotalDaysOfMonth(nextMonth, nextYear);
-    let totalDaysOfThisMonth = getTotalDaysOfMonth(month, year);
-    let counterNextMonth = 1;
-    let posFirstDayNextMonth = dayOfWeek + totalDaysOfThisMonth;
-    for (let i = posFirstDayNextMonth; i <= 42; i++) {
-        const emptyEntryDayP = document.querySelector(`#p-day-${i}`);
-        if (emptyEntryDayP === null)
-            return;
-        emptyEntryDayP.innerText = counterNextMonth.toString();
-        counterNextMonth++;
-    }
-}
 export function setEntryDayEvents(year, month) {
     const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
     let eventEntered = localStorage.getItem("events");
@@ -192,13 +132,7 @@ export function setEntryDayEvents(year, month) {
         }
     });
 }
-function fillEntryDays() {
-    const entryDaysDiv = document.querySelectorAll(".entry-day-calendar_div");
-    for (let i = 28; i < 42; i++) {
-        entryDaysDiv[i].classList.remove("entry-day-display-none");
-    }
-}
-function topBarMonthClicked() {
+export function topBarMonthClicked() {
     const burgerBtn = document.querySelector(".header-burger-history_btn");
     if (burgerBtn === null)
         return;
@@ -217,24 +151,6 @@ function topBarMonthClicked() {
     }
     else
         showDaysInCalendar(year, month, 1);
-}
-function cleanDaysInCalendar() {
-    const nListdaysInCalendar = document.querySelectorAll(".show-entry-day-calendar");
-    const nListentryDayInfoP = document.querySelectorAll(".show-entry-paragraph");
-    const nListentryDayInfoSpan = document.querySelectorAll(".show-entry-day-span");
-    const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
-    if (nListdaysInCalendar.length > 0) {
-        nListdaysInCalendar.forEach((dayInCalendar, day) => {
-            dayInCalendar.classList.remove("show-entry-day-calendar");
-            nListentryDayInfoP[day].classList.remove("show-entry-paragraph");
-            nListentryDayInfoP[day].innerText = "";
-            nListentryDayInfoSpan[day].innerText = "";
-            nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
-            nListentryDayInfoSpan[day].removeAttribute("number-day");
-            nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
-            nListentryDayEventsDiv[day].replaceChildren();
-        });
-    }
 }
 export function sortEventsByDateTime() {
     let eventEntered = localStorage.getItem("events");
@@ -279,8 +195,5 @@ function entryDayEventClicked() {
     if (dayClicked !== null)
         localStorage.setItem("new-event-day", dayClicked);
     clearModal();
-}
-function getDayOfWeekOfDayEntered(year, month, dayOfMonth) {
-    return new Date(`${year}-${month}-${dayOfMonth}`).getDay();
 }
 //# sourceMappingURL=setCalendar.js.map
