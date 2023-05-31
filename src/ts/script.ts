@@ -1,10 +1,12 @@
 import { setHeader } from "./setHTML.js";
-import { checkModalValidity} from "./validateModal.js";
-import { setAsideHistoryOfEvents, eventListenerChangeYear} from "./utils.js";
-import { setCalendar } from "./setCalendar.js";
+import { checkModalValidity, checkLastDate } from "./validateModal.js";
+import { setAsideHistoryOfEvents, eventListenerChangeYear } from "./utils.js";
+import { setCalendar, sortEventsByDateTime } from "./setCalendar.js";
+import { setHistoryOfEvents } from "./functions.js";
 
 window.addEventListener("load", loadPage);
 
+//console.log(sortEventsByDateTime());
 
 function loadPage(): void {
     setHeader();
@@ -12,4 +14,5 @@ function loadPage(): void {
     eventListenerChangeYear();
     setCalendar();
     checkModalValidity();
+    setHistoryOfEvents();
 }

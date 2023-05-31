@@ -1,4 +1,5 @@
 import { setCalendar } from "./setCalendar.js";
+import { setHistoryOfEvents } from "./functions.js";
 export function setAsideHistoryOfEvents() {
     const burgerBtn = document.querySelector(".header-burger-history_btn");
     const asideHistoryOfEvents = document.querySelector(".history-events-container_aside");
@@ -25,6 +26,7 @@ function setResizedAsideHistoryOfEvents() {
         asideHistoryOfEvents.classList.add("show");
         if (localStorage.getItem("view") === "small") {
             setCalendar();
+            setHistoryOfEvents();
             localStorage.setItem("view", "desktop");
         }
     }
@@ -32,6 +34,7 @@ function setResizedAsideHistoryOfEvents() {
         asideHistoryOfEvents.classList.remove("show");
         if (localStorage.getItem("view") === "desktop") {
             setCalendar();
+            setHistoryOfEvents();
             localStorage.setItem("view", "small");
         }
     }

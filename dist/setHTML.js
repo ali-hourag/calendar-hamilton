@@ -143,7 +143,7 @@ function setEntryDaysCalendar() {
         const entryDayInfoDiv = document.createElement("div");
         const entryDayInfoP = document.createElement("p");
         const entryDayInfoSpan = document.createElement("span");
-        const entryDayEventsContainer = document.createElement("div");
+        const entryDayEventsContainerDiv = document.createElement("div");
         if (entryDayContainerDiv === null)
             return;
         if (entryDayInfoDiv === null)
@@ -152,7 +152,7 @@ function setEntryDaysCalendar() {
             return;
         if (entryDayInfoSpan === null)
             return;
-        if (entryDayEventsContainer === null)
+        if (entryDayEventsContainerDiv === null)
             return;
         entryDayContainerDiv.classList.add("entry-day-calendar_div", "overflow-auto");
         entryDayContainerDiv.setAttribute("id", `weekday-${i}`);
@@ -164,14 +164,13 @@ function setEntryDaysCalendar() {
         entryDayInfoSpan.setAttribute("id", `span-day-${i}`);
         entryDayInfoSpan.setAttribute("data-bs-toggle", "modal");
         entryDayInfoSpan.setAttribute("data-bs-target", "#modal-new-event");
-        entryDayEventsContainer.classList.add("entry-day-events-container", "overflow-auto");
-        entryDayEventsContainer.setAttribute("id", `div-events-day-${i}`);
-        entryDayEventsContainer.innerText = `s un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo)`;
+        entryDayEventsContainerDiv.classList.add("entry-day-events-container", "overflow-auto");
+        entryDayEventsContainerDiv.setAttribute("id", `div-day-events-${i}`);
         daysOfMonthCalendarSection.appendChild(entryDayContainerDiv);
         entryDayContainerDiv.appendChild(entryDayInfoDiv);
         entryDayInfoDiv.appendChild(entryDayInfoP);
         entryDayInfoDiv.appendChild(entryDayInfoSpan);
-        entryDayContainerDiv.appendChild(entryDayEventsContainer);
+        entryDayContainerDiv.appendChild(entryDayEventsContainerDiv);
     }
 }
 function setModalNewEvent() {
@@ -451,11 +450,11 @@ function setModalInfoEvent() {
     modalBodyInitialDiv.setAttribute("class", `initial-values ${classInfoModal}`);
     modalBodyInitialP1.classList.add("initial-values-p");
     modalBodyInitialP2.classList.add("initial-values-p");
-    modalBodyEndDiv.setAttribute("class", `end-values ${classInfoModal}`);
+    modalBodyEndDiv.setAttribute("class", "end-values");
     modalBodyEndP1.classList.add("end-values-p");
     modalBodyEndP2.classList.add("end-values-p");
-    modalBodyReminderDiv.setAttribute("class", `info-reminder ${classInfoModal}`);
-    modalBodyReminderP.classList.add("info-reminder-p");
+    modalBodyReminderDiv.setAttribute("class", "info-reminder");
+    modalBodyReminderP.classList.add("info-reminder-p", "text-center");
     modalBodyDescriptionDiv.setAttribute("class", "info-description d-flex flex-column justify-content-center align-items-center");
     modalBodyDescriptionP1.classList.add("info-description-p1");
     modalBodyDescriptionTArea.classList.add("info-description-textarea", "mb-2");
@@ -492,13 +491,8 @@ function setModalInfoEvent() {
     main.appendChild(modalContainerDiv1);
     modalHeaderH1.innerText = "Event Info";
     modalFooterCancelBtn.innerText = "close";
-    modalBodyTitleH2.innerText = "TITLE";
     modalBodyInitialP1.innerText = "Starts on: ";
-    modalBodyInitialP2.innerText = "12/12/2023 at 13:45";
     modalBodyEndP1.innerText = "Ends on: ";
-    modalBodyEndP2.innerText = "12/12/2023 at 13:45";
-    modalBodyReminderP.innerText = "Reminder set 30 minutes before.";
     modalBodyDescriptionP1.innerText = "Description:";
-    modalBodyDescriptionP2.innerText = "Type of event: Meeting";
 }
 //# sourceMappingURL=setHTML.js.map

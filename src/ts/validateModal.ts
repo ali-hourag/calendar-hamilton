@@ -1,6 +1,8 @@
 import { Event } from "./interface.js";
 import { EventType, ReminderTime } from "./interface.js";
+import { setCalendar, setEntryDayEvents } from "./setCalendar.js";
 import { getFormattedDate } from "./utils.js";
+import { setHistoryOfEvents } from "./functions.js";
 
 /**
  * This function is called from the script.ts and it is responsible
@@ -224,7 +226,7 @@ function checkValidEndTime() {
  * @param time2 hours:mins string
  * @returns true if time1 is bigger and after time2
  */
-function checkLastTime(time1: string, time2: string): boolean {
+export function checkLastTime(time1: string, time2: string): boolean {
 
     let arrayTime1: string[] = time1.split(":");
     let arrayTime2: string[] = time2.split(":");
@@ -251,7 +253,7 @@ function checkLastTime(time1: string, time2: string): boolean {
  * @param date2 date string "year-month-day"
  * @returns true if date1 > date2
  */
-function checkLastDate(date1: string, date2: string): boolean {
+export function checkLastDate(date1: string, date2: string): boolean {
 
     let arrayDate1: string[] = date1.split("-");
     let arrayDate2: string[] = date2.split("-");
@@ -484,7 +486,7 @@ function getCurrentFormattedTime(): string {
     return currentTime;
 }
 //------------------------------------------------------------------------------------------------------------
-function newEventBtnClicked(){
+function newEventBtnClicked() {
     localStorage.setItem("new-event-day", "none");
     clearModal();
 }
@@ -517,7 +519,7 @@ export function clearModal() {
     if (typeEventSelect === null) return;
     modalTitleEvent.value = "", endDateInput.value = "", endTimeInput.value = "", textAreaDescription.value = "";
     setInitialDate();
-    
+
     modalInitialTime.value = getCurrentFormattedTime();
     modalCheckEndDate.checked = false;
     endDateContainerDiv.classList.add("modal-display-none");
@@ -526,16 +528,16 @@ export function clearModal() {
     reminderContainerDiv.classList.add("modal-display-none");
     reminderContainerDiv.classList.remove("d-flex");
     typeEventSelect.value = "default";
-    if(modalInitialDate.classList.contains("invalid-input-modal")) modalInitialDate.classList.remove("invalid-input-modal");
-    if(modalInitialTime.classList.contains("invalid-input-modal")) modalInitialTime.classList.remove("invalid-input-modal");
+    if (modalInitialDate.classList.contains("invalid-input-modal")) modalInitialDate.classList.remove("invalid-input-modal");
+    if (modalInitialTime.classList.contains("invalid-input-modal")) modalInitialTime.classList.remove("invalid-input-modal");
     modalInitialDate.setAttribute("error-init-date", "");
     modalInitialTime.setAttribute("error-init-time", "");
 }
 //------------------------------
-function setInitialDate(){
+function setInitialDate() {
     const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
-    if(modalInitialDate === null) return;
-    if(localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
+    if (modalInitialDate === null) return;
+    if (localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
     else {
         let getYM: Array<number> | undefined = getYearMonthSelected();
         if (getYM === undefined) return;
@@ -543,21 +545,21 @@ function setInitialDate(){
         let month: number = getYM[1];
         let getDay: string | null = localStorage.getItem("new-event-day");
         let day: number = 1;
-        if(getDay !== null) day = parseInt(getDay);
+        if (getDay !== null) day = parseInt(getDay);
         modalInitialDate.value = getFormattedDate(year, month, day);
     }
 }
 //------------------------------------------------------------------------------------------------------------
-function getYearMonthSelected(): Array<number> | undefined{
+function getYearMonthSelected(): Array<number> | undefined {
     const yearSelected: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
     const topBarMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input")
-    if(yearSelected === null) return;
-    if(topBarMonths === null) return;
+    if (yearSelected === null) return;
+    if (topBarMonths === null) return;
     let month: number = 0;
     topBarMonths.forEach((topBarMonth: HTMLInputElement): void => {
         let numberMonth: string | null = topBarMonth.getAttribute("number-month");
-        if(numberMonth === null) return;
-        if(topBarMonth.checked) month = parseInt(numberMonth);
+        if (numberMonth === null) return;
+        if (topBarMonth.checked) month = parseInt(numberMonth);
     })
     let year: number = parseInt(yearSelected.innerText);
     return [year, month];
@@ -585,6 +587,7 @@ function saveModalContent(): void {
     const headerNewEventBtn: (HTMLButtonElement | null) = document.querySelector("#header-new-event_btn");
 
 
+
     if (modalSaveBtn === null) return;
     if (modalTitleEvent === null) return;
     if (modalInitialDate === null) return;
@@ -601,6 +604,7 @@ function saveModalContent(): void {
     if (modalBtnCancel === null) return;
     if (modalSection === null) return;
     if (headerNewEventBtn === null) return;
+
 
 
     //Check that everything has been entered right
@@ -662,6 +666,31 @@ function saveModalContent(): void {
             localStorage.setItem("events", `[${JSON.stringify(newEvent)}]`);
         }
         successEventSaved();
+        setEventAdded(initialDate.getFullYear(), initialDate.getMonth() + 1);
+        setHistoryOfEvents();
+    }
+}
+//------------------------------------------------------------------------------------------------------------
+/**
+ * this function updates the calendar with new events if they are added on the
+ * same month
+ * @param year year of an event entered
+ * @param month month of an event entered
+ * @returns anything
+ */
+function setEventAdded(year: number, month: number): void {
+    const headerSelectedYear: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
+    const topBarMonths: NodeListOf<HTMLInputElement> = document.querySelectorAll(".topbar-month_input");
+    if (headerSelectedYear === null) return;
+    let monthChecked: number = 0;
+    for (let i = 0; i < topBarMonths.length; i++) {
+        if (topBarMonths[i].checked) {
+            monthChecked = i + 1;
+            i = topBarMonths.length;
+        }
+    }
+    if (parseInt(headerSelectedYear.innerText) === year && monthChecked === month) {
+        setCalendar();
     }
 }
 //------------------------------------------------------------------------------------------------------------
@@ -691,7 +720,8 @@ function successEventSaved(): void {
     modalSaveBtn.setAttribute("success-save-modal", "SUCCESSFULLY SAVED!");
     setTimeout(() => {
         modalSaveBtn.setAttribute("success-save-modal", "");
-        modalSaveBtn.classList.remove("save-btn-success");
+        modalSaveBtn.classList.remove("save-btn-color-success");
         clearModal();
     }, 2000)
+
 }

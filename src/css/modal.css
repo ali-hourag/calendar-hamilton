@@ -234,6 +234,17 @@
     font-weight: bold;
 }
 
+.end-values {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-description-textarea {
+    padding: 10px;
+}
+
 /*Class that will be toggled*/
 .modal-display-none {
     display: none;

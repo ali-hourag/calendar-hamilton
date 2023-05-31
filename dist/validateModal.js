@@ -1,4 +1,6 @@
+import { setCalendar } from "./setCalendar.js";
 import { getFormattedDate } from "./utils.js";
+import { setHistoryOfEvents } from "./functions.js";
 export function checkModalValidity() {
     const modalTitleEvent = document.querySelector("#title-event");
     const modalInitialDate = document.querySelector("#init-date");
@@ -178,7 +180,7 @@ function checkValidEndTime() {
         }
     }
 }
-function checkLastTime(time1, time2) {
+export function checkLastTime(time1, time2) {
     let arrayTime1 = time1.split(":");
     let arrayTime2 = time2.split(":");
     let time1Hour = parseInt(arrayTime1[0]), time1Mins = parseInt(arrayTime1[1]);
@@ -196,7 +198,7 @@ function checkLastTime(time1, time2) {
     }
     return time1Bigger;
 }
-function checkLastDate(date1, date2) {
+export function checkLastDate(date1, date2) {
     let arrayDate1 = date1.split("-");
     let arrayDate2 = date2.split("-");
     let date1Day = parseInt(arrayDate1[2]), date1Month = parseInt(arrayDate1[1]), date1Year = parseInt(arrayDate1[0]);
@@ -559,6 +561,24 @@ function saveModalContent() {
             localStorage.setItem("events", `[${JSON.stringify(newEvent)}]`);
         }
         successEventSaved();
+        setEventAdded(initialDate.getFullYear(), initialDate.getMonth() + 1);
+        setHistoryOfEvents();
+    }
+}
+function setEventAdded(year, month) {
+    const headerSelectedYear = document.querySelector("#selected-year");
+    const topBarMonths = document.querySelectorAll(".topbar-month_input");
+    if (headerSelectedYear === null)
+        return;
+    let monthChecked = 0;
+    for (let i = 0; i < topBarMonths.length; i++) {
+        if (topBarMonths[i].checked) {
+            monthChecked = i + 1;
+            i = topBarMonths.length;
+        }
+    }
+    if (parseInt(headerSelectedYear.innerText) === year && monthChecked === month) {
+        setCalendar();
     }
 }
 function clearErrorMessage() {
@@ -580,7 +600,7 @@ function successEventSaved() {
     modalSaveBtn.setAttribute("success-save-modal", "SUCCESSFULLY SAVED!");
     setTimeout(() => {
         modalSaveBtn.setAttribute("success-save-modal", "");
-        modalSaveBtn.classList.remove("save-btn-success");
+        modalSaveBtn.classList.remove("save-btn-color-success");
         clearModal();
     }, 2000);
 }

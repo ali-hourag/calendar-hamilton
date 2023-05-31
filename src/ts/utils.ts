@@ -1,4 +1,5 @@
 import { setCalendar } from "./setCalendar.js";
+import { setHistoryOfEvents } from "./functions.js";
 /**
  * This function is responsible for fixing the aside that shows the
  * history of events depending on which screen size we are on. So,
@@ -14,13 +15,13 @@ export function setAsideHistoryOfEvents(): void {
     if (asideHistoryOfEvents === null) return;
 
     const displayBurgerBtn: string = window.getComputedStyle(burgerBtn).display;
-    if(displayBurgerBtn === "none"){
+    if (displayBurgerBtn === "none") {
         localStorage.setItem("view", "desktop");
         asideHistoryOfEvents.classList.add("show");
     } else {
         localStorage.setItem("view", "small");
         asideHistoryOfEvents.classList.remove("show");
-    } 
+    }
 
     window.addEventListener("resize", setResizedAsideHistoryOfEvents);
 }
@@ -34,18 +35,20 @@ function setResizedAsideHistoryOfEvents(): void {
     if (asideHistoryOfEvents === null) return;
     if (window.innerWidth > 1100) {
         asideHistoryOfEvents.classList.add("show");
-        if(localStorage.getItem("view") === "small"){
+        if (localStorage.getItem("view") === "small") {
             setCalendar();
+            setHistoryOfEvents()
             localStorage.setItem("view", "desktop");
         }
-        
-    }else {
+
+    } else {
         asideHistoryOfEvents.classList.remove("show");
-        if(localStorage.getItem("view") === "desktop"){
+        if (localStorage.getItem("view") === "desktop") {
             setCalendar();
+            setHistoryOfEvents()
             localStorage.setItem("view", "small");
-        } 
-    } 
+        }
+    }
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -87,10 +90,10 @@ function isLeapYear(year: number): boolean {
 }
 
 //---------------------------------------------------------------------------------------------------
-export function getFormattedDate(year: number, month: number, day: number): string{
+export function getFormattedDate(year: number, month: number, day: number): string {
     let correctMonth: string = month.toString();
     let correctDay: string = day.toString();
-    if(month < 10) correctMonth = `0${correctMonth}`;
-    if(day < 10) correctDay = `0${correctDay}`;
+    if (month < 10) correctMonth = `0${correctMonth}`;
+    if (day < 10) correctDay = `0${correctDay}`;
     return `${year}-${correctMonth}-${correctDay}`;
 }

@@ -53,10 +53,34 @@
     text-align: center;
 }
 
-.history-events-container_div{
+.history-events-container_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     width: 100%;
     height: 100%;
 }
+
+.container-event-history_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(9, 138, 116);
+    border-radius: 20px;
+    height: 6rem;
+    width: 80%;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.container-event-history_div:hover {
+    cursor: pointer;
+}
+
 
 
 /*----styles for the aside that shows days of the week----*/
@@ -141,6 +165,7 @@
     -o-transform: scale(1.3);
     z-index: 1;
 }
+
 .entry-day-info_div {
     display: flex;
     flex-direction: row;
@@ -149,7 +174,7 @@
     height: 30%;
 }
 
-.show-entry-day_div{
+.show-entry-day-info_div {
     border-bottom: 1px solid rgb(2, 68, 57);
 }
 
@@ -173,15 +198,46 @@
     padding-bottom: 2px;
     padding-left: 1px;
 }
-.show-entry-day-span{
+
+.show-entry-day-span {
     background-color: rgb(2, 68, 57);
 }
+
 .entry-day-info-add_span:hover {
     cursor: pointer;
 }
 
 .entry-day-events-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     width: 100%;
     height: 100%;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    padding-right: 10px;
 }
 
+.event-entered-day_p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 5px;
+    width: 90%;
+    color: white;
+    background-color: rgb(9, 138, 116);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 2rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.event-entered-day_p:hover {
+    cursor: pointer;
+}

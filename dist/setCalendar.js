@@ -1,5 +1,6 @@
-import { getTotalDaysOfMonth } from "./utils.js";
-import { clearModal } from "./validateModal.js";
+import { getTotalDaysOfMonth, getFormattedDate } from "./utils.js";
+import { clearModal, checkLastTime, checkLastDate } from "./validateModal.js";
+import { eventInfoClicked } from "./functions.js";
 export function setCalendar() {
     const burgerBtn = document.querySelector(".header-burger-history_btn");
     if (burgerBtn === null)
@@ -66,6 +67,7 @@ function showDaysInCalendar(year, month, dayOfWeek) {
         const paragraphEntryDay = document.querySelector(`#p-day-${i}`);
         const spanEntryDay = document.querySelector(`#span-day-${i}`);
         const entryDayInfoDiv = document.querySelector(`#div-day-info-${i}`);
+        const entryDayEventsDiv = document.querySelector(`#div-day-events-${i}`);
         if (containerEntryDay === null)
             return;
         if (paragraphEntryDay === null)
@@ -74,15 +76,16 @@ function showDaysInCalendar(year, month, dayOfWeek) {
             return;
         if (entryDayInfoDiv === null)
             return;
+        if (entryDayEventsDiv === null)
+            return;
         containerEntryDay.classList.add("show-entry-day-calendar");
         paragraphEntryDay.classList.add("show-entry-paragraph");
         paragraphEntryDay.innerText = counterMonthDays.toString();
         spanEntryDay.innerText = "+";
         spanEntryDay.classList.add("show-entry-day-span");
         spanEntryDay.setAttribute("number-day", counterMonthDays.toString());
-        entryDayInfoDiv.classList.add("show-entry-day_div");
-        let eventsDivId = `#div-events-day-${i}`;
-        setEntryDayEvents(year, month, counterMonthDays, eventsDivId);
+        entryDayInfoDiv.classList.add("show-entry-day-info_div");
+        entryDayEventsDiv.classList.add("show-entry-day-events_div");
         counterMonthDays += 1;
         spanEntryDay.addEventListener("click", entryDayEventClicked);
     }
@@ -101,6 +104,52 @@ function showDaysInCalendar(year, month, dayOfWeek) {
             entryDaysDiv[i].classList.add("entry-day-display-none");
         }
     }
+    setEntryDayEvents(year, month);
+}
+export function setEntryDayEvents(year, month) {
+    const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
+    let eventEntered = localStorage.getItem("events");
+    if (eventEntered === null)
+        return;
+    let events = JSON.parse(eventEntered);
+    events.forEach(event => {
+        let dateEvent = new Date(event.initialDate);
+        let yearEvent = dateEvent.getFullYear();
+        let monthEvent = dateEvent.getMonth() + 1;
+        let dayEvent = dateEvent.getDate();
+        let eventHour = event.initialTime;
+        if (yearEvent === year && monthEvent === month) {
+            let arrayPEventsOfDay = Array.from(nListentryDayEventsDiv[dayEvent - 1].children);
+            const pEventDay = document.createElement("p");
+            pEventDay.classList.add("event-entered-day_p");
+            pEventDay.setAttribute("event-id", event.id.toString());
+            pEventDay.setAttribute("event-hour", eventHour);
+            pEventDay.setAttribute("data-bs-toggle", "modal");
+            pEventDay.setAttribute("data-bs-target", "#modal-info-event");
+            pEventDay.addEventListener("click", eventInfoClicked);
+            if (event.title.length > 10)
+                pEventDay.innerText = `${event.title.slice(0, 10)}..`;
+            else
+                pEventDay.innerText = event.title;
+            if (arrayPEventsOfDay.length > 0) {
+                for (let i = 0; i < arrayPEventsOfDay.length; i++) {
+                    let pEventOfDay = arrayPEventsOfDay[i];
+                    let eventOfDayInitialTime = pEventOfDay.getAttribute("event-hour");
+                    if (eventOfDayInitialTime !== null) {
+                        if (checkLastTime(eventOfDayInitialTime, eventHour)) {
+                            pEventOfDay.insertAdjacentElement("beforebegin", pEventDay);
+                            i = arrayPEventsOfDay.length;
+                        }
+                        else if (i === arrayPEventsOfDay.length - 1) {
+                            pEventOfDay.insertAdjacentElement("afterend", pEventDay);
+                        }
+                    }
+                }
+            }
+            else
+                nListentryDayEventsDiv[dayEvent - 1].appendChild(pEventDay);
+        }
+    });
 }
 function fillEntryDays() {
     const entryDaysDiv = document.querySelectorAll(".entry-day-calendar_div");
@@ -129,29 +178,62 @@ function topBarMonthClicked() {
         showDaysInCalendar(year, month, 1);
 }
 function cleanDaysInCalendar() {
-    const daysInCalendar = document.querySelectorAll(".show-entry-day-calendar");
-    const entryDayInfoP = document.querySelectorAll(".show-entry-paragraph");
-    const entryDayInfoSpan = document.querySelectorAll(".show-entry-day-span");
-    const entryDayInfoDiv = document.querySelectorAll(".show-entry-day_div");
-    if (daysInCalendar.length > 0) {
-        daysInCalendar.forEach((dayInCalendar, day) => {
+    const nListdaysInCalendar = document.querySelectorAll(".show-entry-day-calendar");
+    const nListentryDayInfoP = document.querySelectorAll(".show-entry-paragraph");
+    const nListentryDayInfoSpan = document.querySelectorAll(".show-entry-day-span");
+    const nListentryDayInfoDiv = document.querySelectorAll(".show-entry-day-info_div");
+    const nListentryDayEventsDiv = document.querySelectorAll(".show-entry-day-events_div");
+    if (nListdaysInCalendar.length > 0) {
+        nListdaysInCalendar.forEach((dayInCalendar, day) => {
             dayInCalendar.classList.remove("show-entry-day-calendar");
-            entryDayInfoP[day].classList.remove("show-entry-paragraph");
-            entryDayInfoP[day].innerText = "";
-            entryDayInfoSpan[day].innerText = "";
-            entryDayInfoSpan[day].classList.remove("show-entry-day-span");
-            entryDayInfoSpan[day].removeAttribute("number-day");
-            entryDayInfoDiv[day].classList.remove("show-entry-day_div");
+            nListentryDayInfoP[day].classList.remove("show-entry-paragraph");
+            nListentryDayInfoP[day].innerText = "";
+            nListentryDayInfoSpan[day].innerText = "";
+            nListentryDayInfoSpan[day].classList.remove("show-entry-day-span");
+            nListentryDayInfoSpan[day].removeAttribute("number-day");
+            nListentryDayInfoDiv[day].classList.remove("show-entry-day-info_div");
+            nListentryDayEventsDiv[day].classList.remove("show-entry-day-events_div");
+            nListentryDayEventsDiv[day].replaceChildren();
         });
     }
 }
-function setEntryDayEvents(year, month, dayOfMonth, divId) {
+export function sortEventsByDateTime() {
     let eventEntered = localStorage.getItem("events");
     if (eventEntered === null)
         return;
     let events = JSON.parse(eventEntered);
-    let dateEvent = new Date(events[0].initialDate);
-    console.log(dateEvent.getFullYear());
+    let orderedEvents = [events[0]];
+    for (let i = 1; i < events.length; i++) {
+        let eventDate = new Date(events[i].initialDate);
+        let unYear = eventDate.getFullYear();
+        let unMonth = eventDate.getMonth() + 1;
+        let unDay = eventDate.getDate();
+        let unHour = events[i].initialTime;
+        let unorderedDateEvent = getFormattedDate(unYear, unMonth, unDay);
+        for (let j = 0; j < orderedEvents.length; j++) {
+            let orEventDate = new Date(orderedEvents[j].initialDate);
+            let orYear = orEventDate.getFullYear();
+            let orMonth = orEventDate.getMonth() + 1;
+            let orDay = orEventDate.getDate();
+            let orHour = orderedEvents[j].initialTime;
+            let orderedDateEvent = getFormattedDate(orYear, orMonth, orDay);
+            if (checkLastDate(orderedDateEvent, unorderedDateEvent)) {
+                orderedEvents.splice(j, 0, events[i]);
+                j = orderedEvents.length;
+            }
+            else if (orderedDateEvent === unorderedDateEvent) {
+                if (checkLastTime(orHour, unHour) || orHour === unHour) {
+                    orderedEvents.splice(j, 0, events[i]);
+                    j = orderedEvents.length;
+                }
+            }
+            if (j === orderedEvents.length - 1) {
+                orderedEvents.push(events[i]);
+                j = orderedEvents.length;
+            }
+        }
+    }
+    return orderedEvents;
 }
 function entryDayEventClicked() {
     let dayClicked = this.getAttribute("number-day");
