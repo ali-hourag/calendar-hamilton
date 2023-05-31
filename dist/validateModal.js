@@ -1,6 +1,7 @@
 import { setCalendar } from "./setCalendar.js";
 import { getFormattedDate } from "./utils.js";
 import { setHistoryOfEvents } from "./functions.js";
+import { checkReminders } from "./reminder.js";
 export function checkModalValidity() {
     const modalTitleEvent = document.querySelector("#title-event");
     const modalInitialDate = document.querySelector("#init-date");
@@ -563,6 +564,7 @@ function saveModalContent() {
         successEventSaved();
         setEventAdded(initialDate.getFullYear(), initialDate.getMonth() + 1);
         setHistoryOfEvents();
+        checkReminders();
     }
 }
 function setEventAdded(year, month) {

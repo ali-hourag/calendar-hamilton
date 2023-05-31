@@ -3,6 +3,7 @@ import { EventType, ReminderTime } from "./interface.js";
 import { setCalendar, setEntryDayEvents } from "./setCalendar.js";
 import { getFormattedDate } from "./utils.js";
 import { setHistoryOfEvents } from "./functions.js";
+import { checkReminders } from "./reminder.js";
 
 /**
  * This function is called from the script.ts and it is responsible
@@ -668,6 +669,7 @@ function saveModalContent(): void {
         successEventSaved();
         setEventAdded(initialDate.getFullYear(), initialDate.getMonth() + 1);
         setHistoryOfEvents();
+        checkReminders();
     }
 }
 //------------------------------------------------------------------------------------------------------------

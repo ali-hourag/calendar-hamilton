@@ -119,7 +119,6 @@ function setPreviousMonth(year, month, dayOfWeek) {
         previousMonth = 12;
     }
     let totaDaysPreviousMonth = getTotalDaysOfMonth(previousMonth, previousYear);
-    console.log(totaDaysPreviousMonth);
     let i = 0;
     while (i < daysToFill) {
         const emptyEntryDayP = document.querySelector(`#p-day-${i + 1}`);
