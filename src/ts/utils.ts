@@ -37,21 +37,21 @@ function setResizedAsideHistoryOfEvents(): void {
     if (window.innerWidth > 1100) {
         asideHistoryOfEvents.classList.add("show");
         if (localStorage.getItem("view") === "small") {
+            cleanDay();
             setCalendar();
             setHistoryOfEvents()
             localStorage.setItem("view", "desktop");
-            cleanDay();
-            setCurrentDay();
+
         }
 
     } else {
         asideHistoryOfEvents.classList.remove("show");
         if (localStorage.getItem("view") === "desktop") {
+            cleanDay();
             setCalendar();
             setHistoryOfEvents()
             localStorage.setItem("view", "small");
-            cleanDay();
-            setCurrentDay();
+
         }
     }
 }
@@ -62,37 +62,6 @@ function setResizedAsideHistoryOfEvents(): void {
 function cleanDay() {
     const colouredDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
     if (colouredDay !== null) colouredDay.classList.remove("bg-current-day");
-}
-//---------------------------------------------------------------------------------------------------
-/**
- * This function sets the current date with a background color.
- */
-function setCurrentDay() {
-    console.log("llamado");
-    const selectedYear: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
-    const topbarMonths: (NodeListOf<HTMLInputElement>) = document.querySelectorAll(".topbar-month_input");
-    const colouredDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
-    if (colouredDay !== null) colouredDay.classList.remove("bg-current-day");
-    if (selectedYear === null) return;
-    const date: Date = new Date();
-
-    let year: number = parseInt(selectedYear.innerText);
-
-    let found: boolean = false;
-    let i: number = 0;
-    while (!found) {
-        if (!topbarMonths[i].checked) i++;
-        else found = true;
-    }
-
-    let month: number = i + 1;
-    if ((year === date.getFullYear()) && (month === date.getMonth() + 1)) {
-        const entryDaysShowed: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-calendar");
-        entryDaysShowed[date.getDate() - 1].classList.add("bg-current-day");
-    } else {
-        const entryCurrentDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
-        if (entryCurrentDay !== null) entryCurrentDay.classList.remove("bg-current-day");
-    }
 }
 //---------------------------------------------------------------------------------------------------
 /**
@@ -236,4 +205,29 @@ export function getCurrentFormattedDate(): string {
     let currentDate: string = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
 
     return currentDate;
+}
+//------------------------------------------------------------------------------------------------------------
+/**
+ * If the current time the hour or minute is less than 10, it will be 1, 2, 3
+ * However, for some functions we want it to be 01, 02, 03..
+ * This functions solves that and returns the correct date if needed.
+ * @return returns current formatted date
+ */
+export function getCurrentFormattedTime(): string {
+    let date: Date = new Date();
+    let actualHour: string;
+    let actualMinutes: string;
+    if (date.getHours() < 10) {
+        actualHour = `0${date.getHours()}`;
+    } else {
+        actualHour = `${date.getHours()}`;
+    }
+    if ((date.getMinutes()) < 10) {
+        actualMinutes = `0${date.getMinutes()}`;
+    } else {
+        actualMinutes = `${date.getMinutes()}`;
+    }
+    let currentTime: string = `${actualHour}:${actualMinutes}`;
+
+    return currentTime;
 }
