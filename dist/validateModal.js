@@ -1,5 +1,5 @@
 import { setCalendar } from "./setCalendar.js";
-import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate } from "./utils.js";
+import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate, getCurrentFormattedTime } from "./utils.js";
 import { setHistoryOfEvents, getYearMonthSelected } from "./functions.js";
 import { checkReminders } from "./reminder.js";
 export function checkModalValidity() {
@@ -99,6 +99,25 @@ function checkValidInitialTime() {
     }
     else {
         modalInitialTime.setAttribute("error-init-time", "");
+    }
+}
+function setInitialDate() {
+    const modalInitialDate = document.querySelector("#init-date");
+    if (modalInitialDate === null)
+        return;
+    if (localStorage.getItem("new-event-day") === "none")
+        modalInitialDate.value = getCurrentFormattedDate();
+    else {
+        let getYM = getYearMonthSelected();
+        if (getYM === undefined)
+            return;
+        let year = getYM[0];
+        let month = getYM[1];
+        let getDay = localStorage.getItem("new-event-day");
+        let day = 1;
+        if (getDay !== null)
+            day = parseInt(getDay);
+        modalInitialDate.value = getFormattedDate(year, month, day);
     }
 }
 function checkValidInitialDate() {
@@ -320,25 +339,6 @@ function disableTimeSelectOptions() {
         option.disabled = true;
     });
 }
-function getCurrentFormattedTime() {
-    let date = new Date();
-    let actualHour;
-    let actualMinutes;
-    if (date.getHours() < 10) {
-        actualHour = `0${date.getHours()}`;
-    }
-    else {
-        actualHour = `${date.getHours()}`;
-    }
-    if ((date.getMinutes()) < 10) {
-        actualMinutes = `0${date.getMinutes()}`;
-    }
-    else {
-        actualMinutes = `${date.getMinutes()}`;
-    }
-    let currentTime = `${actualHour}:${actualMinutes}`;
-    return currentTime;
-}
 function newEventBtnClicked() {
     localStorage.setItem("new-event-day", "none");
     clearModal();
@@ -393,25 +393,6 @@ export function clearModal() {
         modalInitialTime.classList.remove("invalid-input-modal");
     modalInitialDate.setAttribute("error-init-date", "");
     modalInitialTime.setAttribute("error-init-time", "");
-}
-function setInitialDate() {
-    const modalInitialDate = document.querySelector("#init-date");
-    if (modalInitialDate === null)
-        return;
-    if (localStorage.getItem("new-event-day") === "none")
-        modalInitialDate.value = getCurrentFormattedDate();
-    else {
-        let getYM = getYearMonthSelected();
-        if (getYM === undefined)
-            return;
-        let year = getYM[0];
-        let month = getYM[1];
-        let getDay = localStorage.getItem("new-event-day");
-        let day = 1;
-        if (getDay !== null)
-            day = parseInt(getDay);
-        modalInitialDate.value = getFormattedDate(year, month, day);
-    }
 }
 function saveModalContent() {
     const modalSaveBtn = document.querySelector(".modal-save_btn");

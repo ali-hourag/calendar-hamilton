@@ -210,6 +210,11 @@ export function sortEventsByDateTime(): Array<Event> | undefined {
         let unorderedDateEvent: string = getFormattedDate(unYear, unMonth, unDay);
         for (let j = 0; j < orderedEvents.length; j++) {
 
+            //[2,1,5,3,7]
+            //[2]
+            //[1,2]
+            //[1,2,5]
+
             let orEventDate: Date = new Date(orderedEvents[j].initialDate);
             let orYear: number = orEventDate.getFullYear();
             let orMonth: number = orEventDate.getMonth() + 1;
