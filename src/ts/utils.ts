@@ -77,6 +77,7 @@ function setCurrentDay() {
     const date: Date = new Date();
 
     let year: number = parseInt(selectedYear.innerText);
+
     let found: boolean = false;
     let i: number = 0;
     while (!found) {
