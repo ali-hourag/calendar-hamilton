@@ -1,7 +1,7 @@
 import { Event } from "./interface.js";
 import { EventType, ReminderTime } from "./interface.js";
 import { setCalendar } from "./setCalendar.js";
-import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate } from "./utils.js";
+import { getFormattedDate, getTotalMinutes, getCurrentFormattedDate, getCurrentFormattedTime } from "./utils.js";
 import { setHistoryOfEvents, getYearMonthSelected } from "./functions.js";
 import { checkReminders } from "./reminder.js";
 
@@ -123,6 +123,26 @@ function checkValidInitialTime() {
         modalInitialTime.setAttribute("error-init-time", "");
     }
 }
+//------------------------------
+/**
+ * Set initial date value on the input
+ */
+function setInitialDate() {
+    const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
+    if (modalInitialDate === null) return;
+    if (localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
+    else {
+        let getYM: Array<number> | undefined = getYearMonthSelected();
+        if (getYM === undefined) return;
+        let year: number = getYM[0];
+        let month: number = getYM[1];
+        let getDay: string | null = localStorage.getItem("new-event-day");
+        let day: number = 1;
+        if (getDay !== null) day = parseInt(getDay);
+        modalInitialDate.value = getFormattedDate(year, month, day);
+    }
+}
+
 //------------------------------------------------------------------------------------------------------------
 /**
  * This function checks when focusing out from the initial time.
@@ -421,31 +441,7 @@ function disableTimeSelectOptions() {
     })
 }
 
-//------------------------------------------------------------------------------------------------------------
-/**
- * If the current time the hour or minute is less than 10, it will be 1, 2, 3
- * However, for some functions we want it to be 01, 02, 03..
- * This functions solves that and returns the correct date if needed.
- * @return returns current formatted date
- */
-function getCurrentFormattedTime(): string {
-    let date: Date = new Date();
-    let actualHour: string;
-    let actualMinutes: string;
-    if (date.getHours() < 10) {
-        actualHour = `0${date.getHours()}`;
-    } else {
-        actualHour = `${date.getHours()}`;
-    }
-    if ((date.getMinutes()) < 10) {
-        actualMinutes = `0${date.getMinutes()}`;
-    } else {
-        actualMinutes = `${date.getMinutes()}`;
-    }
-    let currentTime: string = `${actualHour}:${actualMinutes}`;
 
-    return currentTime;
-}
 //------------------------------------------------------------------------------------------------------------
 function newEventBtnClicked() {
     localStorage.setItem("new-event-day", "none");
@@ -493,25 +489,6 @@ export function clearModal() {
     if (modalInitialTime.classList.contains("invalid-input-modal")) modalInitialTime.classList.remove("invalid-input-modal");
     modalInitialDate.setAttribute("error-init-date", "");
     modalInitialTime.setAttribute("error-init-time", "");
-}
-//------------------------------
-/**
- * Set initial date value on the input
- */
-function setInitialDate() {
-    const modalInitialDate: (HTMLInputElement | null) = document.querySelector("#init-date");
-    if (modalInitialDate === null) return;
-    if (localStorage.getItem("new-event-day") === "none") modalInitialDate.value = getCurrentFormattedDate();
-    else {
-        let getYM: Array<number> | undefined = getYearMonthSelected();
-        if (getYM === undefined) return;
-        let year: number = getYM[0];
-        let month: number = getYM[1];
-        let getDay: string | null = localStorage.getItem("new-event-day");
-        let day: number = 1;
-        if (getDay !== null) day = parseInt(getDay);
-        modalInitialDate.value = getFormattedDate(year, month, day);
-    }
 }
 
 //------------------------------------------------------------------------------------------------------------
