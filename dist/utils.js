@@ -28,6 +28,8 @@ function setResizedAsideHistoryOfEvents() {
             setCalendar();
             setHistoryOfEvents();
             localStorage.setItem("view", "desktop");
+            cleanDay();
+            setCurrentDay();
         }
     }
     else {
@@ -36,7 +38,44 @@ function setResizedAsideHistoryOfEvents() {
             setCalendar();
             setHistoryOfEvents();
             localStorage.setItem("view", "small");
+            cleanDay();
+            setCurrentDay();
         }
+    }
+}
+function cleanDay() {
+    const colouredDay = document.querySelector(".bg-current-day");
+    if (colouredDay !== null)
+        colouredDay.classList.remove("bg-current-day");
+}
+function setCurrentDay() {
+    console.log("llamado");
+    const selectedYear = document.querySelector("#selected-year");
+    const topbarMonths = document.querySelectorAll(".topbar-month_input");
+    const colouredDay = document.querySelector(".bg-current-day");
+    if (colouredDay !== null)
+        colouredDay.classList.remove("bg-current-day");
+    if (selectedYear === null)
+        return;
+    const date = new Date();
+    let year = parseInt(selectedYear.innerText);
+    let found = false;
+    let i = 0;
+    while (!found) {
+        if (!topbarMonths[i].checked)
+            i++;
+        else
+            found = true;
+    }
+    let month = i + 1;
+    if ((year === date.getFullYear()) && (month === date.getMonth() + 1)) {
+        const entryDaysShowed = document.querySelectorAll(".show-entry-day-calendar");
+        entryDaysShowed[date.getDate() - 1].classList.add("bg-current-day");
+    }
+    else {
+        const entryCurrentDay = document.querySelector(".bg-current-day");
+        if (entryCurrentDay !== null)
+            entryCurrentDay.classList.remove("bg-current-day");
     }
 }
 export function adjustTopScrollBar() {

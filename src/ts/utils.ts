@@ -40,6 +40,8 @@ function setResizedAsideHistoryOfEvents(): void {
             setCalendar();
             setHistoryOfEvents()
             localStorage.setItem("view", "desktop");
+            cleanDay();
+            setCurrentDay();
         }
 
     } else {
@@ -48,7 +50,47 @@ function setResizedAsideHistoryOfEvents(): void {
             setCalendar();
             setHistoryOfEvents()
             localStorage.setItem("view", "small");
+            cleanDay();
+            setCurrentDay();
         }
+    }
+}
+//---------------------------------------------------------------------------------------------------
+/**
+ * This function clean coloured current day.
+ */
+function cleanDay() {
+    const colouredDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
+    if (colouredDay !== null) colouredDay.classList.remove("bg-current-day");
+}
+//---------------------------------------------------------------------------------------------------
+/**
+ * This function sets the current date with a background color.
+ */
+function setCurrentDay() {
+    console.log("llamado");
+    const selectedYear: (HTMLHeadingElement | null) = document.querySelector("#selected-year");
+    const topbarMonths: (NodeListOf<HTMLInputElement>) = document.querySelectorAll(".topbar-month_input");
+    const colouredDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
+    if (colouredDay !== null) colouredDay.classList.remove("bg-current-day");
+    if (selectedYear === null) return;
+    const date: Date = new Date();
+
+    let year: number = parseInt(selectedYear.innerText);
+    let found: boolean = false;
+    let i: number = 0;
+    while (!found) {
+        if (!topbarMonths[i].checked) i++;
+        else found = true;
+    }
+
+    let month: number = i + 1;
+    if ((year === date.getFullYear()) && (month === date.getMonth() + 1)) {
+        const entryDaysShowed: NodeListOf<HTMLDivElement> = document.querySelectorAll(".show-entry-day-calendar");
+        entryDaysShowed[date.getDate() - 1].classList.add("bg-current-day");
+    } else {
+        const entryCurrentDay: (HTMLDivElement | null) = document.querySelector(".bg-current-day");
+        if (entryCurrentDay !== null) entryCurrentDay.classList.remove("bg-current-day");
     }
 }
 //---------------------------------------------------------------------------------------------------
