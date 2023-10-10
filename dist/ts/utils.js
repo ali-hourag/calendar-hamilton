@@ -25,21 +25,19 @@ function setResizedAsideHistoryOfEvents() {
     if (window.innerWidth > 1100) {
         asideHistoryOfEvents.classList.add("show");
         if (localStorage.getItem("view") === "small") {
+            cleanDay();
             setCalendar();
             setHistoryOfEvents();
             localStorage.setItem("view", "desktop");
-            cleanDay();
-            setCurrentDay();
         }
     }
     else {
         asideHistoryOfEvents.classList.remove("show");
         if (localStorage.getItem("view") === "desktop") {
+            cleanDay();
             setCalendar();
             setHistoryOfEvents();
             localStorage.setItem("view", "small");
-            cleanDay();
-            setCurrentDay();
         }
     }
 }
@@ -47,36 +45,6 @@ function cleanDay() {
     const colouredDay = document.querySelector(".bg-current-day");
     if (colouredDay !== null)
         colouredDay.classList.remove("bg-current-day");
-}
-function setCurrentDay() {
-    console.log("llamado");
-    const selectedYear = document.querySelector("#selected-year");
-    const topbarMonths = document.querySelectorAll(".topbar-month_input");
-    const colouredDay = document.querySelector(".bg-current-day");
-    if (colouredDay !== null)
-        colouredDay.classList.remove("bg-current-day");
-    if (selectedYear === null)
-        return;
-    const date = new Date();
-    let year = parseInt(selectedYear.innerText);
-    let found = false;
-    let i = 0;
-    while (!found) {
-        if (!topbarMonths[i].checked)
-            i++;
-        else
-            found = true;
-    }
-    let month = i + 1;
-    if ((year === date.getFullYear()) && (month === date.getMonth() + 1)) {
-        const entryDaysShowed = document.querySelectorAll(".show-entry-day-calendar");
-        entryDaysShowed[date.getDate() - 1].classList.add("bg-current-day");
-    }
-    else {
-        const entryCurrentDay = document.querySelector(".bg-current-day");
-        if (entryCurrentDay !== null)
-            entryCurrentDay.classList.remove("bg-current-day");
-    }
 }
 export function adjustTopScrollBar() {
     const topBarMonthsContainer = document.querySelector(".topbar-months-container");
@@ -167,4 +135,23 @@ export function getCurrentFormattedDate() {
     }
     let currentDate = `${date.getFullYear()}-${actualMonth}-${actualDay}`;
     return currentDate;
+}
+export function getCurrentFormattedTime() {
+    let date = new Date();
+    let actualHour;
+    let actualMinutes;
+    if (date.getHours() < 10) {
+        actualHour = `0${date.getHours()}`;
+    }
+    else {
+        actualHour = `${date.getHours()}`;
+    }
+    if ((date.getMinutes()) < 10) {
+        actualMinutes = `0${date.getMinutes()}`;
+    }
+    else {
+        actualMinutes = `${date.getMinutes()}`;
+    }
+    let currentTime = `${actualHour}:${actualMinutes}`;
+    return currentTime;
 }
