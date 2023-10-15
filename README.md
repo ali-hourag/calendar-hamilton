@@ -16,7 +16,7 @@
 
 Calendar project with different functionalities like adding events. Done with HTML, TypeScript, CSS and Bootstrap.
 <br/>
-* In this app the user can access a normal calendar and even have funcionalities like adding different type of events.
+* In this app the user can access a normal calendar and even have functionalities like adding different type of events.
 * User can access it through mobile, tablet and web, since it is responsive!
 
 
