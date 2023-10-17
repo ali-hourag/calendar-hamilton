@@ -19,6 +19,9 @@ Calendar project with different functionalities like adding events. Done with HT
 * In this app the user can access a normal calendar and even have functionalities like adding different type of events.
 * User can access it through mobile, tablet and web, since it is responsive!
 
+<br/>
+<a href="https://drive.google.com/file/d/1bFX9CN6Hh2Gia9ryft8qDTB47lZMmj9t/view?usp=sharing">Click here to see a video demonstration!</a>
+
 
 ## Technologies
 - HTML
